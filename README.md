@@ -1,0 +1,2 @@
+# aplicativo_localizacao_indoor
+O projeto é aplicativo que irá auxiliar pessoas com deficiência visual a localizarem-se em prédios que possuírem uma rede local sem fio (Wi-Fi). Os equipamentos de rede sem fio seriam utilizados como pontos de identificação do local possibilitando ao aplicativo informar ao usuário o que está próximo a sua localização no prédio. A ferramenta poderá ser utilizada também para auxiliar na localização indoor de não deficientes visuais.

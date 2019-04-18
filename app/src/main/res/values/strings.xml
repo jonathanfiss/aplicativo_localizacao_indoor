@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Aplicativo_localizacao_indoor</string>
+    <string name="btAdicionar">Adicionar</string>
+    <string name="btEditar">Alterar</string>
+    <string name="btremover">Remover</string>
+    <string name="btBuscaRota">Buscar Rota</string>
+    <string name="btLocalizar">Localizar</string>
 </resources>

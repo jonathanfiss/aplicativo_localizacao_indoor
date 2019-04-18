@@ -9,6 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".adm.RemoverActivity"></activity>
+        <activity android:name=".adm.AlterarActivity" />
+        <activity android:name=".adm.InserirActivity" />
+        <activity android:name=".adm.MenuAdmActivity" />
+        <activity android:name=".activity.LocalizarActivity" />
+        <activity android:name=".activity.BuscarRotaActivity" />
+        <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

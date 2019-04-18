@@ -1,7 +1,9 @@
-package com.example.aplicativo_localizacao_indoor;
+package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.aplicativo_localizacao_indoor.R;
 
 public class MainActivity extends AppCompatActivity {
 

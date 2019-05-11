@@ -18,12 +18,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btLocalizar = findViewById(R.id.btLocalizar);
-
+        Button btBuscarRota = findViewById(R.id.btRota);
 
         btLocalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, LocalizarActivity.class));
+            }
+        });
+        btBuscarRota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RotaActivity.class));
             }
         });
 
@@ -37,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuitem_adm:
-                startActivity(new Intent(MainActivity.this, LoginActivity.class ));
+//                startActivity(new Intent(MainActivity.this, LoginActivity.class ));
+                startActivity(new Intent(MainActivity.this, AdminMainActivity.class ));
                 break;
         }
         return true;

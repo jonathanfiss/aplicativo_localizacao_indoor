@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/btLocalizar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/activity_button_tamanho_horizontal"
+        android:layout_height="@dimen/activity_button_tamanho_vertical"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="103dp"
         android:text="@string/btLocalizar"
@@ -18,8 +18,8 @@
 
     <Button
         android:id="@+id/btRota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/activity_button_tamanho_horizontal"
+        android:layout_height="@dimen/activity_button_tamanho_vertical"
         android:layout_marginBottom="256dp"
         android:text="@string/btRota"
         app:layout_constraintBottom_toBottomOf="parent"

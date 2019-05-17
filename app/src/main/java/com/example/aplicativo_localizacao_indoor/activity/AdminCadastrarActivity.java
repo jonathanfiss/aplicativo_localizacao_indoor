@@ -19,7 +19,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
-import com.example.aplicativo_localizacao_indoor.model.Scanner;
 
 
 public class AdminCadastrarActivity extends AppCompatActivity {

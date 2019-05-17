@@ -34,4 +34,8 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="hint_nome">pf</string>
+    <string name="content_description_foto_produto">pf</string>
+    <string name="hint_valor">pf</string>
+    <string name="Loren">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut placerat justo et ligula placerat, at facilisis magna egestas. In eget orci varius eros euismod fringilla. Vestibulum efficitur lectus eget mauris molestie molestie. Nullam vestibulum lectus non ligula aliquet, non sollicitudin augue egestas.</string>
 </resources>

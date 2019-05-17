@@ -28,7 +28,7 @@
 
 
             <TextView
-                android:id="@+id/tvNomeClientesAdapter"
+                android:id="@+id/tvNomePontoRefAdapter"
                 android:layout_width="142dp"
                 android:layout_height="24dp"
                 android:layout_gravity="start"
@@ -40,11 +40,11 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.034"
-                app:layout_constraintStart_toEndOf="@+id/imvFotoClienteAdapter"
-                app:layout_constraintTop_toTopOf="@+id/imvFotoClienteAdapter" />
+                app:layout_constraintStart_toEndOf="@+id/imvFotoPontoRefAdapter"
+                app:layout_constraintTop_toTopOf="@+id/imvFotoPontoRefAdapter" />
 
             <ImageView
-                android:id="@+id/imvFotoClienteAdapter"
+                android:id="@+id/imvFotoPontoRefAdapter"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="8dp"
@@ -55,8 +55,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0"
-                app:srcCompat="@drawable/img_cliente_icon_524x524" />
+                app:layout_constraintVertical_bias="1.0" />
+                <!--app:srcCompat="@drawable/img_cliente_icon_524x524" />-->
 
             <TextView
                 android:id="@+id/tvCPFItemAdapter"

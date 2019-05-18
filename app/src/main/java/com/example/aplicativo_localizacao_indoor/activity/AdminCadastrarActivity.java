@@ -16,6 +16,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
@@ -30,6 +33,21 @@ public class AdminCadastrarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_cadastrar);
 
+        final TextView tvNomeRede, tvMac, tvLatitude, tvLongitude, tvAltura, tvVelocidade;
+
+        tvNomeRede = findViewById(R.id.tvNomeRede);
+        tvMac = findViewById(R.id.tvMac);
+        tvLatitude = findViewById(R.id.tvLatitude);
+        tvLongitude = findViewById(R.id.tvLongitude);
+        tvAltura = findViewById(R.id.tvAltura);
+        tvVelocidade = findViewById(R.id.tvVelocidade);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+        AutoCompleteTextView textView = (AutoCompleteTextView)
+                findViewById(R.id.actvAmbiente);
+        textView.setAdapter(adapter);
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 callDialog("Para você poder utilizar o sistema é necessario a permissão a localização", new String[]{Manifest.permission.ACCESS_FINE_LOCATION});
@@ -38,33 +56,39 @@ public class AdminCadastrarActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
             }
         } else {
-            enableWiFi();
-            Log.d("teste",getSSID());
-            Log.d("test2",getBSSID());
-                try {
-                    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            try {
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-                    LocationListener locationListener = new LocationListener() {
-                        public void onLocationChanged(Location location) {
-                            Log.d("testlat", String.valueOf(location.getLatitude()));
-                            Log.d("testlong", String.valueOf(location.getLongitude()));
-                            Log.d("testalt", String.valueOf(location.getAltitude()));
-                            Log.d("testvel", String.valueOf(location.getSpeed()));
-                        }
+            LocationListener locationListener = new LocationListener() {
 
-                        public void onStatusChanged(String provider, int status, Bundle extras) { }
-
-                        public void onProviderEnabled(String provider) { }
-
-                        public void onProviderDisabled(String provider) { }
-                    };
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                }catch(SecurityException ex){
-                    Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+                public void onLocationChanged(Location location) {
+                    tvLatitude.setText(String.format("%s %s", getString(R.string.cood_lat), String.valueOf(location.getLatitude())));
+                    tvLongitude.setText(String.format("%s %s", getString(R.string.cood_long), String.valueOf(location.getLongitude())));
+                    tvAltura.setText(String.format("%s %s", getString(R.string.cood_alt), String.valueOf(location.getAltitude())));
+                    tvVelocidade.setText(String.format("%s %s", getString(R.string.cood_vel), String.valueOf(location.getSpeed())));
                 }
+
+                public void onStatusChanged(String provider, int status, Bundle extras) { }
+
+                public void onProviderEnabled(String provider) { }
+
+                public void onProviderDisabled(String provider) { }
+            };
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        }catch(SecurityException ex){
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+            enableWiFi();
+            //concatenando dados
+            tvNomeRede.setText(String.format("%s %s", getString(R.string.nome_rede), getSSID()));
+            tvMac.setText(getBSSID());
             }
         }
 
+    private static final String[] COUNTRIES = new String[] {
+            "Belgium", "France", "Italy", "Germany", "Spain"
+    };
 
 
     private void callDialog(String message, final String[] permissions) {
@@ -87,6 +111,29 @@ public class AdminCadastrarActivity extends AppCompatActivity {
 
         builder.show();
     }
+//    private int localizacao(){
+//        try {
+//            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//
+//            LocationListener locationListener = new LocationListener() {
+//
+//                public void onLocationChanged(Location location) {
+//                    return location;
+//                }
+//
+//                public void onStatusChanged(String provider, int status, Bundle extras) { }
+//
+//                public void onProviderEnabled(String provider) { }
+//
+//                public void onProviderDisabled(String provider) { }
+//            };
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//        }catch(SecurityException ex){
+//            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+//        }
+//    }
+
+
     private void enableWiFi() {
         try {
             WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);

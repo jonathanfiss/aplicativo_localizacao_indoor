@@ -37,5 +37,9 @@
     <string name="hint_nome">pf</string>
     <string name="content_description_foto_produto">pf</string>
     <string name="hint_valor">pf</string>
-    <string name="Loren">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut placerat justo et ligula placerat, at facilisis magna egestas. In eget orci varius eros euismod fringilla. Vestibulum efficitur lectus eget mauris molestie molestie. Nullam vestibulum lectus non ligula aliquet, non sollicitudin augue egestas.</string>
+    <string name="nome_rede">Você esta conectado a </string>
+    <string name="cood_lat">Latitude:</string>
+    <string name="cood_long">Longitude:</string>
+    <string name="cood_alt">Altura:</string>
+    <string name="cood_vel">Velocidade:</string>
 </resources>

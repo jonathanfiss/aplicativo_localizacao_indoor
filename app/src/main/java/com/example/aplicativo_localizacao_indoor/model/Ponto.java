@@ -1,30 +1,32 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
 public class Ponto {
-    private Long id;
-    private String mac;
+    private String bssid;
+    private String ssid;
     private String patrimonio;
-    private String data_hora_modificado;
-    private String modificado_por;
+    private Double coodLatitude;
+    private Double coodLongitude;
+    private Double coodAltura;
+    private float coodVelocidade;
     private boolean situacao;
 
     public Ponto() {
     }
 
-    public Long getId() {
-        return id;
+    public String getBssid() {
+        return bssid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBssid(String bssid) {
+        this.bssid = bssid;
     }
 
-    public String getMac() {
-        return mac;
+    public String getSsid() {
+        return ssid;
     }
 
-    public void setMac(String mac) {
-        this.mac = mac;
+    public void setSsid(String ssid) {
+        this.ssid = ssid;
     }
 
     public String getPatrimonio() {
@@ -35,20 +37,36 @@ public class Ponto {
         this.patrimonio = patrimonio;
     }
 
-    public String getData_hora_modificado() {
-        return data_hora_modificado;
+    public Double getCoodLatitude() {
+        return coodLatitude;
     }
 
-    public void setData_hora_modificado(String data_hora_modificado) {
-        this.data_hora_modificado = data_hora_modificado;
+    public void setCoodLatitude(Double coodLatitude) {
+        this.coodLatitude = coodLatitude;
     }
 
-    public String getModificado_por() {
-        return modificado_por;
+    public Double getCoodLongitude() {
+        return coodLongitude;
     }
 
-    public void setModificado_por(String modificado_por) {
-        this.modificado_por = modificado_por;
+    public void setCoodLongitude(Double coodLongitude) {
+        this.coodLongitude = coodLongitude;
+    }
+
+    public Double getCoodAltura() {
+        return coodAltura;
+    }
+
+    public void setCoodAltura(Double coodAltura) {
+        this.coodAltura = coodAltura;
+    }
+
+    public float getCoodVelocidade() {
+        return coodVelocidade;
+    }
+
+    public void setCoodVelocidade(float coodVelocidade) {
+        this.coodVelocidade = coodVelocidade;
     }
 
     public boolean isSituacao() {
@@ -58,4 +76,6 @@ public class Ponto {
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
     }
+
+
 }

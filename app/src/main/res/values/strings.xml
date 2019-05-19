@@ -42,4 +42,10 @@
     <string name="cood_long">Longitude:</string>
     <string name="cood_alt">Altura:</string>
     <string name="cood_vel">Velocidade:</string>
+    <string name="hint_acte_ambiente">Ex: corredor</string>
+    <string name="hint_et_local">Ex: TSI</string>
+    <string name="btCadastrarLocal">Cadatrar Local</string>
+    <string name="btCadastrarSala">Cadastrar Sala</string>
+    <string name="btCadastrarPonto">Cadastrar Acess Point</string>
+    <string name="btListar">Listar</string>
 </resources>

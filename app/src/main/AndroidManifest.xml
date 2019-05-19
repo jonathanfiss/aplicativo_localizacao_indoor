@@ -14,22 +14,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AdminListaPontoReferenciaActivity"></activity>
-        <activity android:name=".activity.AdminPontoReferenciaActivity" />
-        <activity android:name=".activity.AdminCadastrarActivity">
+        <activity
+            android:name=".activity.AdminMainActivity"
+            android:label="@string/title_activity_admin_main"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AdminMainActivity" />
+        <activity android:name=".activity.AdminListarPontoActivity" />
+        <activity android:name=".activity.AdminCadastraUsuarioActivity" />
+        <activity android:name=".activity.AdminCadastraSalaActivity" />
+        <activity android:name=".activity.AdminCadastraLocalActivity" />
+        <activity android:name=".activity.AdminCadastraPontoActivity" />
+        <activity android:name=".activity.AdminPontoReferenciaActivity" />
+        <activity android:name=".activity.AdminCadastrarActivity"></activity>
         <activity android:name=".activity.RotaActivity" />
-        <activity
-            android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login" />
+        <activity android:name=".activity.LoginActivity" android:label="@string/title_activity_login" />
         <activity android:name=".activity.LocalizarActivity" />
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

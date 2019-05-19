@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.example.aplicativo_localizacao_indoor.R;
 
-public class AdminListaPontoReferenciaActivity extends AppCompatActivity {
+public class AdminCadastraSalaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_lista_ponto_referencia);
+        setContentView(R.layout.activity_admin_cadastra_salas);
     }
 }

@@ -2,109 +2,65 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/activity_admin_cadastrar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".activity.AdminCadastrarActivity">
 
-    <TextView
-        android:id="@+id/tvAltura"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvVelocidade"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="@dimen/activity_button_tamanho_horizontal"
+        android:layout_height="@dimen/activity_button_tamanho_vertical"
+        android:layout_marginBottom="28dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
     <AutoCompleteTextView
-        android:id="@+id/actvAmbiente"
-        android:layout_width="wrap_content"
+        android:id="@+id/acteCadastrar"
+        android:layout_width="@dimen/activity_edit_text_tamanho_horizontal"
         android:layout_height="wrap_content"
-        android:text="AutoCompleteTextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etDescrição"
-        app:layout_constraintStart_toStartOf="@+id/tvAltura" />
-
-    <EditText
-        android:id="@+id/etDescrição"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="@+id/tvAltura"
-        app:layout_constraintTop_toTopOf="@+id/tvAltura" />
-
-    <EditText
-        android:id="@+id/etSala"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBaseline_toBaselineOf="@+id/actvAmbiente"
+        android:layout_marginTop="130dp"
+        android:layout_marginBottom="42dp"
+        android:hint="@string/hint_acte_ambiente"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RelativeLayout
-        android:id="@+id/layer"
-        android:layout_width="29dp"
-        android:layout_height="46dp"
-        android:orientation="vertical"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvAltura"
-        app:layout_constraintStart_toStartOf="@+id/tvAltura">
-
-        <TextView
-            android:id="@+id/tvNomeRede"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/tvMac"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="6dp"
-            android:text="TextView" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layer2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvLatitude"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="TextView" />
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="64dp"
+        android:ems="10"
+        android:hint="@string/hint_et_local"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acteCadastrar" />
 
-        <TextView
-            android:id="@+id/tvLongitude"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="TextView" />
-    </RelativeLayout>
-
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="277dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 </android.support.constraint.ConstraintLayout>
+

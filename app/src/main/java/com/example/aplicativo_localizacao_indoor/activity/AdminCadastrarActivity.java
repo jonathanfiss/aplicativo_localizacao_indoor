@@ -15,124 +15,155 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.model.Ponto;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class AdminCadastrarActivity extends AppCompatActivity {
 
     private static final int REQUEST_PERMISSIONS_CODE = 0;
+    private ExpandableListView listView;
+    private ExpandableListAdapter listAdapter;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listHash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_cadastrar);
 
+
         final TextView tvNomeRede, tvMac, tvLatitude, tvLongitude, tvAltura, tvVelocidade;
+        final AutoCompleteTextView autoCTexview;
 
-        tvNomeRede = findViewById(R.id.tvNomeRede);
-        tvMac = findViewById(R.id.tvMac);
-        tvLatitude = findViewById(R.id.tvLatitude);
-        tvLongitude = findViewById(R.id.tvLongitude);
-        tvAltura = findViewById(R.id.tvAltura);
-        tvVelocidade = findViewById(R.id.tvVelocidade);
+        if (verificaPermissao()) {
+            Ponto ponto = new Ponto();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
-        AutoCompleteTextView textView = (AutoCompleteTextView)
-                findViewById(R.id.actvAmbiente);
-        textView.setAdapter(adapter);
+//            tvNomeRede = findViewById(R.id.tvNomeRede);
+//            tvMac = findViewById(R.id.tvMac);
+//            tvLatitude = findViewById(R.id.tvLatitude);
+//            tvLongitude = findViewById(R.id.tvLongitude);
+//            tvAltura = findViewById(R.id.tvAltura);
+//            tvVelocidade = findViewById(R.id.tvVelocidade);
+//
+            autoCTexview = findViewById(R.id.acteCadastrar);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                callDialog("Para você poder utilizar o sistema é necessario a permissão a localização", new String[]{Manifest.permission.ACCESS_FINE_LOCATION});
-                //chama o modal para caso no se haja a permissão
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
-            }
-        } else {
-            try {
+            //auto complete do botão ambiente
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+            autoCTexview.setAdapter(adapter);
+
+            enableWiFi();//criar verificação
+
+            localizacao(ponto);
+            //concatenando dados
+//            tvLatitude.setText(String.format("%s %s", getString(R.string.cood_lat), String.valueOf(ponto.getCoodLatitude())));
+//            tvLongitude.setText(String.format("%s %s", getString(R.string.cood_long), String.valueOf(ponto.getCoodLongitude())));
+//            tvAltura.setText(String.format("%s %s", getString(R.string.cood_alt), String.valueOf(ponto.getCoodAltura())));
+//            tvVelocidade.setText(String.format("%s %s", getString(R.string.cood_vel), String.valueOf(ponto.getCoodVelocidade())));
+
+            infoWifi(ponto);
+
+            //concatenando dados
+//            tvNomeRede.setText(String.format("%s %s", getString(R.string.nome_rede), ponto.getSsid()));
+//            tvMac.setText(ponto.getBssid());
+
+//            listView = (ExpandableListView)findViewById(R.id.lvExp);
+//            initData(ponto);
+//            listAdapter = new com.example.aplicativo_localizacao_indoor.adapter.ExpandableListAdapter(this, listDataHeader, listHash);
+//            listView.setAdapter(listAdapter);
+
+
+
+        }
+    }
+
+//    private void initData(Ponto ponto) {
+//        listDataHeader = new ArrayList<>();
+//        listHash = new HashMap<>();
+//
+//        listDataHeader.add("Informações");
+//
+//        List<String> info = new ArrayList<>();
+//        info.add(ponto.getSsid());
+//        info.add(ponto.getBssid());
+//
+//        listHash.put(listDataHeader.get(0),info);
+//    }
+
+    private void localizacao(final Ponto ponto) {
+        try {
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
             LocationListener locationListener = new LocationListener() {
 
                 public void onLocationChanged(Location location) {
-                    tvLatitude.setText(String.format("%s %s", getString(R.string.cood_lat), String.valueOf(location.getLatitude())));
-                    tvLongitude.setText(String.format("%s %s", getString(R.string.cood_long), String.valueOf(location.getLongitude())));
-                    tvAltura.setText(String.format("%s %s", getString(R.string.cood_alt), String.valueOf(location.getAltitude())));
-                    tvVelocidade.setText(String.format("%s %s", getString(R.string.cood_vel), String.valueOf(location.getSpeed())));
+                    ponto.setCoodLatitude(location.getLatitude());
+//                    TextView tvLatitude = findViewById(R.id.tvLatitude);
+//                    tvLatitude.setText(String.format("%s %s", getString(R.string.cood_lat), String.valueOf(ponto.getCoodLatitude())));
+                    ponto.setCoodLongitude(location.getLongitude());
+                    ponto.setCoodAltura(location.getAltitude());
+                    ponto.setCoodVelocidade(location.getSpeed());
                 }
 
-                public void onStatusChanged(String provider, int status, Bundle extras) { }
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
 
-                public void onProviderEnabled(String provider) { }
+                public void onProviderEnabled(String provider) {
+                }
 
-                public void onProviderDisabled(String provider) { }
+                public void onProviderDisabled(String provider) {
+                }
             };
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-        }catch(SecurityException ex){
+        } catch (SecurityException ex) {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
 
-            enableWiFi();
-            //concatenando dados
-            tvNomeRede.setText(String.format("%s %s", getString(R.string.nome_rede), getSSID()));
-            tvMac.setText(getBSSID());
-            }
-        }
-
-    private static final String[] COUNTRIES = new String[] {
+    private static final String[] COUNTRIES = new String[]{
             "Belgium", "France", "Italy", "Germany", "Spain"
     };
 
-
-    private void callDialog(String message, final String[] permissions) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //adiciona um título e uma mensagem
-        builder.setTitle("Permissão");
-        builder.setMessage(message);
-        //adiciona os botões
-        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ActivityCompat.requestPermissions(AdminCadastrarActivity.this, permissions, REQUEST_PERMISSIONS_CODE);
+    private boolean verificaPermissao() {
+        //verifica se o aplicativo tem permissão para utilizar a localização
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //verifica se permissão ja foi negada alguma vez para utilizar a localização
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                //adiciona um título e uma mensagem
+                builder.setTitle("Permissão");
+                builder.setMessage("Para você poder utilizar o sistema é necessario a permissão a localização");
+                //adiciona os botões
+                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(AdminCadastrarActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
+                    }
+                });
+                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                builder.show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
             }
-        });
-        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-
-        builder.show();
+        }//retorna true se tiver tudo certo
+        return true;
     }
-//    private int localizacao(){
-//        try {
-//            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//
-//            LocationListener locationListener = new LocationListener() {
-//
-//                public void onLocationChanged(Location location) {
-//                    return location;
-//                }
-//
-//                public void onStatusChanged(String provider, int status, Bundle extras) { }
-//
-//                public void onProviderEnabled(String provider) { }
-//
-//                public void onProviderDisabled(String provider) { }
-//            };
-//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-//        }catch(SecurityException ex){
-//            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-//        }
-//    }
-
 
     private void enableWiFi() {
         try {
@@ -146,24 +177,11 @@ public class AdminCadastrarActivity extends AppCompatActivity {
         }
     }
 
-    private String getBSSID() {
-        try {
-            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-            return wifiInfo.getBSSID();
-        } catch (Exception e) {
-            return "false";
-        }
-    }
-
-    private String getSSID() {
-        try {
-            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-            return wifiInfo.getSSID();
-        } catch (Exception e) {
-            return "false";
-        }
+    private void infoWifi(Ponto ponto){
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        ponto.setBssid(wifiInfo.getBSSID());
+        ponto.setSsid(wifiInfo.getSSID());
     }
 
 

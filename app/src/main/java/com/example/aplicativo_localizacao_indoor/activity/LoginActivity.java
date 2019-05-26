@@ -1,7 +1,9 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
@@ -40,23 +43,24 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         // Set up the login form.
-        final String etEmail = ((EditText) findViewById(R.id.email)).getText().toString();
-        final String etPassword = ((EditText) findViewById(R.id.password)).getText().toString();
+        final String etEmail = ((EditText) findViewById(R.id.etEmail)).getText().toString();
+        final String etPassword = ((EditText) findViewById(R.id.etPassword)).getText().toString();
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        findViewById(R.id.btLogin).setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
-                if (!etEmail.isEmpty() && !etPassword.isEmpty()) {
-                    realizaLogin(etEmail, etPassword);
+            public void onClick(View v) {
+                String email = ((EditText) findViewById(R.id.etEmail)).getText().toString();
+                String senha = ((EditText) findViewById(R.id.etPassword)).getText().toString();
+                ProgressBar pbLogin = findViewById(R.id.login_progress);
+                if (!email.isEmpty() && !senha.isEmpty()) {
+                    pbLogin.setVisibility(View.VISIBLE);
+                    realizaLogin(email, senha);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Preencha todos os campos", Toast.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.container_login_activity), "Preencha todos os campos.", Snackbar.LENGTH_LONG).show();
+                    //Toast.makeText(LoginActivity.this, "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     private void realizaLogin(String etEmail, String etPassword) {
@@ -70,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Log.d("retorno user", user.toString());
 //                            updateUI(user);
+                            startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Login", "signInWithEmail:failure", task.getException());
@@ -82,57 +87,122 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
-//    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-//    private void showProgress(final boolean show) {
-//        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-//        // for very easy animations. If available, use these APIs to fade-in
-//        // the progress spinner.
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-//            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-//
-//            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-//                @Override
-//                public void onAnimationEnd(Animator animation) {
-//                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//                }
-//            });
-//
-//            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//            mProgressView.animate().setDuration(shortAnimTime).alpha(
-//                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-//                @Override
-//                public void onAnimationEnd(Animator animation) {
-//                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//                }
-//            });
-//        } else {
-//            // The ViewPropertyAnimator APIs are not available, so simply show
-//            // and hide the relevant UI components.
-//            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//        }
-//    }
-
-//    @Override
-//    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-//        return new CursorLoader(this,
-//                // Retrieve data rows for the device user's 'profile' contact.
-//                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-//                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-//
-//                // Select only email addresses.
-//                ContactsContract.Contacts.Data.MIMETYPE +
-//                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-//                .CONTENT_ITEM_TYPE},
-//
-//                // Show primary email addresses first. Note that there won't be
-//                // a primary email address if the user hasn't specified one.
-//                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-//    }
-
-
 }
+
+//public class LoginActivity extends AppCompatActivity {
+//
+//    private static final String TAG = "loginActivity";
+//    private FirebaseAuth mAuth;
+//    private FirebaseUser user;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_login);
+//
+//        mAuth = FirebaseAuth.getInstance();
+//
+//        //mapeia os botões e trata o evento onClick
+//        findViewById(R.id.bt_sigin).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//            public void onClick(View v) {
+//                String email = ((EditText) findViewById(R.id.etEmail)).getText().toString();
+//                String senha = ((EditText) findViewById(R.id.etSenha)).getText().toString();
+//                ProgressBar pbLogin = findViewById(R.id.pb_login);
+//                if (!email.isEmpty() && !senha.isEmpty()) {
+//                    pbLogin.setVisibility(View.VISIBLE);
+//                    signin(email, senha, pbLogin);
+//                } else {
+//                    Snackbar.make(findViewById(R.id.container_activity_login), "Preencha todos os campos.", Snackbar.LENGTH_LONG).show();
+//                    //Toast.makeText(LoginActivity.this, "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//        findViewById(R.id.bt_sigup).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String email = ((EditText) findViewById(R.id.etEmail)).getText().toString();
+//                String senha = ((EditText) findViewById(R.id.etSenha)).getText().toString();
+//                ProgressBar pbLogin = findViewById(R.id.pb_login);
+//                if (!email.isEmpty() && !senha.isEmpty()) {
+//                    pbLogin.setVisibility(View.VISIBLE);
+//                    signup(email, senha, pbLogin);
+//                } else {
+//                    pbLogin.setVisibility(View.INVISIBLE);
+//                    Snackbar.make(findViewById(R.id.container_activity_login), "Preencha todos os campos.", Snackbar.LENGTH_LONG).show();
+//                    //Toast.makeText(LoginActivity.this, "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
+//
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        ProgressBar pbLogin = findViewById(R.id.pb_login);
+//        pbLogin.setVisibility(View.INVISIBLE);
+//    }
+//
+//    private void signup(String email, String senha, final ProgressBar pbLogin) {
+//        mAuth.createUserWithEmailAndPassword(email, senha)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign up success, update UI with the signed-in user's information
+//                            Log.d(TAG, "createUserWithEmail:success");
+//                            user = mAuth.getCurrentUser();
+//                            startActivity(new Intent(LoginActivity.this, ProdutosActivity.class));
+//                        } else {
+//                            pbLogin.setVisibility(View.INVISIBLE);
+//                            // If sign up fails, display a message to the user.
+//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+//                            if (task.getException().getMessage().contains("email")) {
+//                                Snackbar.make(findViewById(R.id.container_activity_login), R.string.email_already, Snackbar.LENGTH_LONG).show();
+//                            } else {
+//                                Snackbar.make(findViewById(R.id.container_activity_login), R.string.signup_fail, Snackbar.LENGTH_LONG).show();
+//                            }
+//                            //Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+//                            //updateUI(null);
+//                        }
+//
+//                        // ...
+//                    }
+//                });
+//    }
+//
+//    private void signin(final String email, String password, final ProgressBar pbLogin) {
+//        mAuth.signInWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            Usuario usuario = new Usuario();
+//                            usuario.setEmail(email);
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d(TAG, "signInWithEmail:success");
+//                            user = mAuth.getCurrentUser();
+//                            Log.d(TAG, user.getUid());
+//                            AppSetup.usuario = usuario;
+//                            startActivity(new Intent(LoginActivity.this, ProdutosActivity.class));
+//                        } else {
+//                            pbLogin.setVisibility(View.INVISIBLE);
+//                            // If sign in fails, display a message to the user.
+//                            Log.w(TAG, "signInWithEmail:failure ", task.getException());
+//                            if (task.getException().getMessage().contains("password")) {
+//                                Snackbar.make(findViewById(R.id.container_activity_login), R.string.password_fail, Snackbar.LENGTH_LONG).show();
+//                                //Toast.makeText(LoginActivity.this, "Senha não cadastrada.", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Snackbar.make(findViewById(R.id.container_activity_login), R.string.email_fail, Snackbar.LENGTH_LONG).show();
+//                                //Toast.makeText(LoginActivity.this, "Email não cadastrado.", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            //updateUI(null);
+//                        }
+//
+//                        // ...
+//                    }
+//                });
+//    }
+//}
 

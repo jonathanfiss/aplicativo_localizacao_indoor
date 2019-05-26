@@ -28,11 +28,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_cad_acess_point">Cadastrar Acess Point</string>
+    <string name="menu_cad_local">Cadastrar local</string>
+    <string name="menu_cad_sala">Cadastrar sala</string>
     <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
+    <string name="menu_add_user">Adicionar Usuario</string>
     <string name="menu_send">Send</string>
     <string name="hint_nome">pf</string>
     <string name="content_description_foto_produto">pf</string>

@@ -17,10 +17,6 @@
         <activity android:name=".activity.AdminMainActivity"
                   android:label="Administrador"
                   android:theme="@style/AppTheme.NoActionBar">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
         </activity>
         <activity android:name=".activity.AdminListarPontoActivity"
                   android:label="Lista de Pontos"></activity>
@@ -39,7 +35,12 @@
         <activity android:name=".activity.RotaActivity"
                   android:label="Rota"></activity>
         <activity android:name=".activity.LoginActivity"
-                  android:label="Login" />
+                  android:label="Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.LocalizarActivity"
                   android:label="Localizar"></activity>
         <activity android:name=".activity.MainActivity"

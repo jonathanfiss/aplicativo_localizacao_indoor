@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -104,21 +105,32 @@ public class AdminMainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        switch (item.getItemId()){
+            case R.id.nav_cad_acess_point:{
+                startActivity(new Intent(AdminMainActivity.this, AdminCadastraPontoActivity.class));
+                Log.d("click", "AdminCadastraPontoActivity");
+                break;
+            }
+            case R.id.nav_cad_local:{
+                startActivity(new Intent(AdminMainActivity.this, AdminCadastraLocalActivity.class));
+                Log.d("click", "AdminCadastraLocalActivity");
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+                break;
+            }
+            case R.id.nav_cad_sala:{
+                startActivity(new Intent(AdminMainActivity.this, AdminCadastraSalaActivity.class));
+                Log.d("click", "AdminCadastraSalaActivity");
 
-        } else if (id == R.id.nav_slideshow) {
+                break;
+            }
+            case R.id.nav_add_usuario:{
+                startActivity(new Intent(AdminMainActivity.this, AdminCadastraUsuarioActivity.class));
+                Log.d("click", "AdminCadastraUsuarioActivity");
 
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+                break;
+            }
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

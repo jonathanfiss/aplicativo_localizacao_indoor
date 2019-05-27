@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ExpandableListAdapter;
@@ -180,6 +181,8 @@ public class AdminCadastrarActivity extends AppCompatActivity {
     private void infoWifi(Ponto ponto){
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+
+        Log.d("listscan",wifiManager.getScanResults().toString());
         ponto.setBssid(wifiInfo.getBSSID());
         ponto.setSsid(wifiInfo.getSSID());
     }

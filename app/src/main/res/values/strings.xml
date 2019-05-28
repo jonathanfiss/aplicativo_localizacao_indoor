@@ -28,7 +28,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_cad_acess_point">Cadastrar Acess Point</string>
+    <string name="menu_cad_acess_point">Cadastrar Access Point</string>
     <string name="menu_cad_local">Cadastrar local</string>
     <string name="menu_cad_sala">Cadastrar sala</string>
     <string name="menu_tools">Tools</string>

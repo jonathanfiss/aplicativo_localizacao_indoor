@@ -59,21 +59,21 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                final Integer retorno = getIntent().getExtras().getInt("ponto");
-                if (retorno.equals("1")){
-                    Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
-                    intent.putExtra("positionAnt", position);
-                    startActivity(intent);
-                }if (retorno.equals("2")){
-                    Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
-                    intent.putExtra("positionPost", position);
-                    startActivity(intent);
-                }else{
+//                final Integer retorno = getIntent().getExtras().getInt("ponto");
+//                if (retorno.equals("1")){
+//                    Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
+//                    intent.putExtra("positionAnt", position);
+//                    startActivity(intent);
+//                }if (retorno.equals("2")){
+//                    Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
+//                    intent.putExtra("positionPost", position);
+//                    startActivity(intent);
+//                }else{
                     Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
                     intent.putExtra("position", position);
                     startActivity(intent);
                 }
-            }
+//            }
         });
 
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();

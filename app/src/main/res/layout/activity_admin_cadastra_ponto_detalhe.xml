@@ -8,43 +8,46 @@
 
     <TextView
         android:id="@+id/tvSSID"
-        android:layout_width="wrap_content"
-        android:layout_height="13dp"
+        android:layout_width="151dp"
+        android:layout_height="34dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="33dp"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/btCadPontoRefAnt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvBSSID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="5dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSSID"
+        app:layout_constraintEnd_toEndOf="@+id/btCadPontoRefAntChecked"
+        app:layout_constraintStart_toEndOf="@+id/btCadPontoRefAnt"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btCadPontoRefAnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="83dp"
         android:text="@string/bt_cad_ponto_ref_ant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBSSID" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btCadPontoRefPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="21dp"
         android:text="@string/bt_cad_ponto_ref_post"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btCadPontoRefAnt" />
 
@@ -52,38 +55,43 @@
         android:id="@+id/btCadPontoRef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="71dp"
         android:text="@string/btCadastrarPonto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/etPatrimonio"
         app:layout_constraintTop_toBottomOf="@+id/etPatrimonio" />
+
+    <Switch
+        android:id="@+id/btCadPontoRefAntChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="81dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="77dp"
+        android:text="Switch"
+        app:layout_constraintBottom_toBottomOf="@+id/btCadPontoRefPost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvBSSID" />
+
+    <Switch
+        android:id="@+id/btCadPontoRefPostChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Switch"
+        app:layout_constraintStart_toStartOf="@+id/btCadPontoRefAntChecked"
+        app:layout_constraintTop_toBottomOf="@+id/btCadPontoRefAntChecked" />
 
     <EditText
         android:id="@+id/etPatrimonio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="58dp"
         android:ems="10"
         android:hint="@string/hint_patrimonio"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btCadPontoRefPost" />
-
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RadioButton"
-        tools:layout_editor_absoluteX="265dp"
-        tools:layout_editor_absoluteY="83dp" />
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RadioButton"
-        tools:layout_editor_absoluteX="265dp"
-        tools:layout_editor_absoluteY="150dp" />
 
 </android.support.constraint.ConstraintLayout>

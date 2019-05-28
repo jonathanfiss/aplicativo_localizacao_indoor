@@ -3,8 +3,10 @@ package com.example.aplicativo_localizacao_indoor.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -18,6 +20,7 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_cadastra_local);
 
         RadioGroup radioGroupAndar = findViewById(R.id.radioGroupAndar);
+        Button btCadLocal= findViewById(R.id.btCadLocal);
 
         String[] SETORES = new String[] {"Principal", "Tecnologia em sistemas para Internet", "Design", "Caldelas"};
 
@@ -46,6 +49,12 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
                         break;
                     }
                 }
+            }
+        });
+        btCadLocal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

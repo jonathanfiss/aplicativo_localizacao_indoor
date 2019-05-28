@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
@@ -54,14 +55,20 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText etPatrimonio = findViewById(R.id.etPatrimonio);
+                Switch Anterior = findViewById(R.id.btCadPontoRefAntChecked);
+                Switch Posterior = findViewById(R.id.btCadPontoRefPostChecked);
                 Integer patrimonio = Integer.valueOf(etPatrimonio.getText().toString());
                 Ponto ponto = new Ponto();
                 ponto.setBssid(AppSetup.wiFiDetalhes.get(position).getBSSID());
                 ponto.setSsid(AppSetup.wiFiDetalhes.get(position).getSSID());
                 ponto.setPatrimonio(patrimonio);
+                if (Anterior.isChecked()) {
+                    ponto.setBssidAnt(null);
+                } else {
+//                    ponto.setBssidAnt(AppSetup.wiFiDetalhes.get().getBSSID());
+                }
                 Log.d("teste", String.valueOf(findViewById(R.id.btCadPontoRefAntChecked)));
 
-//        AppSetup.ponto.setBssidAnt(AppSetup.wiFiDetalhes.get(positionAnt).getBSSID());
 //        AppSetup.ponto.setBssidPost(AppSetup.wiFiDetalhes.get(positionPost).getBSSID());
                 ponto.setSituacao(true);
                 AppSetup.ponto = ponto;

@@ -14,37 +14,52 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AdminMainActivity"
-                  android:label="Administrador"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".activity.AdminCadastraPontoActivityDetalhe"
+            android:label="Cadastrar Ponto"></activity>
+        <activity
+            android:name=".activity.AdminMainActivity"
+            android:label="Administrador"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AdminListarPontoActivity"
-                  android:label="Lista de Pontos"></activity>
-        <activity android:name=".activity.AdminCadastraUsuarioActivity"
-                  android:label="Cadastrar Usuarios" ></activity>
-        <activity android:name=".activity.AdminCadastraSalaActivity"
-                  android:label="Cadastrar Sala"></activity>
-        <activity android:name=".activity.AdminCadastraLocalActivity"
-                  android:label="Cadastrar local"></activity>
-        <activity android:name=".activity.AdminCadastraPontoActivity"
-                  android:label="Cadastra Ponto"></activity>
-        <activity android:name=".activity.AdminPontoReferenciaActivity"
-                  android:label="Ponto Referencia"></activity>
-        <activity android:name=".activity.AdminCadastrarActivity"
-                  android:label="cadastrar"></activity>
-        <activity android:name=".activity.RotaActivity"
-                  android:label="Rota"></activity>
-        <activity android:name=".activity.LoginActivity"
-                  android:label="Login">
-        </activity>
-        <activity android:name=".activity.LocalizarActivity"
-                  android:label="Localizar"></activity>
-        <activity android:name=".activity.MainActivity"
-                  android:label="@string/app_name"></activity>
+        <activity
+            android:name=".activity.AdminListarPontoActivity"
+            android:label="Lista de Pontos" />
+        <activity
+            android:name=".activity.AdminCadastraUsuarioActivity"
+            android:label="Cadastrar Usuarios" />
+        <activity
+            android:name=".activity.AdminCadastraSalaActivity"
+            android:label="Cadastrar Sala" />
+        <activity
+            android:name=".activity.AdminCadastraLocalActivity"
+            android:label="Cadastrar local" />
+        <activity
+            android:name=".activity.AdminCadastraPontoActivity"
+            android:label="Cadastrar Ponto" />
+        <activity
+            android:name=".activity.AdminPontoReferenciaActivity"
+            android:label="Ponto Referencia" />
+        <activity
+            android:name=".activity.AdminCadastrarActivity"
+            android:label="cadastrar" />
+        <activity
+            android:name=".activity.RotaActivity"
+            android:label="Rota" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="Login"></activity>
+        <activity
+            android:name=".activity.LocalizarActivity"
+            android:label="Localizar" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

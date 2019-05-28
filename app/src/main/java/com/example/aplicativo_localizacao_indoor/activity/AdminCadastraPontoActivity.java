@@ -2,6 +2,7 @@ package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
@@ -25,22 +26,23 @@ import java.util.List;
 
 public class AdminCadastraPontoActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_CODE = 0;
-    WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        int retorno = 0;
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_cadastra_ponto);
-        ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
-        lvPontosRef.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            }
-        });
+        ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
+        verificaPermissao();
+        wifiManager.startScan();
+
         if (wifiManager.startScan()) {
+            AppSetup.wiFiDetalhes.clear();
             List<ScanResult> scanResults = wifiManager.getScanResults();
             Log.d("listscan",wifiManager.getScanResults().toString());
             for(ScanResult result: scanResults){
@@ -53,28 +55,33 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
             }
             lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
         }
+        lvPontosRef.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                final Integer retorno = getIntent().getExtras().getInt("ponto");
+                if (retorno.equals("1")){
+                    Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
+                    intent.putExtra("positionAnt", position);
+                    startActivity(intent);
+                }if (retorno.equals("2")){
+                    Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
+                    intent.putExtra("positionPost", position);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
+                    intent.putExtra("position", position);
+                    startActivity(intent);
+                }
+            }
+        });
 
-
-        verificaPermissao();
-        wifiManager.startScan();
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         Log.d("wifiinfo", String.valueOf(wifiInfo.getRssi()));
         Log.d("wifiinfo", String.valueOf(wifiInfo.getBSSID()));
         Log.d("wifiinfo", String.valueOf(wifiInfo.getSSID()));
         Log.d("wifiinfo", String.valueOf(wifiInfo.getNetworkId()));
         Log.d("wifiinfo", String.valueOf(wifiInfo.getMacAddress()));
-        try {
-            if (wifiManager.startScan()) {
-                List<ScanResult> scanResults = wifiManager.getScanResults();
-                Log.d("listscan",wifiManager.getScanResults().toString());
-            }
-        } catch (Exception e) {
-            // critical error: do not die
-        }
-
-//        tvLatitude.setText(String.format("%s %s", getString(R.string.cood_lat), String.valueOf(ponto.getCoodLatitude())));
-//            tvLongitude.setText(String.format("%s %s", getString(R.string.cood_long), String.valueOf(ponto.getCoodLongitude())));
     }
 
     private boolean verificaPermissao() {

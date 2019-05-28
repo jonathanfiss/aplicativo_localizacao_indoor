@@ -66,13 +66,6 @@ public class AdminCadastrarActivity extends AppCompatActivity {
 
             enableWiFi();//criar verificação
 
-            localizacao(ponto);
-            //concatenando dados
-//            tvLatitude.setText(String.format("%s %s", getString(R.string.cood_lat), String.valueOf(ponto.getCoodLatitude())));
-//            tvLongitude.setText(String.format("%s %s", getString(R.string.cood_long), String.valueOf(ponto.getCoodLongitude())));
-//            tvAltura.setText(String.format("%s %s", getString(R.string.cood_alt), String.valueOf(ponto.getCoodAltura())));
-//            tvVelocidade.setText(String.format("%s %s", getString(R.string.cood_vel), String.valueOf(ponto.getCoodVelocidade())));
-
             infoWifi(ponto);
 
             //concatenando dados
@@ -102,35 +95,7 @@ public class AdminCadastrarActivity extends AppCompatActivity {
 //        listHash.put(listDataHeader.get(0),info);
 //    }
 
-    private void localizacao(final Ponto ponto) {
-        try {
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-            LocationListener locationListener = new LocationListener() {
-
-                public void onLocationChanged(Location location) {
-                    ponto.setCoodLatitude(location.getLatitude());
-//                    TextView tvLatitude = findViewById(R.id.tvLatitude);
-//                    tvLatitude.setText(String.format("%s %s", getString(R.string.cood_lat), String.valueOf(ponto.getCoodLatitude())));
-                    ponto.setCoodLongitude(location.getLongitude());
-                    ponto.setCoodAltura(location.getAltitude());
-                    ponto.setCoodVelocidade(location.getSpeed());
-                }
-
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-                }
-
-                public void onProviderEnabled(String provider) {
-                }
-
-                public void onProviderDisabled(String provider) {
-                }
-            };
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-        } catch (SecurityException ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
 
     private static final String[] COUNTRIES = new String[]{
             "Belgium", "France", "Italy", "Germany", "Spain"

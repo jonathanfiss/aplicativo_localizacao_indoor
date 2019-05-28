@@ -1,13 +1,14 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
+import android.widget.EditText;
+
 public class Ponto {
     private String bssid;
     private String ssid;
-    private String patrimonio;
-    private Double coodLatitude;
-    private Double coodLongitude;
-    private Double coodAltura;
-    private float coodVelocidade;
+    private int patrimonio;
+    private String bssidAnt;
+    private String bssidPost;
+
     private boolean situacao;
 
     public Ponto() {
@@ -29,44 +30,28 @@ public class Ponto {
         this.ssid = ssid;
     }
 
-    public String getPatrimonio() {
+    public int getPatrimonio() {
         return patrimonio;
     }
 
-    public void setPatrimonio(String patrimonio) {
+    public void setPatrimonio(int patrimonio) {
         this.patrimonio = patrimonio;
     }
 
-    public Double getCoodLatitude() {
-        return coodLatitude;
+    public String getBssidAnt() {
+        return bssidAnt;
     }
 
-    public void setCoodLatitude(Double coodLatitude) {
-        this.coodLatitude = coodLatitude;
+    public void setBssidAnt(String bssidAnt) {
+        this.bssidAnt = bssidAnt;
     }
 
-    public Double getCoodLongitude() {
-        return coodLongitude;
+    public String getBssidPost() {
+        return bssidPost;
     }
 
-    public void setCoodLongitude(Double coodLongitude) {
-        this.coodLongitude = coodLongitude;
-    }
-
-    public Double getCoodAltura() {
-        return coodAltura;
-    }
-
-    public void setCoodAltura(Double coodAltura) {
-        this.coodAltura = coodAltura;
-    }
-
-    public float getCoodVelocidade() {
-        return coodVelocidade;
-    }
-
-    public void setCoodVelocidade(float coodVelocidade) {
-        this.coodVelocidade = coodVelocidade;
+    public void setBssidPost(String bssidPost) {
+        this.bssidPost = bssidPost;
     }
 
     public boolean isSituacao() {
@@ -76,6 +61,4 @@ public class Ponto {
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
     }
-
-
 }

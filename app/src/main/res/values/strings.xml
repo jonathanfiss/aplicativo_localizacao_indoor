@@ -48,4 +48,7 @@
     <string name="btCadastrarSala">Cadastrar Sala</string>
     <string name="btCadastrarPonto">Cadastrar Acess Point</string>
     <string name="btListar">Listar</string>
+    <string name="bt_cad_ponto_ref_ant">Access Point Anterior</string>
+    <string name="bt_cad_ponto_ref_post">Access Point Posterior</string>
+    <string name="hint_patrimonio">Patrimonio</string>
 </resources>

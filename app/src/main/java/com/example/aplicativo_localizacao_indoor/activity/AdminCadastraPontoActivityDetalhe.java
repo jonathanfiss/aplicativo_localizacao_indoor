@@ -65,7 +65,12 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
                 if (Anterior.isChecked()) {
                     ponto.setBssidAnt(null);
                 } else {
-//                    ponto.setBssidAnt(AppSetup.wiFiDetalhes.get().getBSSID());
+//                  ponto.setBssidAnt(AppSetup.wiFiDetalhes.get(positionPost).getBSSID());
+                }
+                if (Posterior.isChecked()) {
+                    ponto.setBssidPost(null);
+                } else {
+//                    ponto.setBssidPost(AppSetup.wiFiDetalhes.get(positionPost).getBSSID());
                 }
                 Log.d("teste", String.valueOf(findViewById(R.id.btCadPontoRefAntChecked)));
 

@@ -51,4 +51,9 @@
     <string name="bt_cad_ponto_ref_ant">Access Point Anterior</string>
     <string name="bt_cad_ponto_ref_post">Access Point Posterior</string>
     <string name="hint_patrimonio">Patrimonio</string>
+    <string name="andarSelect1">1º Andar</string>
+    <string name="andarSelect2">2º Andar</string>
+    <string name="andarSelect3">3º Andar</string>
+    <string name="andarSelect">Andar:</string>
+    <string name="tv_corredor">Corredor:</string>
 </resources>

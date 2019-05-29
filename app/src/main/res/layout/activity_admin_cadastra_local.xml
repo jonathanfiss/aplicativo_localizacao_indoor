@@ -1,94 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.AdminCadastraLocalActivity">
 
-    <RadioGroup
-        android:id="@+id/radioGroupAndar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/andarSelect"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/andarSelect" />
-
-        <RadioButton
-            android:id="@+id/radioButtonAndar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/andarSelect1" />
-
-        <RadioButton
-            android:id="@+id/radioButtonAndar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/andarSelect2" />
-
-        <RadioButton
-            android:id="@+id/radioButtonAndar3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/andarSelect3" />
-    </RadioGroup>
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <RadioButton
+        android:id="@+id/radioButtonAndar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="297dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="@string/hint_acte_ambiente"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="3dp"
+        android:text="@string/andarSelect1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoCompleteSetor" />
+        tools:layout_editor_absoluteY="37dp" />
+
+    <RadioButton
+        android:id="@+id/radioButtonAndar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/andarSelect2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioButton
+        android:id="@+id/radioButtonAndar3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="115dp"
+        android:text="@string/andarSelect3"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="173dp"
+        tools:layout_editor_absoluteY="37dp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="221dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="84dp"
         android:text="@string/tv_corredor"
-        app:layout_constraintBottom_toTopOf="@+id/autoCompleteSetor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/radioGroupAndar"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="82dp" />
 
     <AutoCompleteTextView
         android:id="@+id/autoCompleteSetor"
-        android:layout_width="232dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="81dp"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="106dp"
         android:hint="@string/hint_et_local"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etDescricaoLocal"
+        android:layout_width="373dp"
+        android:layout_height="105dp"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="168dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/hint_acte_ambiente"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btCadLocal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="477dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="123dp"
+        android:layout_marginBottom="232dp"
+        android:text="@string/btCadastrarLocal" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

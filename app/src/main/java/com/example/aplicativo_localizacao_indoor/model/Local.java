@@ -2,7 +2,7 @@ package com.example.aplicativo_localizacao_indoor.model;
 
 public class Local {
     private Long id;
-    private String ambiente;
+    private Integer andar;
     private String descricao;
     private String corredor;
     private String data_hora_modificado;
@@ -21,13 +21,9 @@ public class Local {
         this.id = id;
     }
 
-    public String getAmbiente() {
-        return ambiente;
-    }
+    public Integer getAndar() { return andar;  }
 
-    public void setAmbiente(String ambiente) {
-        this.ambiente = ambiente;
-    }
+    public void setAndar(Integer andar) {  this.andar = andar;  }
 
     public String getDescricao() {
         return descricao;

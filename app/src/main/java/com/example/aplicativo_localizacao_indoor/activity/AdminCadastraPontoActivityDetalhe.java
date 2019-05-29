@@ -76,7 +76,6 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
 
 //        AppSetup.ponto.setBssidPost(AppSetup.wiFiDetalhes.get(positionPost).getBSSID());
                 ponto.setSituacao(true);
-                AppSetup.ponto = ponto;
                 // obtém a referência do database e do nó
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("dados/pontoref");

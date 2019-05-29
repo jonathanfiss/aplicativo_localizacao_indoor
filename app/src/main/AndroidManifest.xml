@@ -14,9 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.AdminSelecionaPontoActivity"></activity>
         <activity
             android:name=".activity.AdminCadastraPontoActivityDetalhe"
-            android:label="Cadastrar Ponto"></activity>
+            android:label="Cadastrar Ponto" />
         <activity
             android:name=".activity.AdminMainActivity"
             android:label="Administrador"
@@ -53,7 +54,7 @@
             android:label="Rota" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="Login"></activity>
+            android:label="Login" />
         <activity
             android:name=".activity.LocalizarActivity"
             android:label="Localizar" />

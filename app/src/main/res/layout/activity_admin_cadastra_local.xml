@@ -7,6 +7,7 @@
     tools:context=".activity.AdminCadastraLocalActivity">
 
     <RadioGroup
+        android:id="@+id/radioGroupAndar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"

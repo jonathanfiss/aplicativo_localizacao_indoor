@@ -56,4 +56,6 @@
     <string name="andarSelect3">3º Andar</string>
     <string name="andarSelect">Andar:</string>
     <string name="tv_corredor">Corredor:</string>
+    <string name="tv_seleciona_local">Local</string>
+    <string name="bt_seleciona_ponto">Selecionar Access Points</string>
 </resources>

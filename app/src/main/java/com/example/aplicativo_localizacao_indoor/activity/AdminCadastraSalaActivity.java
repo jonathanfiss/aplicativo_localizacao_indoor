@@ -91,6 +91,7 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 sala.setNome(etNomeSala.getText().toString());
                 sala.setNumero(etNumeroSala.getText().toString());
+//                sala.setlocal();
                 sala.setSituacao(true);
                 // obtém a referência do database e do nó
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

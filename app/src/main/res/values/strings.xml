@@ -62,4 +62,6 @@
     <string name="hint_email">E-mail</string>
     <string name="hint_matricula">Matricula</string>
     <string name="hint_senha">Senha</string>
+    <string name="hint_BSSID">Ex:04:0d:ca:2d:cb:a0</string>
+    <string name="hint_SSID">Ex:Administrativa</string>
 </resources>

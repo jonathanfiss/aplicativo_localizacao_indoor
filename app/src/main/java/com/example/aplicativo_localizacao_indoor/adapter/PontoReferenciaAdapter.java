@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhes;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhes> {
@@ -55,7 +54,7 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhes> {
         } else if (wiFiDetalhes.getWiFiSignal() >= -85 && wiFiDetalhes.getWiFiSignal() < -75) {
             imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_1_bar_red_24dp);
 
-        } else if (wiFiDetalhes.getWiFiSignal() <= -90 ) {
+        } else if (wiFiDetalhes.getWiFiSignal() < -85 ) {
             imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_0_bar_black_24dp);
         }
         return convertView;

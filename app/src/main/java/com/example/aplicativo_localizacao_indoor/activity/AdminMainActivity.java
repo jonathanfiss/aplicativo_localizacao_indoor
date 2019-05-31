@@ -34,12 +34,12 @@ public class AdminMainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        Button btCadastrarPonto, btCadastrarLocal, btCadastrarSalas, btListar;
+        Button btCadastrarPonto, btCadastrarLocal, btCadastrarSalas, btCadUsuario;
 
         btCadastrarPonto = findViewById(R.id.btCadastrarPonto);
         btCadastrarLocal = findViewById(R.id.btCadastrarLocal);
         btCadastrarSalas = findViewById(R.id.btCadastrarSala);
-        btListar = findViewById(R.id.btCadUsuario);
+        btCadUsuario = findViewById(R.id.btCadUsuario);
 
         btCadastrarPonto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,10 +59,10 @@ public class AdminMainActivity extends AppCompatActivity
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastraSalaActivity.class));
             }
         });
-        btListar.setOnClickListener(new View.OnClickListener() {
+        btCadUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminMainActivity.this, AdminListarPontoActivity.class));
+                startActivity(new Intent(AdminMainActivity.this, AdminCadastraUsuarioActivity.class));
             }
         });
     }

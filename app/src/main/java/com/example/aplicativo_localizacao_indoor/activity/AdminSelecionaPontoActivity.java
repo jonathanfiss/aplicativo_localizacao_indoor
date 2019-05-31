@@ -14,7 +14,7 @@ import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import java.util.List;
 
 public class AdminSelecionaPontoActivity extends AppCompatActivity {
-    final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+//    final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 
 
     @Override
@@ -22,24 +22,24 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_seleciona_ponto);
 
-        if (wifiManager.startScan()) {
-            AppSetup.wiFiDetalhes.clear();
-            List<ScanResult> scanResults = wifiManager.getScanResults();
-            atualizaView(scanResults);
-        }
+//        if (wifiManager.startScan()) {
+//            AppSetup.wiFiDetalhes.clear();
+//            List<ScanResult> scanResults = wifiManager.getScanResults();
+//            atualizaView(scanResults);
+//        }
 
     }
 
-    public void atualizaView(List<ScanResult> scanResults) {
-        for (ScanResult result : scanResults) {
-            WiFiDetalhes wiFiDetalhes = new WiFiDetalhes();
-            wiFiDetalhes.setBSSID(result.BSSID);
-            wiFiDetalhes.setSSID(result.SSID);
-            wiFiDetalhes.setWiFiSignal(result.level);
-            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
-        }
-        ListView lvPontosRef = findViewById(R.id.lv_select_pontos_ref);
-        lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
-    }
+//    public void atualizaView(List<ScanResult> scanResults) {
+//        for (ScanResult result : scanResults) {
+//            WiFiDetalhes wiFiDetalhes = new WiFiDetalhes();
+//            wiFiDetalhes.setBSSID(result.BSSID);
+//            wiFiDetalhes.setSSID(result.SSID);
+//            wiFiDetalhes.setWiFiSignal(result.level);
+//            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+//        }
+//        ListView lvPontosRef = findViewById(R.id.lv_select_pontos_ref);
+//        lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
+//    }
 
 }

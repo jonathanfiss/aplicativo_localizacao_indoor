@@ -79,9 +79,10 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
         btSelecionaPonto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraSalaActivity.this ,AdminSelecionaPontoActivity.class);
-                intent.putExtra("salaSelect", 1);
-                startActivity(intent);
+//                Intent intent = new Intent(AdminCadastraSalaActivity.this ,AdminSelecionaPontoActivity.class);
+//                intent.putExtra("salaSelect", 1);
+//                startActivity(intent);
+                startActivity(new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class));
             }
         });
 

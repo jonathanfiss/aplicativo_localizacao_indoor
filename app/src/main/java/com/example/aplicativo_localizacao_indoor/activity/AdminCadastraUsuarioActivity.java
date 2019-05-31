@@ -25,6 +25,8 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
     private EditText etNomeUser, etSobrenomeUser, etEmailUser, etMatriculaUser, etPasswordUser;
     private Spinner spFuncaoUser;
     private Button btCadastrarUser;
+    private String[] FUNCAO = new String[]{"Administrador", "Cadastrador"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,6 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        String[] FUNCAO = new String[]{"Administrador", "Cadastrador"};
 
         spFuncaoUser =findViewById(R.id.spFuncaoUser);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FUNCAO);
@@ -82,8 +83,8 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
         usuario.setNome(etNomeUser.getText().toString());
         usuario.setSobrenome(etSobrenomeUser.getText().toString());
         usuario.setMatricula(etMatriculaUser.getText().toString());
-        usuario.setFuncao(spFuncaoUser.toString());
+        usuario.setFuncao(FUNCAO[spFuncaoUser.getSelectedItemPosition()]);
         usuario.setSituacao(true);
-        FirebaseDatabase.getInstance().getReference().child("administradores").child(usuario.getFirebaseUser().getUid()).setValue(usuario);
+        FirebaseDatabase.getInstance().getReference().child("admin").child(usuario.getFirebaseUser().getUid()).setValue(usuario);
     }
 }

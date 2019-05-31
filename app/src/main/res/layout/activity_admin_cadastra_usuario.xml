@@ -15,8 +15,8 @@
         android:layout_marginStart="19dp"
         android:layout_marginTop="29dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="@string/hint_nome"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/etSobrenomeUser"
@@ -27,8 +27,8 @@
         android:layout_marginStart="21dp"
         android:layout_marginTop="91dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="@string/hint_sobrenome"
+        android:inputType="textPersonName" />
 
     <Spinner
         android:id="@+id/spFuncaoUser"
@@ -45,8 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="481dp"
+        android:layout_marginStart="153dp"
+        android:layout_marginTop="405dp"
         android:text="Button" />
 
     <EditText
@@ -58,6 +58,7 @@
         android:layout_marginStart="21dp"
         android:layout_marginTop="150dp"
         android:ems="10"
+        android:hint="@string/hint_email"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -69,6 +70,7 @@
         android:layout_marginStart="21dp"
         android:layout_marginTop="211dp"
         android:ems="10"
+        android:hint="@string/hint_matricula"
         android:inputType="number" />
 
     <EditText
@@ -76,9 +78,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginBottom="228dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="333dp"
         android:ems="10"
+        android:hint="@string/hint_senha"
         android:inputType="textPassword" />
 </RelativeLayout>

@@ -34,7 +34,7 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_add_user">Adicionar Usuario</string>
     <string name="menu_send">Send</string>
-    <string name="hint_nome">pf</string>
+    <string name="hint_nome">Nome</string>
     <string name="content_description_foto_produto">pf</string>
     <string name="hint_valor">pf</string>
     <string name="nome_rede">Você esta conectado a </string>
@@ -58,4 +58,8 @@
     <string name="tv_corredor">Corredor:</string>
     <string name="tv_seleciona_local">Local</string>
     <string name="bt_seleciona_ponto">Selecionar Access Points</string>
+    <string name="hint_sobrenome">Sobreome</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_matricula">Matricula</string>
+    <string name="hint_senha">Senha</string>
 </resources>

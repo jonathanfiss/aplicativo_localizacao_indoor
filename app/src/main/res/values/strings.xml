@@ -46,7 +46,7 @@
     <string name="hint_et_local">Ex: TSI</string>
     <string name="btCadastrarLocal">Cadatrar Local</string>
     <string name="btCadastrarSala">Cadastrar Sala</string>
-    <string name="btCadastrarPonto">Cadastrar Acess Point</string>
+    <string name="btCadastrarPonto">Cadastrar Access Point</string>
     <string name="btListar">Listar</string>
     <string name="bt_cad_ponto_ref_ant">Access Point Anterior</string>
     <string name="bt_cad_ponto_ref_post">Access Point Posterior</string>

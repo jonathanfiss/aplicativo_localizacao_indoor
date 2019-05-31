@@ -8,12 +8,14 @@
 
     <RadioGroup
         android:id="@+id/radioGroupAndar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_below="@+id/tvAndarSelect"
+        android:layout_alignStart="@+id/tvAndarSelect"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="20dp"
         android:orientation="horizontal">
 
         <RadioButton
@@ -39,7 +41,7 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvAndarSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -54,9 +56,10 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_below="@+id/radioGroupAndar"
+        android:layout_alignStart="@+id/tvAndarSelect"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
         android:text="@string/tv_corredor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -64,21 +67,27 @@
 
     <AutoCompleteTextView
         android:id="@+id/autoCompleteSetor"
-        android:layout_width="365dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="106dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/tvAndarSelect"
+        android:layout_alignEnd="@+id/radioGroupAndar"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="0dp"
         android:hint="@string/hint_et_local"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etDescricaoLocal"
-        android:layout_width="373dp"
-        android:layout_height="105dp"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="168dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/autoCompleteSetor"
+        android:layout_alignStart="@+id/tvAndarSelect"
+        android:layout_alignEnd="@+id/autoCompleteSetor"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="0dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/hint_acte_ambiente"
@@ -88,12 +97,14 @@
 
     <Button
         android:id="@+id/btCadLocal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="123dp"
-        android:layout_marginBottom="232dp"
+        android:layout_below="@+id/etDescricaoLocal"
+        android:layout_alignStart="@+id/tvAndarSelect"
+        android:layout_alignEnd="@+id/etDescricaoLocal"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="0dp"
         android:text="@string/btCadastrarLocal" />
 
 </RelativeLayout>

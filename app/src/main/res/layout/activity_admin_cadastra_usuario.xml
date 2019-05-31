@@ -8,80 +8,90 @@
 
     <EditText
         android:id="@+id/etNomeUser"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="29dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="@string/hint_nome"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/etSobrenomeUser"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="91dp"
+        android:layout_below="@+id/etNomeUser"
+        android:layout_alignStart="@+id/etNomeUser"
+        android:layout_alignEnd="@+id/etNomeUser"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/hint_sobrenome"
         android:inputType="textPersonName" />
 
     <Spinner
         android:id="@+id/spFuncaoUser"
-        android:layout_width="340dp"
-        android:layout_height="39dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="273dp"
-        android:layout_marginEnd="48dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_funcao"
+        android:layout_alignStart="@+id/tv_funcao"
+        android:layout_alignEnd="@+id/etMatriculaUser" />
 
     <Button
         android:id="@+id/btCadastrarUser"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="405dp"
-        android:text="Button" />
+        android:layout_below="@+id/etPasswordUser"
+        android:layout_alignStart="@+id/etPasswordUser"
+        android:layout_alignEnd="@+id/etPasswordUser"
+        android:layout_marginTop="30dp"
+        android:text="@string/btCadastrarUser" />
 
     <EditText
         android:id="@+id/etEmailUser"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="150dp"
+        android:layout_below="@+id/etSobrenomeUser"
+        android:layout_alignStart="@+id/etSobrenomeUser"
+        android:layout_alignEnd="@+id/etSobrenomeUser"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/etMatriculaUser"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="211dp"
+        android:layout_below="@+id/etEmailUser"
+        android:layout_alignStart="@+id/etEmailUser"
+        android:layout_alignEnd="@+id/etEmailUser"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/hint_matricula"
         android:inputType="number" />
 
     <EditText
         android:id="@+id/etPasswordUser"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="333dp"
+        android:layout_below="@+id/spFuncaoUser"
+        android:layout_alignStart="@+id/spFuncaoUser"
+        android:layout_alignEnd="@+id/spFuncaoUser"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/hint_senha"
         android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/tv_funcao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etMatriculaUser"
+        android:layout_alignStart="@+id/etMatriculaUser"
+        android:layout_marginTop="20dp"
+        android:text="@string/tv_funcao" />
 </RelativeLayout>

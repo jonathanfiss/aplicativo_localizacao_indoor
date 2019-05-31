@@ -64,4 +64,6 @@
     <string name="hint_senha">Senha</string>
     <string name="hint_BSSID">Ex:04:0d:ca:2d:cb:a0</string>
     <string name="hint_SSID">Ex:Administrativa</string>
+    <string name="tv_funcao">Função:</string>
+    <string name="btCadastrarUser">Cadastrar Usuario</string>
 </resources>

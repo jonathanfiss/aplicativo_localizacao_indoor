@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Aplicativo_localizacao_indoor</string>
+    <string name="app_name">Localizacao Indoor Campus Pelotas</string>
+    <string name="btAdicionar">Adicionar</string>
+    <string name="btEditar">Alterar</string>
+    <string name="btremover">Remover</string>
+    <string name="btBuscaRota">Buscar Rota</string>
+    <string name="btLocalizar">Localizar</string>
+    <string name="mn_login">Login</string>
+    <string name="btLogin">Entrar</string>
+    <string name="hintSenha">Senha</string>
+    <string name="hintEmail">E-mail</string>
 </resources>

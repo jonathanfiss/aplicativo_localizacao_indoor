@@ -1,5 +1,7 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
+import com.google.firebase.database.Exclude;
+
 public class Local {
     private Long id;
     private Integer andar;
@@ -8,6 +10,7 @@ public class Local {
     private String data_hora_modificado;
     private String modificado_por;
     private boolean situacao;
+    private String key; //atributo apenas local
 
 
     public Local() {
@@ -21,9 +24,13 @@ public class Local {
         this.id = id;
     }
 
-    public Integer getAndar() { return andar;  }
+    public Integer getAndar() {
+        return andar;
+    }
 
-    public void setAndar(Integer andar) {  this.andar = andar;  }
+    public void setAndar(Integer andar) {
+        this.andar = andar;
+    }
 
     public String getDescricao() {
         return descricao;
@@ -64,4 +71,15 @@ public class Local {
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
     }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
+    }
 }
+

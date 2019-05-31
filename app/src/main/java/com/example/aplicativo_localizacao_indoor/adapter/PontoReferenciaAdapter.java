@@ -21,10 +21,11 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhes> {
     private Context context;
     private List<WiFiDetalhes> wiFiDetalhes;
 
-    public PontoReferenciaAdapter(@NonNull Context context, @NonNull List<WiFiDetalhes> wiFiDetalhes){
+    public PontoReferenciaAdapter(@NonNull Context context, @NonNull List<WiFiDetalhes> wiFiDetalhes) {
         super(context, 0, wiFiDetalhes);
         this.context = context;
     }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -39,18 +40,24 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhes> {
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
         TextView tvSSID = convertView.findViewById(R.id.tvSSIDAdapter);
         TextView tvBSSID = convertView.findViewById(R.id.tvBSSIDItemAdapter);
+        ImageView imvFotoPontoRefAdapter = convertView.findViewById(R.id.imvFotoPontoRefAdapter);
 
         //vincula os dados do objeto de modelo à view
         tvSSID.setText(wiFiDetalhes.getSSID());
         tvBSSID.setText(wiFiDetalhes.getBSSID());
+        if (wiFiDetalhes.getWiFiSignal() >= -55) {
+            imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_4_bar_green_24dp);
+        } else if (wiFiDetalhes.getWiFiSignal() >= -65 && wiFiDetalhes.getWiFiSignal() < -55) {
+            imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_3_bar_light_green_24dp);
+        } else if (wiFiDetalhes.getWiFiSignal() >= -75 && wiFiDetalhes.getWiFiSignal() < -65) {
+            imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_2_bar_yellow_24dp);
 
-//        if (produto.getUrl_foto() != null) {
-//            //aqui vai vincular a foto do produto vindo do firebase usando a biblioteca Picasso
-//        } else {
-//            imvFoto.setImageResource(R.drawable.img_carrinho_de_compras);
-//        }
+        } else if (wiFiDetalhes.getWiFiSignal() >= -85 && wiFiDetalhes.getWiFiSignal() < -75) {
+            imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_1_bar_red_24dp);
 
-
+        } else if (wiFiDetalhes.getWiFiSignal() <= -90 ) {
+            imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_0_bar_black_24dp);
+        }
         return convertView;
     }
 }

@@ -1,9 +1,15 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class Usuario {
-    private Long id;
+
+    private FirebaseUser firebaseUser;
     private String nome;
+    private String sobrenome;
     private String matricula;
+    private String Funcao;
+    private String Email;
     private String data_hora_modificado;
     private String modificado_por;
     private boolean situacao;
@@ -11,12 +17,12 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Long getId() {
-        return id;
+    public FirebaseUser getFirebaseUser() {
+        return firebaseUser;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFirebaseUser(FirebaseUser firebaseUser) {
+        this.firebaseUser = firebaseUser;
     }
 
     public String getNome() {
@@ -27,12 +33,36 @@ public class Usuario {
         this.nome = nome;
     }
 
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
     public String getMatricula() {
         return matricula;
     }
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    public String getFuncao() {
+        return Funcao;
+    }
+
+    public void setFuncao(String funcao) {
+        Funcao = funcao;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 
     public String getData_hora_modificado() {

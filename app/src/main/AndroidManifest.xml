@@ -24,7 +24,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,7 +38,9 @@
             android:label="Cadastrar Sala" />
         <activity
             android:name=".activity.AdminCadastraLocalActivity"
-            android:label="Cadastrar local" />
+            android:label="Cadastrar local">
+
+        </activity>
         <activity
             android:name=".activity.AdminCadastraPontoActivity"
             android:label="Cadastrar Ponto" />
@@ -60,7 +61,9 @@
             android:label="Localizar" />
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name">
+
+        </activity>
     </application>
 
 </manifest>

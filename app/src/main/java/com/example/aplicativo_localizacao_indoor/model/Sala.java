@@ -1,22 +1,31 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
 public class Sala {
-    private Long id;
+    private String nome;
     private String numero;
     private String descricao;
     private String data_hora_modificado;
     private String modificado_por;
     private boolean situacao;
+    private Local local;
 
     public Sala() {
     }
 
-    public Long getId() {
-        return id;
+    public Local getLocal() {
+        return local;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getNumero() {

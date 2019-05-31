@@ -7,7 +7,7 @@
     tools:context=".activity.AdminCadastraSalaActivity">
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/etNomeSala"
         android:layout_width="346dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -38,7 +38,7 @@
         android:text="Numero:" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/etNumeroSala"
         android:layout_width="341dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -49,13 +49,13 @@
         android:inputType="textPersonName" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spLocalSala"
         android:layout_width="371dp"
         android:layout_height="35dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="236dp"
-        android:layout_marginEnd="19dp" />
+        android:layout_marginEnd="23dp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -68,12 +68,20 @@
         android:text="@string/tv_seleciona_local" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btSelecionaPonto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="290dp"
+        android:text="@string/bt_seleciona_ponto" />
+
+    <Button
+        android:id="@+id/btCadastrarSala"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="94dp"
-        android:layout_marginBottom="252dp"
-        android:text="@string/bt_seleciona_ponto" />
+        android:layout_marginStart="132dp"
+        android:layout_marginBottom="183dp"
+        android:text="@string/btCadastrarSala" />
 </RelativeLayout>

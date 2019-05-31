@@ -8,6 +8,15 @@ public class Ponto {
     private int patrimonio;
     private String bssidAnt;
     private String bssidPost;
+    private Local local;
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
+    }
 
     private boolean situacao;
 

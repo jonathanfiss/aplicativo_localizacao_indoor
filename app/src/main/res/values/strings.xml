@@ -66,4 +66,6 @@
     <string name="hint_SSID">Ex:Administrativa</string>
     <string name="tv_funcao">Função:</string>
     <string name="btCadastrarUser">Cadastrar Usuario</string>
+    <string name="tv_distancia">Distancia</string>
+    <string name="tv_dbm">dbm</string>
 </resources>

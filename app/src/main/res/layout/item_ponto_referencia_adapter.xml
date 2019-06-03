@@ -30,32 +30,51 @@
                 android:hint="@string/hint_nome"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.034"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imvFotoPontoRefAdapter"
                 app:layout_constraintTop_toTopOf="@+id/imvFotoPontoRefAdapter" />
 
             <ImageView
                 android:id="@+id/imvFotoPontoRefAdapter"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:contentDescription="@string/content_description_foto_produto"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tvDBM"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-            <!--app:srcCompat="@drawable/img_cliente_icon_524x524" />-->
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <TextView
                 android:id="@+id/tvBSSIDItemAdapter"
                 android:layout_width="142dp"
                 android:layout_height="21dp"
-                android:layout_marginStart="108dp"
-                android:layout_marginBottom="36dp"
+                android:layout_marginStart="84dp"
+                android:layout_marginBottom="40dp"
                 android:hint="@string/hint_valor"
                 android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDistancia"
+                android:layout_width="142dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="84dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/tv_distancia"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDBM"
+                android:layout_width="60dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/tv_dbm"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </android.support.constraint.ConstraintLayout>

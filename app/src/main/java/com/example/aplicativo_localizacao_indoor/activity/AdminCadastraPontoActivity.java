@@ -22,6 +22,10 @@ import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhes;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetalhes;
 
 public class AdminCadastraPontoActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_CODE = 0;
@@ -29,51 +33,42 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-//        int retorno = 0;
-//        final long TEMPO = (1000 * 5);//a cada 5s
+        long TEMPO = (1000 * 3); // chama o método a cada 3 segundos
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_cadastra_ponto);
 
-
         verificaPermissao();
-        wifiManager.startScan();
         if (wifiManager.startScan()) {
-            AppSetup.wiFiDetalhes.clear();
-            List<ScanResult> scanResults = wifiManager.getScanResults();
-            atualizaView(scanResults);
-            Log.d("listscan", wifiManager.getScanResults().toString());
+            Timer timer = new Timer();
+            TimerTask tarefa = new TimerTask() {
 
-//            Timer timer = null;
-//            if (timer==null){
-//                timer = new Timer();
-//                TimerTask timerTask = new TimerTask() {
-//                    @Override
-//                    public void run() {
-//                        List<ScanResult> scanResults = wifiManager.getScanResults();
-//                        atualizaView(scanResults);
-//                    }
-//                };
-//                timer.scheduleAtFixedRate(timerTask, TEMPO, TEMPO );
-//            }
-
+                public void run() {
+                    try {
+                        wiFiDetalhes.clear();
+                        List<ScanResult> scanResults = wifiManager.getScanResults();
+                        atualizaWifi(scanResults);
+                        Log.d("listscan", wifiManager.getScanResults().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
+            atualizaView();
         }
+//        wifiManager.startScan();
+//        if (wifiManager.startScan()) {
+//            wiFiDetalhes.clear();
+//            List<ScanResult> scanResults = wifiManager.getScanResults();
+//            atualizaWifi(scanResults);
+//            Log.d("listscan", wifiManager.getScanResults().toString());
+//        }
         ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
 
         lvPontosRef.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-//                final Integer retorno = getIntent().getExtras().getInt("ponto");
-//                if (retorno.equals("1")){
-//                    Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
-//                    intent.putExtra("positionAnt", position);
-//                    startActivity(intent);
-//                }if (retorno.equals("2")){
-//                    Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class );
-//                    intent.putExtra("positionPost", position);
-//                    startActivity(intent);
-//                }else{
                 Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class);
                 intent.putExtra("position", position);
                 startActivity(intent);
@@ -82,7 +77,8 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         });
     }
 
-    public void atualizaView(List<ScanResult> scanResults) {
+    public void atualizaWifi(List<ScanResult> scanResults) {
+        wiFiDetalhes.clear();
         for (ScanResult result : scanResults) {
             WiFiDetalhes wiFiDetalhes = new WiFiDetalhes();
             wiFiDetalhes.setBSSID(result.BSSID);
@@ -90,8 +86,13 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
             wiFiDetalhes.setWiFiSignal(result.level);
             AppSetup.wiFiDetalhes.add(wiFiDetalhes);
         }
+    }
+
+    public void atualizaView(){
+
         ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
-        lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
+        lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, wiFiDetalhes));
+        lvPontosRef.deferNotifyDataSetChanged();
     }
 
     private boolean verificaPermissao() {

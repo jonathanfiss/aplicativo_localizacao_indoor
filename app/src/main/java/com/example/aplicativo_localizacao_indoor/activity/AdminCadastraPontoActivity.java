@@ -30,41 +30,28 @@ import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetal
 public class AdminCadastraPontoActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_CODE = 0;
 
+    private PontoReferenciaAdapter pontoReferenciaAdapter;
+    long TEMPO = (1000 * 3); // chama o método a cada 3 segundos
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-        long TEMPO = (1000 * 3); // chama o método a cada 3 segundos
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_cadastra_ponto);
 
+        final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         verificaPermissao();
-        if (wifiManager.startScan()) {
-            Timer timer = new Timer();
-            TimerTask tarefa = new TimerTask() {
 
-                public void run() {
-                    try {
-                        wiFiDetalhes.clear();
-                        List<ScanResult> scanResults = wifiManager.getScanResults();
-                        atualizaWifi(scanResults);
-                        Log.d("listscan", wifiManager.getScanResults().toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
-            atualizaView();
+        if (wifiManager.startScan()) {
+            new Thread(atualizaRede).start();
         }
-//        wifiManager.startScan();
-//        if (wifiManager.startScan()) {
-//            wiFiDetalhes.clear();
-//            List<ScanResult> scanResults = wifiManager.getScanResults();
-//            atualizaWifi(scanResults);
-//            Log.d("listscan", wifiManager.getScanResults().toString());
-//        }
+
         ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
+
+            pontoReferenciaAdapter = new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes);
+            lvPontosRef.setAdapter(pontoReferenciaAdapter);
+
 
         lvPontosRef.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,7 +62,37 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
             }
 //            }
         });
+
     }
+
+    private Runnable atualizaRede = new Runnable() {
+        public void run() {
+            try{
+                final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                Timer timer = new Timer();
+                TimerTask tarefa = new TimerTask() {
+
+                    public void run() {
+                        try {
+                            List<ScanResult> scanResults = wifiManager.getScanResults();
+                            atualizaWifi(scanResults);
+                            pontoReferenciaAdapter.notifyDataSetChanged();
+                            Log.d("listscan", wifiManager.getScanResults().toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
+
+
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+    };
 
     public void atualizaWifi(List<ScanResult> scanResults) {
         wiFiDetalhes.clear();
@@ -84,15 +101,14 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
             wiFiDetalhes.setBSSID(result.BSSID);
             wiFiDetalhes.setSSID(result.SSID);
             wiFiDetalhes.setWiFiSignal(result.level);
+            wiFiDetalhes.setDistacia(calculaDistancia(result.frequency, result.level));
             AppSetup.wiFiDetalhes.add(wiFiDetalhes);
         }
     }
 
-    public void atualizaView(){
-
-        ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
-        lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, wiFiDetalhes));
-        lvPontosRef.deferNotifyDataSetChanged();
+    public static double calculaDistancia(int frequency, int level){
+        double DISTANCE_MHZ_M = 27.55;
+        return Math.pow(10.0, (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
     }
 
     private boolean verificaPermissao() {

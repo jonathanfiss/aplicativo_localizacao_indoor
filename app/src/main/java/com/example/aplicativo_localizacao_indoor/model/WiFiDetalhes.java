@@ -4,6 +4,7 @@ public class WiFiDetalhes {
     private String SSID;
     private String BSSID;
     private int wiFiSignal;
+    private Double distacia;
 
     public WiFiDetalhes() {
     }
@@ -30,5 +31,13 @@ public class WiFiDetalhes {
 
     public void setWiFiSignal(int wiFiSignal) {
         this.wiFiSignal = wiFiSignal;
+    }
+
+    public Double getDistacia() {
+        return distacia;
+    }
+
+    public void setDistacia(Double distacia) {
+        this.distacia = distacia;
     }
 }

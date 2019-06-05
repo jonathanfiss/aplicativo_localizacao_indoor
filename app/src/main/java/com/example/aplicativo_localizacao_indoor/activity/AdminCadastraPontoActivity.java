@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -63,6 +64,8 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
 //            }
         });
 
+        new Task().execute();
+
     }
 
     private Runnable atualizaRede = new Runnable() {
@@ -93,6 +96,24 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
 
         }
     };
+
+    class Task extends AsyncTask<String, String, Boolean>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+        }
+    }
 
     public void atualizaWifi(List<ScanResult> scanResults) {
         wiFiDetalhes.clear();

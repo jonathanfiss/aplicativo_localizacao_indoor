@@ -78,4 +78,5 @@
     <string name="andarSelect2">2º Andar</string>
     <string name="andarSelect3">3º Andar</string>
     <string name="andarSelect">Andar:</string>
+    <string name="tv_patrimonio">Patrimônio:</string>
 </resources>

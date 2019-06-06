@@ -1,6 +1,7 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,6 +22,7 @@ import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.PontoReferenciaAdapter;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhes;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 import java.util.Timer;
@@ -30,6 +32,7 @@ import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetal
 
 public class AdminCadastraPontoActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_CODE = 0;
+    private ProgressDialog mProgressDialog;
 
     private PontoReferenciaAdapter pontoReferenciaAdapter;
     long TEMPO = (1000 * 3); // chama o método a cada 3 segundos
@@ -45,14 +48,19 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         verificaPermissao();
 
         if (wifiManager.startScan()) {
-            new Thread(atualizaRede).start();
+//            Timer timer = new Timer();
+//            TimerTask tarefa = new TimerTask() {
+//
+//                public void run() {
+                    new Task().execute();
+//                }
+//            };
+//            timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
         }
+//        pontoReferenciaAdapter = new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes);
+//        lvPontosRef.setAdapter(pontoReferenciaAdapter);
 
         ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
-
-            pontoReferenciaAdapter = new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes);
-            lvPontosRef.setAdapter(pontoReferenciaAdapter);
-
 
         lvPontosRef.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,74 +71,60 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
             }
 //            }
         });
-
-        new Task().execute();
-
     }
 
-    private Runnable atualizaRede = new Runnable() {
-        public void run() {
-            try{
+    class Task extends AsyncTask<Void, Void, List<WiFiDetalhes>> {
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            dialogProcessa();
+        }
+
+        @Override
+        protected List<WiFiDetalhes> doInBackground(Void... voids) {
+            try {
                 final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-                Timer timer = new Timer();
-                TimerTask tarefa = new TimerTask() {
-
-                    public void run() {
-                        try {
-                            List<ScanResult> scanResults = wifiManager.getScanResults();
-                            atualizaWifi(scanResults);
-                            pontoReferenciaAdapter.notifyDataSetChanged();
-                            Log.d("listscan", wifiManager.getScanResults().toString());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                try {
+                    List<ScanResult> scanResults = wifiManager.getScanResults();
+                    wiFiDetalhes.clear();
+                    for (ScanResult result : scanResults) {
+                        WiFiDetalhes wiFiDetalhes = new WiFiDetalhes();
+                        wiFiDetalhes.setBSSID(result.BSSID);
+                        wiFiDetalhes.setSSID(result.SSID);
+                        wiFiDetalhes.setWiFiSignal(result.level);
+                        wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+                        AppSetup.wiFiDetalhes.add(wiFiDetalhes);
                     }
-                };
-                timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
-
-
-
-            } catch (Exception e){
+                    Log.d("listscan", wifiManager.getScanResults().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return wiFiDetalhes;
+            } catch (Exception e) {
                 e.printStackTrace();
+                return null;
             }
-
-        }
-    };
-
-    class Task extends AsyncTask<String, String, Boolean>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
         }
 
         @Override
-        protected Boolean doInBackground(String... strings) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
+        protected void onPostExecute(List<WiFiDetalhes> wiFiDetalhes) {
+            super.onPostExecute(wiFiDetalhes);
+            ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
+            pontoReferenciaAdapter = new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes);
+            lvPontosRef.setAdapter(pontoReferenciaAdapter);
         }
     }
 
-    public void atualizaWifi(List<ScanResult> scanResults) {
-        wiFiDetalhes.clear();
-        for (ScanResult result : scanResults) {
-            WiFiDetalhes wiFiDetalhes = new WiFiDetalhes();
-            wiFiDetalhes.setBSSID(result.BSSID);
-            wiFiDetalhes.setSSID(result.SSID);
-            wiFiDetalhes.setWiFiSignal(result.level);
-            wiFiDetalhes.setDistacia(calculaDistancia(result.frequency, result.level));
-            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
-        }
+
+    public void dialogProcessa() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Processando ...");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.show();
     }
 
-    public static double calculaDistancia(int frequency, int level){
-        double DISTANCE_MHZ_M = 27.55;
-        return Math.pow(10.0, (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
-    }
 
     private boolean verificaPermissao() {
         //verifica se o aplicativo tem permissão para utilizar a localização

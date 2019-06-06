@@ -27,6 +27,8 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
     private EditText etNomeSala, etNumeroSala;
     private Spinner spLocalSala;
     private Button btSelecionaPonto, btCadastrarSala;
+    private Sala sala;
+    private ArrayList corredor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,8 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
         btSelecionaPonto = findViewById(R.id.btSelecionaPonto);
         btCadastrarSala = findViewById(R.id.btCadastrarSala);
 
-        final ArrayList corredor = new ArrayList<>();
-        final Sala sala = new Sala();
+        corredor = new ArrayList<>();
+        sala = new Sala();
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();

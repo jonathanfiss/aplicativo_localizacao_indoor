@@ -45,9 +45,6 @@
             android:name=".activity.AdminPontoReferenciaActivity"
             android:label="Ponto Referencia" />
         <activity
-            android:name=".activity.AdminCadastrarActivity"
-            android:label="cadastrar" />
-        <activity
             android:name=".activity.RotaActivity"
             android:label="Rota" />
         <activity

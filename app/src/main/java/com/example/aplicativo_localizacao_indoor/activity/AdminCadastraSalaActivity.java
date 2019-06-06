@@ -55,6 +55,13 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Local local = ds.getValue(Local.class);
                     local.setKey(ds.getKey());
+                    if (AppSetup.local.size()>0){
+                        for (Local lc: AppSetup.local){
+                            if (!local.getCorredor().toString().equals(lc.getCorredor().toString())){
+                                corredor.add(lc.getCorredor());
+                            }
+                        }
+                    }
 //                    for (i = 0; i < corredor.size(); i++) {
 //                        if (local.getCorredor().equals(corredor.get(i))) {
 //                        } else {
@@ -62,9 +69,9 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
 //                        }
 //                    }
                     AppSetup.local.add(local);
-                    corredor.add(local.getCorredor());
+
                 }
-                Log.d("banco", "Value is: " + corredor.toString());
+                Log.d("banco", "Value is teste: " + corredor.toString());
             }
 
             @Override

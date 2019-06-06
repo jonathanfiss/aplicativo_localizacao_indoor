@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +27,7 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
     private Spinner spFuncaoUser;
     private Button btCadastrarUser;
     private String[] FUNCAO = new String[]{"Administrador", "Cadastrador"};
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +46,12 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
         btCadastrarUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                etEmailUser = findViewById(R.id.etEmailUser);
-                etPasswordUser = findViewById(R.id.etPasswordUser);
-                singup(etEmailUser.getText().toString(), etPasswordUser.getText().toString());
+                if (!etEmailUser.getText().toString().isEmpty() && !etPasswordUser.getText().toString().isEmpty() && !etNomeUser.getText().toString().isEmpty() && !etSobrenomeUser.getText().toString().isEmpty() &&!etMatriculaUser.getText().toString().isEmpty() &&!spFuncaoUser.toString().isEmpty()){
+                    etEmailUser = findViewById(R.id.etEmailUser);
+                    etPasswordUser = findViewById(R.id.etPasswordUser);
+                    singup(etEmailUser.getText().toString(), etPasswordUser.getText().toString());
+                }
+
             }
         });
     }
@@ -59,6 +64,8 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("user", "createUserWithEmail:success");
                             cadastraUser(mAuth.getCurrentUser());
+                            Toast.makeText(AdminCadastraUsuarioActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
+                            limparForm();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("user", "createUserWithEmail:failure", task.getException());
@@ -86,5 +93,14 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
         usuario.setFuncao(FUNCAO[spFuncaoUser.getSelectedItemPosition()]);
         usuario.setSituacao(true);
         FirebaseDatabase.getInstance().getReference().child("admin").child(usuario.getFirebaseUser().getUid()).setValue(usuario);
+    }
+    private void limparForm() {
+        usuario = new Usuario();
+        etNomeUser.setText(null);
+        etSobrenomeUser.setText(null);
+        etMatriculaUser.setText(null);
+//        spFuncaoUser.setAdapter(FUNCAO);
+        etEmailUser.setText(null);
+        etPasswordUser.setText(null);
     }
 }

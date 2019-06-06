@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
+import com.example.aplicativo_localizacao_indoor.model.Usuario;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -104,6 +105,8 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference("dados/sala");
                     myRef.push().setValue(sala);
+                    Toast.makeText(AdminCadastraSalaActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
+                    limparForm();
                 }else{
                     Toast.makeText(AdminCadastraSalaActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
 
@@ -112,5 +115,9 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void limparForm() {
+        sala = new Sala();
+        etNomeSala.setText(null);
+        etNumeroSala.setText(null);
+    }
 }

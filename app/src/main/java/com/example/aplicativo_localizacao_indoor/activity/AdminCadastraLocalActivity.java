@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -39,7 +38,7 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
         local = new Local();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SETORES);
-        autoCompleteSetor = (AutoCompleteTextView) findViewById(R.id.autoCompleteSetor);
+        autoCompleteSetor = (AutoCompleteTextView) findViewById(R.id.acCorredor);
         autoCompleteSetor.setAdapter(adapter);
 
         etDescricaoLocal = findViewById(R.id.etDescricaoLocal);

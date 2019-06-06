@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Aplicativo_localizacao_indoor</string>
-    <string name="btLocalizar">Localizar</string>
-    <string name="btRota">Buscar Rota</string>
+
     <string name="menu_adm">Login Administrador</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">Home</string>
@@ -28,44 +27,55 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!--menu-->
     <string name="menu_cad_acess_point">Cadastrar Access Point</string>
     <string name="menu_cad_local">Cadastrar local</string>
     <string name="menu_cad_sala">Cadastrar sala</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_add_user">Adicionar Usuario</string>
     <string name="menu_send">Send</string>
-    <string name="hint_nome">Nome</string>
+
     <string name="content_description_foto_produto">pf</string>
     <string name="hint_valor">pf</string>
-    <string name="nome_rede">Você esta conectado a </string>
-    <string name="cood_lat">Latitude:</string>
-    <string name="cood_long">Longitude:</string>
-    <string name="cood_alt">Altura:</string>
-    <string name="cood_vel">Velocidade:</string>
-    <string name="hint_acte_ambiente">Ex: corredor</string>
-    <string name="hint_et_local">Ex: TSI</string>
-    <string name="btCadastrarLocal">Cadatrar Local</string>
-    <string name="btCadastrarSala">Cadastrar Sala</string>
-    <string name="btCadastrarPonto">Cadastrar Access Point</string>
-    <string name="btListar">Listar</string>
-    <string name="bt_cad_ponto_ref_ant">Access Point Anterior</string>
-    <string name="bt_cad_ponto_ref_post">Access Point Posterior</string>
-    <string name="hint_patrimonio">Patrimonio</string>
-    <string name="andarSelect1">1º Andar</string>
-    <string name="andarSelect2">2º Andar</string>
-    <string name="andarSelect3">3º Andar</string>
-    <string name="andarSelect">Andar:</string>
+
+    <!--TextView-->
+    <string name="tv_descricao">Descrição:</string>
+    <string name="tv_predio">Prédio:</string>
+    <string name="tv_distancia">Distancia</string>
+    <string name="tv_dbm">dbm</string>
+    <string name="tv_funcao">Função:</string>
     <string name="tv_corredor">Corredor:</string>
     <string name="tv_seleciona_local">Local</string>
-    <string name="bt_seleciona_ponto">Selecionar Access Points</string>
+    <!--EditText-->
+
+    <!--hint-->
+    <string name="hint_predio">Ex: Caldelas</string>
     <string name="hint_sobrenome">Sobreome</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_matricula">Matricula</string>
     <string name="hint_senha">Senha</string>
     <string name="hint_BSSID">Ex:04:0d:ca:2d:cb:a0</string>
     <string name="hint_SSID">Ex:Administrativa</string>
-    <string name="tv_funcao">Função:</string>
+    <string name="hint_patrimonio">Patrimonio</string>
+    <string name="hint_acte_ambiente">Ex: corredor</string>
+    <string name="hint_et_local">Ex: TSI</string>
+    <string name="hint_nome">Nome</string>
+
+    <!--button-->
     <string name="btCadastrarUser">Cadastrar Usuario</string>
-    <string name="tv_distancia">Distancia</string>
-    <string name="tv_dbm">dbm</string>
+    <string name="bt_seleciona_ponto">Selecionar Access Points</string>
+    <string name="btCadastrarLocal">Cadatrar Local</string>
+    <string name="btCadastrarSala">Cadastrar Sala</string>
+    <string name="btCadastrarPonto">Cadastrar Access Point</string>
+    <string name="btListar">Listar</string>
+    <string name="bt_cad_ponto_ref_ant">Access Point Anterior</string>
+    <string name="bt_cad_ponto_ref_post">Access Point Posterior</string>
+    <string name="btLocalizar">Localizar</string>
+    <string name="btRota">Buscar Rota</string>
+
+    <!--radiobutton-->
+    <string name="andarSelect1">1º Andar</string>
+    <string name="andarSelect2">2º Andar</string>
+    <string name="andarSelect3">3º Andar</string>
+    <string name="andarSelect">Andar:</string>
 </resources>

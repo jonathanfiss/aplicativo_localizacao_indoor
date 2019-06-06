@@ -6,16 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".activity.AdminCadastraLocalActivity">
 
+    <TextView
+        android:id="@+id/tvPredio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/tv_predio" />
+
+    <EditText
+        android:id="@+id/etPredio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPredio"
+        android:layout_alignStart="@+id/tvPredio"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/hint_predio"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/tvAndarSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPredio"
+        android:layout_alignStart="@+id/etPredio"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/andarSelect"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <RadioGroup
         android:id="@+id/radioGroupAndar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvAndarSelect"
         android:layout_alignStart="@+id/tvAndarSelect"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="20dp"
+        android:layout_alignEnd="@+id/etPredio"
         android:orientation="horizontal">
 
         <RadioButton
@@ -41,40 +73,24 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/tvAndarSelect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/andarSelect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvCorredor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radioGroupAndar"
-        android:layout_alignStart="@+id/tvAndarSelect"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_alignStart="@+id/radioGroupAndar"
+        android:layout_marginTop="15dp"
         android:text="@string/tv_corredor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="82dp" />
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteSetor"
+        android:id="@+id/acCorredor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/tvAndarSelect"
+        android:layout_below="@+id/tvCorredor"
+        android:layout_alignStart="@+id/tvCorredor"
         android:layout_alignEnd="@+id/radioGroupAndar"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="0dp"
         android:hint="@string/hint_et_local"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,12 +98,9 @@
         android:id="@+id/etDescricaoLocal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/autoCompleteSetor"
-        android:layout_alignStart="@+id/tvAndarSelect"
-        android:layout_alignEnd="@+id/autoCompleteSetor"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="0dp"
+        android:layout_below="@+id/tvDescricao"
+        android:layout_alignStart="@+id/tvDescricao"
+        android:layout_alignEnd="@+id/acCorredor"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/hint_acte_ambiente"
@@ -100,11 +113,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etDescricaoLocal"
-        android:layout_alignStart="@+id/tvAndarSelect"
+        android:layout_alignStart="@+id/etDescricaoLocal"
         android:layout_alignEnd="@+id/etDescricaoLocal"
-        android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="0dp"
         android:text="@string/btCadastrarLocal" />
+
+    <TextView
+        android:id="@+id/tvDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/acCorredor"
+        android:layout_alignStart="@+id/acCorredor"
+        android:layout_marginTop="15dp"
+        android:text="@string/tv_descricao" />
 
 </RelativeLayout>

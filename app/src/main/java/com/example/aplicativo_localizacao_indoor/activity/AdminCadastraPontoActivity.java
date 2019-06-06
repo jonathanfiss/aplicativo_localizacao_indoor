@@ -34,6 +34,7 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_CODE = 0;
     private ProgressDialog mProgressDialog;
     private ListView lvPontosRef;
+    private int executa = 0;
 
     private PontoReferenciaAdapter pontoReferenciaAdapter;
     long TEMPO = (1000 * 3); // chama o método a cada 3 segundos
@@ -48,21 +49,23 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         verificaPermissao();
 
-        if (wifiManager.startScan()) {
-            Timer timer = new Timer();
-            TimerTask tarefa = new TimerTask() {
-
-                public void run() {
-                    new Task().execute();
-
-                }
-            };
-            timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
-        }
+//        if (wifiManager.startScan()) {
+//            Timer timer = new Timer();
+//            TimerTask tarefa = new TimerTask() {
+//
+//                public void run() {
+//                    new Task().execute();
+//
+//                }
+//            };
+//            timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
+//        }
 //        pontoReferenciaAdapter = new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes);
 //        lvPontosRef.setAdapter(pontoReferenciaAdapter);
 
         lvPontosRef = findViewById(R.id.lv_pontos_ref);
+        lvPontosRef.setAdapter(pontoReferenciaAdapter);
+        new TaskPonto().execute();
 
         lvPontosRef.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,20 +79,24 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         });
     }
 
-    class Task extends AsyncTask<Void, Void, List<WiFiDetalhes>> {
+    //    AsyncTask <Params, Progress, Result>:
+    class TaskPonto extends AsyncTask<Void, Void, List<WiFiDetalhes>> {
 
         @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-            dialogProcessa();
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(AdminCadastraPontoActivity.this);
+            mProgressDialog.setMessage("Buscando redes...");
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressDialog.show();
         }
 
         @Override
         protected List<WiFiDetalhes> doInBackground(Void... voids) {
             try {
-                final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-                try {
-                    List<ScanResult> scanResults = wifiManager.getScanResults();
+                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                List<ScanResult> scanResults = wifiManager.getScanResults();
                     wiFiDetalhes.clear();
                     for (ScanResult result : scanResults) {
                         WiFiDetalhes wiFiDetalhes = new WiFiDetalhes();
@@ -98,34 +105,31 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
                         wiFiDetalhes.setWiFiSignal(result.level);
                         wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
                         AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                        Log.d("listwifi", wiFiDetalhes.toString());
                     }
                     Log.d("listscan", wifiManager.getScanResults().toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return wiFiDetalhes;
+                    Thread.sleep(2000);
+
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
             }
+            return wiFiDetalhes;
         }
 
         @Override
         protected void onPostExecute(List<WiFiDetalhes> wiFiDetalhes) {
             super.onPostExecute(wiFiDetalhes);
+            Log.d("onPostExecute", wiFiDetalhes.toString());
             ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
             pontoReferenciaAdapter = new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes);
             lvPontosRef.setAdapter(pontoReferenciaAdapter);
+            mProgressDialog.dismiss();
         }
     }
 
 
-    public void dialogProcessa() {
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Processando ...");
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressDialog.show();
+    public void dialogBuscando() {
+
     }
 
 

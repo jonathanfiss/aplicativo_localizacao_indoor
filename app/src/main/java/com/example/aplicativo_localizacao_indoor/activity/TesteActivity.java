@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class TesteActivity extends AppCompatActivity {
     private String [] nomes = {"teste1","teste2","teste3","teste4","teste5","teste6","teste7","teste8","teste9","teste10","teste11"};
     private ListView lvTeste;
-
+//    https://www.youtube.com/watch?v=2bNBLiqkKlE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +24,7 @@ public class TesteActivity extends AppCompatActivity {
         lvTeste.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,new ArrayList<String>()));
 
         new MyTask().execute();
+//        https://www.youtube.com/watch?v=PtFlqrhPn0U
     }
     class MyTask extends AsyncTask<Void, String, String>{
         ArrayAdapter<String> adapter;

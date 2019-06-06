@@ -29,6 +29,28 @@
         android:text="@string/hint_SSID" />
 
     <Button
+        android:id="@+id/btCadPontoRefAnt"
+        android:layout_width="209dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSSID"
+        android:layout_alignStart="@+id/tvSSID"
+        android:layout_marginTop="15dp"
+        android:text="@string/bt_cad_ponto_ref_ant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/btCadPontoRefAntChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btCadPontoRefAnt"
+        android:layout_alignTop="@+id/btCadPontoRefAnt"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="0dp"
+        android:layout_toEndOf="@+id/btCadPontoRefAnt" />
+
+    <Button
         android:id="@+id/btCadPontoRefPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,16 +77,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btCadPontoRefAnt"
-        android:layout_width="209dp"
+    <TextView
+        android:id="@+id/tvPatrimonio"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvSSID"
-        android:layout_alignStart="@+id/tvSSID"
+        android:layout_below="@+id/btCadPontoRefPost"
+        android:layout_alignStart="@+id/btCadPontoRefPost"
         android:layout_marginTop="15dp"
-        android:text="@string/bt_cad_ponto_ref_ant"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/tv_patrimonio" />
 
     <EditText
         android:id="@+id/etPatrimonio"
@@ -90,25 +110,5 @@
         android:layout_alignEnd="@+id/etPatrimonio"
         android:layout_marginTop="25dp"
         android:text="@string/btCadastrarPonto" />
-
-    <Switch
-        android:id="@+id/btCadPontoRefAntChecked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btCadPontoRefAnt"
-        android:layout_alignTop="@+id/btCadPontoRefAnt"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="0dp"
-        android:layout_toEndOf="@+id/btCadPontoRefAnt" />
-
-    <TextView
-        android:id="@+id/tvPatrimonio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btCadPontoRefPost"
-        android:layout_alignStart="@+id/btCadPontoRefPost"
-        android:layout_marginTop="15dp"
-        android:text="@string/tv_patrimonio" />
 
 </RelativeLayout>

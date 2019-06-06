@@ -6,20 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.AdminCadastraSalaActivity">
 
-    <EditText
-        android:id="@+id/etNomeSala"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvNomeSala"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -28,8 +16,20 @@
         android:layout_marginTop="20dp"
         android:text="Nome:" />
 
+    <EditText
+        android:id="@+id/etNomeSala"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNomeSala"
+        android:layout_alignStart="@+id/tvNomeSala"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvNumeroSala"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etNomeSala"
@@ -41,29 +41,29 @@
         android:id="@+id/etNumeroSala"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/tvNumeroSala"
+        android:layout_alignStart="@+id/tvNumeroSala"
         android:layout_alignEnd="@+id/etNomeSala"
         android:layout_marginTop="1dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <Spinner
-        android:id="@+id/spLocalSala"
-        android:layout_width="371dp"
-        android:layout_height="35dp"
-        android:layout_below="@+id/textView6"
-        android:layout_alignEnd="@+id/etNumeroSala"
-        android:layout_marginTop="1dp" />
-
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tvLocalSala"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etNumeroSala"
         android:layout_alignStart="@+id/etNumeroSala"
         android:layout_marginTop="20dp"
         android:text="@string/tv_seleciona_local" />
+
+    <Spinner
+        android:id="@+id/spLocalSala"
+        android:layout_width="371dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tvLocalSala"
+        android:layout_alignEnd="@+id/etNumeroSala"
+        android:layout_marginTop="1dp" />
 
     <Button
         android:id="@+id/btSelecionaPonto"

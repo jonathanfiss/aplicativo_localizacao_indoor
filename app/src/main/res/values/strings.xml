@@ -79,4 +79,9 @@
     <string name="andarSelect3">3º Andar</string>
     <string name="andarSelect">Andar:</string>
     <string name="tv_patrimonio">Patrimônio:</string>
+    <string name="tv_nome_usuario">Nome:</string>
+    <string name="tv_sobrenome_usuario">Sobrenome:</string>
+    <string name="tv_email_usuario">Email:</string>
+    <string name="tv_matricula_usuario">Matricula:</string>
+    <string name="tv_senha_usuario">Senha:</string>
 </resources>

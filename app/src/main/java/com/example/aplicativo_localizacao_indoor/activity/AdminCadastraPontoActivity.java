@@ -33,6 +33,7 @@ import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetal
 public class AdminCadastraPontoActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_CODE = 0;
     private ProgressDialog mProgressDialog;
+    private ListView lvPontosRef;
 
     private PontoReferenciaAdapter pontoReferenciaAdapter;
     long TEMPO = (1000 * 3); // chama o método a cada 3 segundos
@@ -48,23 +49,25 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         verificaPermissao();
 
         if (wifiManager.startScan()) {
-//            Timer timer = new Timer();
-//            TimerTask tarefa = new TimerTask() {
-//
-//                public void run() {
+            Timer timer = new Timer();
+            TimerTask tarefa = new TimerTask() {
+
+                public void run() {
                     new Task().execute();
-//                }
-//            };
-//            timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
+
+                }
+            };
+            timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
         }
 //        pontoReferenciaAdapter = new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes);
 //        lvPontosRef.setAdapter(pontoReferenciaAdapter);
 
-        ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
+        lvPontosRef = findViewById(R.id.lv_pontos_ref);
 
         lvPontosRef.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class);
                 intent.putExtra("position", position);
                 startActivity(intent);

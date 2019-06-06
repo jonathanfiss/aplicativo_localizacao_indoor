@@ -14,16 +14,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AdminSelecionaPontoActivity"></activity>
+        <activity android:name=".activity.TesteActivity"></activity>
+        <activity android:name=".activity.AdminSelecionaPontoActivity" />
         <activity
             android:name=".activity.AdminCadastraPontoActivityDetalhe"
             android:label="Cadastrar Ponto" />
         <activity
             android:name=".activity.AdminMainActivity"
             android:label="Administrador"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.AdminListarPontoActivity"
             android:label="Lista de Pontos" />
@@ -35,9 +34,7 @@
             android:label="Cadastrar Sala" />
         <activity
             android:name=".activity.AdminCadastraLocalActivity"
-            android:label="Cadastrar local">
-
-        </activity>
+            android:label="Cadastrar local"></activity>
         <activity
             android:name=".activity.AdminCadastraPontoActivity"
             android:label="Cadastrar Ponto" />
@@ -58,6 +55,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

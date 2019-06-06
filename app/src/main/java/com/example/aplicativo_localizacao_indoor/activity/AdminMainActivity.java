@@ -76,7 +76,7 @@ public class AdminMainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
+//cria o menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -93,7 +93,7 @@ public class AdminMainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(new Intent(AdminMainActivity.this, TesteActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

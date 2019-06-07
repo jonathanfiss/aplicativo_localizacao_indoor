@@ -51,9 +51,7 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         verificaPermissao();
         if (!wifiManager.isWifiEnabled()){
             wifiManager.setWifiEnabled(true);
-
         }
-
 
         lvPontosRef = findViewById(R.id.lv_pontos_ref);
         lvPontosRef.setAdapter(pontoReferenciaAdapter);

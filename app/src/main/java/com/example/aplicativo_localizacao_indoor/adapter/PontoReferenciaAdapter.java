@@ -49,7 +49,7 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhes> {
         tvBSSID.setText(wiFiDetalhes.getBSSID());
         tvDBM.setText(String.valueOf(wiFiDetalhes.getWiFiSignal()));
         tvDistancia.setText(wiFiDetalhes.getDistacia().toString());
-//        tvDBM.setText(String.valueOf(wiFiDetalhes.getWiFiSignal()).concat(String.valueOf(R.string.tv_dbm)));
+//        tvDistancia.setText(String.format("%.1f %s", wiFiDetalhes.getDistacia().toString(), getString(R.string.label_aprox)));
         if (wiFiDetalhes.getWiFiSignal() >= -55) {
             imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_4_bar_green_24dp);
         } else if (wiFiDetalhes.getWiFiSignal() >= -65 && wiFiDetalhes.getWiFiSignal() < -55) {

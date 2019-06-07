@@ -37,7 +37,7 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        spFuncaoUser =findViewById(R.id.spFuncaoUser);
+        spFuncaoUser = findViewById(R.id.spFuncaoUser);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FUNCAO);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spFuncaoUser.setAdapter(adapter);
@@ -46,16 +46,21 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
         btCadastrarUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etEmailUser.getText().toString().isEmpty() && !etPasswordUser.getText().toString().isEmpty() && !etNomeUser.getText().toString().isEmpty() && !etSobrenomeUser.getText().toString().isEmpty() &&!etMatriculaUser.getText().toString().isEmpty() &&!spFuncaoUser.toString().isEmpty()){
-                    etEmailUser = findViewById(R.id.etEmailUser);
-                    etPasswordUser = findViewById(R.id.etPasswordUser);
+                etEmailUser = findViewById(R.id.etEmailUser);
+                etPasswordUser = findViewById(R.id.etPasswordUser);
+                etNomeUser = findViewById(R.id.etNomeUser);
+                etSobrenomeUser = findViewById(R.id.etSobrenomeUser);
+                etMatriculaUser = findViewById(R.id.etMatriculaUser);
+                spFuncaoUser = findViewById(R.id.spFuncaoUser);
+                if (!etEmailUser.getText().toString().isEmpty() && !etPasswordUser.getText().toString().isEmpty() && !etNomeUser.getText().toString().isEmpty() && !etSobrenomeUser.getText().toString().isEmpty() && !etMatriculaUser.getText().toString().isEmpty()) {
                     singup(etEmailUser.getText().toString(), etPasswordUser.getText().toString());
                 }
 
             }
         });
     }
-    private void singup(String email, String password){
+
+    private void singup(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -79,10 +84,10 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
     }
 
     private void cadastraUser(FirebaseUser firebaseUser) {
-        etNomeUser =findViewById(R.id.etNomeUser);
-        etSobrenomeUser =findViewById(R.id.etSobrenomeUser);
-        etMatriculaUser=findViewById(R.id.etMatriculaUser);
-        spFuncaoUser=findViewById(R.id.spFuncaoUser);
+        etNomeUser = findViewById(R.id.etNomeUser);
+        etSobrenomeUser = findViewById(R.id.etSobrenomeUser);
+        etMatriculaUser = findViewById(R.id.etMatriculaUser);
+        spFuncaoUser = findViewById(R.id.spFuncaoUser);
 
         Usuario usuario = new Usuario();
         usuario.setFirebaseUser(firebaseUser);
@@ -94,6 +99,7 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
         usuario.setSituacao(true);
         FirebaseDatabase.getInstance().getReference().child("admin").child(usuario.getFirebaseUser().getUid()).setValue(usuario);
     }
+
     private void limparForm() {
         usuario = new Usuario();
         etNomeUser.setText(null);

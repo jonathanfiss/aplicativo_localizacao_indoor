@@ -6,135 +6,135 @@
     android:layout_height="match_parent"
     tools:context=".activity.AdminCadastraUsuarioActivity">
 
-    <TextView
-        android:id="@+id/tvNomeUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/tv_nome_usuario" />
-
-    <EditText
-        android:id="@+id/etNomeUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvNomeUsuario"
-        android:layout_alignStart="@+id/tvNomeUsuario"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:hint="@string/hint_nome"
-        android:inputType="textPersonName" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/tvSobrenomeUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etNomeUser"
-        android:layout_alignStart="@+id/etNomeUser"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/tv_sobrenome_usuario" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/etSobrenomeUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvSobrenomeUsuario"
-        android:layout_alignStart="@+id/etNomeUser"
-        android:layout_alignEnd="@+id/etNomeUser"
-        android:ems="10"
-        android:hint="@string/hint_sobrenome"
-        android:inputType="textPersonName" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiNomeUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true">
 
-    <TextView
-        android:id="@+id/tvEmailUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etSobrenomeUser"
-        android:layout_alignStart="@+id/etSobrenomeUser"
-        android:layout_marginTop="15dp"
-        android:text="@string/tv_email_usuario" />
+                <EditText
+                    android:id="@+id/etNomeUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_nome"
+                    android:inputType="textPersonName" />
+            </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etEmailUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvEmailUsuario"
-        android:layout_alignStart="@+id/etSobrenomeUser"
-        android:layout_alignEnd="@+id/etSobrenomeUser"
-        android:ems="10"
-        android:hint="@string/hint_email"
-        android:inputType="textEmailAddress" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiSobrenomeUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tiNomeUser"
+                android:layout_alignStart="@+id/tiNomeUser"
+                android:layout_marginTop="10dp">
 
-    <TextView
-        android:id="@+id/tvMatriculaUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etEmailUser"
-        android:layout_alignStart="@+id/etEmailUser"
-        android:layout_marginTop="15dp"
-        android:text="@string/tv_matricula_usuario" />
+                <EditText
+                    android:id="@+id/etSobrenomeUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:ems="10"
+                    android:hint="@string/hint_sobrenome"
+                    android:inputType="textPersonName" />
+            </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etMatriculaUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvMatriculaUsuario"
-        android:layout_alignStart="@+id/tvMatriculaUsuario"
-        android:layout_alignEnd="@+id/etEmailUser"
-        android:ems="10"
-        android:hint="@string/hint_matricula"
-        android:inputType="number" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiEmailUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tiSobrenomeUser"
+                android:layout_marginTop="10dp">
 
-    <TextView
-        android:id="@+id/tv_funcao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etMatriculaUser"
-        android:layout_alignStart="@+id/etMatriculaUser"
-        android:layout_marginTop="15dp"
-        android:text="@string/tv_funcao" />
+                <EditText
+                    android:id="@+id/etEmailUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/spFuncaoUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_funcao"
-        android:layout_alignStart="@+id/tv_funcao"
-        android:layout_alignEnd="@+id/etMatriculaUser" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiMatriculaUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tiEmailUser"
+                android:layout_marginTop="10dp">
 
-    <TextView
-        android:id="@+id/tvSenhaUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spFuncaoUser"
-        android:layout_alignStart="@+id/spFuncaoUser"
-        android:layout_marginTop="15dp"
-        android:text="@string/tv_senha_usuario" />
+                <EditText
+                    android:id="@+id/etMatriculaUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_matricula"
+                    android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etPasswordUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvSenhaUsuario"
-        android:layout_alignStart="@+id/tvSenhaUsuario"
-        android:layout_alignEnd="@+id/spFuncaoUser"
-        android:layout_marginStart="0dp"
-        android:ems="10"
-        android:hint="@string/hint_senha"
-        android:inputType="textPassword" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiFuncaoUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tiMatriculaUser"
+                android:layout_marginTop="10dp">
 
-    <Button
-        android:id="@+id/btCadastrarUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etPasswordUser"
-        android:layout_alignStart="@+id/etPasswordUser"
-        android:layout_alignEnd="@+id/etPasswordUser"
-        android:layout_marginTop="25dp"
-        android:text="@string/btCadastrarUser" />
+                <TextView
+                    android:id="@+id/tv_funcao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/tv_funcao" />
+
+                <Spinner
+                    android:id="@+id/spFuncaoUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiSenhaUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tiFuncaoUser"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/etPasswordUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:ems="10"
+                    android:hint="@string/hint_senha"
+                    android:inputType="textPassword" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btCadastrarUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tiSenhaUser"
+                android:layout_marginTop="10dp"
+                android:text="@string/btCadastrarUser" />
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

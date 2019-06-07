@@ -84,4 +84,5 @@
     <string name="tv_email_usuario">Email:</string>
     <string name="tv_matricula_usuario">Matricula:</string>
     <string name="tv_senha_usuario">Senha:</string>
+    <string name="label_aprox">aproximadamente</string>
 </resources>

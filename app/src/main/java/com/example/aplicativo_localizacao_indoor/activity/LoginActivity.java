@@ -23,17 +23,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
-/**
- * A login screen that offers login via email/password.
- */
 public class LoginActivity extends AppCompatActivity {
 
-
     private FirebaseAuth mAuth;
-
-    private View mProgressView;
-    private View mLoginFormView;
+//    private
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         mAuth = FirebaseAuth.getInstance();
-        // Set up the login form.
-        final String etEmail = ((EditText) findViewById(R.id.etEmail)).getText().toString();
-        final String etPassword = ((EditText) findViewById(R.id.etPassword)).getText().toString();
 
         findViewById(R.id.btLogin).setOnClickListener(new View.OnClickListener(){
             @Override

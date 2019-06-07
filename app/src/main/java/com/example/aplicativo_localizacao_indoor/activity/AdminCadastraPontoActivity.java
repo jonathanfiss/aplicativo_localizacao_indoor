@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.aplicativo_localizacao_indoor.R;
@@ -48,20 +49,11 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
 
         final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         verificaPermissao();
+        if (!wifiManager.isWifiEnabled()){
+            wifiManager.setWifiEnabled(true);
 
-//        if (wifiManager.startScan()) {
-//            Timer timer = new Timer();
-//            TimerTask tarefa = new TimerTask() {
-//
-//                public void run() {
-//                    new Task().execute();
-//
-//                }
-//            };
-//            timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
-//        }
-//        pontoReferenciaAdapter = new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes);
-//        lvPontosRef.setAdapter(pontoReferenciaAdapter);
+        }
+
 
         lvPontosRef = findViewById(R.id.lv_pontos_ref);
         lvPontosRef.setAdapter(pontoReferenciaAdapter);
@@ -80,11 +72,13 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
     }
 
     //    AsyncTask <Params, Progress, Result>:
-    class TaskPonto extends AsyncTask<Void, Void, List<WiFiDetalhes>> {
+    class TaskPonto extends AsyncTask<Void, Integer, List<WiFiDetalhes>> {
+        ArrayAdapter<WiFiDetalhes> adapter;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            adapter = (ArrayAdapter<WiFiDetalhes>) lvPontosRef.getAdapter();
             mProgressDialog = new ProgressDialog(AdminCadastraPontoActivity.this);
             mProgressDialog.setMessage("Buscando redes...");
             mProgressDialog.setIndeterminate(true);
@@ -96,7 +90,10 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         protected List<WiFiDetalhes> doInBackground(Void... voids) {
             try {
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-                List<ScanResult> scanResults = wifiManager.getScanResults();
+                do {
+                    wifiManager.startScan();
+                    List<ScanResult> scanResults = wifiManager.getScanResults();
+                    AppSetup.wiFiDetalhes.clear();
                     wiFiDetalhes.clear();
                     for (ScanResult result : scanResults) {
                         WiFiDetalhes wiFiDetalhes = new WiFiDetalhes();
@@ -105,10 +102,12 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
                         wiFiDetalhes.setWiFiSignal(result.level);
                         wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
                         AppSetup.wiFiDetalhes.add(wiFiDetalhes);
-                        Log.d("listwifi", wiFiDetalhes.toString());
                     }
                     Log.d("listscan", wifiManager.getScanResults().toString());
-                    Thread.sleep(2000);
+                    publishProgress(1);
+                    Thread.sleep(3000);
+                } while (executa == 0);
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -117,13 +116,19 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            mProgressDialog.dismiss();
+            if (values[0].equals(1)) {
+                lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
+            }
+        }
+
+        @Override
         protected void onPostExecute(List<WiFiDetalhes> wiFiDetalhes) {
             super.onPostExecute(wiFiDetalhes);
-            Log.d("onPostExecute", wiFiDetalhes.toString());
-            ListView lvPontosRef = findViewById(R.id.lv_pontos_ref);
-            pontoReferenciaAdapter = new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes);
-            lvPontosRef.setAdapter(pontoReferenciaAdapter);
             mProgressDialog.dismiss();
+            lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
         }
     }
 

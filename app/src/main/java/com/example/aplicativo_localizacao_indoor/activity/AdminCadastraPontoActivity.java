@@ -70,7 +70,7 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
     }
 
     //    AsyncTask <Params, Progress, Result>:
-    class TaskPonto extends AsyncTask<Void, Integer, List<WiFiDetalhes>> {
+    class TaskPonto extends AsyncTask<Void, List<WiFiDetalhes>, List<WiFiDetalhes>> {
         ArrayAdapter<WiFiDetalhes> adapter;
 
         @Override
@@ -114,13 +114,19 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values) {
+        protected void onProgressUpdate(List<WiFiDetalhes>... values) {
             super.onProgressUpdate(values);
-            mProgressDialog.dismiss();
-            if (values[0].equals(1)) {
-                lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
-            }
+            lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
         }
+        //
+//        @Override
+//        protected void onProgressUpdate(Integer... values) {
+//            super.onProgressUpdate(values);
+//            mProgressDialog.dismiss();
+//            if (values[0].equals(1)) {
+//                lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
+//            }
+//        }
 
         @Override
         protected void onPostExecute(List<WiFiDetalhes> wiFiDetalhes) {

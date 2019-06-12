@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,9 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_cadastra_ponto_detalhe);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         final Integer position = getIntent().getExtras().getInt("position");
 //        Integer positionAnt = getIntent().getExtras().getInt("positionAnt");
@@ -84,6 +88,22 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
             }
         });
         Log.d("teste", String.valueOf(AppSetup.wiFiDetalhes.get(position).getBSSID()));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+            default:break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
 }

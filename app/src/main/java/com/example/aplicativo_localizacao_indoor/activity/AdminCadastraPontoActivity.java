@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -46,6 +47,9 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_cadastra_ponto);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         verificaPermissao();
@@ -102,7 +106,7 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
                         AppSetup.wiFiDetalhes.add(wiFiDetalhes);
                     }
                     Log.d("listscan", wifiManager.getScanResults().toString());
-                    publishProgress(1);
+                    publishProgress(wiFiDetalhes);
                     Thread.sleep(3000);
                 } while (executa == 0);
 
@@ -170,5 +174,23 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
             }
         }//retorna true se tiver tudo certo
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                executa=1;
+                finish();
+                break;
+            default:break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        executa =1;
+        finish();
     }
 }

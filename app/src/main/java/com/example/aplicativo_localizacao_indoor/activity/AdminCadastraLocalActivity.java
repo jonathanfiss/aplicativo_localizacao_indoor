@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -25,13 +26,17 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
     private RadioGroup radioGroupAndar;
     private AutoCompleteTextView autoCompleteSetor;
     private EditText etDescricaoLocal;
+    private Button btCadLocal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_cadastra_local);
 
-        Button btCadLocal = findViewById(R.id.btCadLocal);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        btCadLocal = findViewById(R.id.btCadLocal);
 
         String[] SETORES = new String[]{"Principal", "Tecnologia em sistemas para Internet", "Design", "Caldelas"};
 
@@ -103,5 +108,20 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
         radioGroupAndar.clearCheck();
         autoCompleteSetor.setText(null);
         etDescricaoLocal.setText(null);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+            default:break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

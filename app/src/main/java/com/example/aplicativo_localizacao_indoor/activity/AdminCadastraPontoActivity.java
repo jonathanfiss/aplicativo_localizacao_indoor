@@ -53,7 +53,7 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
 
         final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         verificaPermissao();
-        if (!wifiManager.isWifiEnabled()){
+        if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
 
@@ -80,7 +80,7 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            adapter = (ArrayAdapter<WiFiDetalhes>) lvPontosRef.getAdapter();
+//            adapter = (ArrayAdapter<WiFiDetalhes>) lvPontosRef.getAdapter();
             mProgressDialog = new ProgressDialog(AdminCadastraPontoActivity.this);
             mProgressDialog.setMessage("Buscando redes...");
             mProgressDialog.setIndeterminate(true);
@@ -97,19 +97,26 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     AppSetup.wiFiDetalhes.clear();
                     wiFiDetalhes.clear();
-                    for (ScanResult result : scanResults) {
-                        WiFiDetalhes wiFiDetalhes = new WiFiDetalhes();
-                        wiFiDetalhes.setBSSID(result.BSSID);
-                        wiFiDetalhes.setSSID(result.SSID);
-                        wiFiDetalhes.setWiFiSignal(result.level);
-                        wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
-                        AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                    if (scanResults.isEmpty()) {
+                        mProgressDialog = new ProgressDialog(AdminCadastraPontoActivity.this);
+                        mProgressDialog.setMessage("Buscando redes...");
+                        mProgressDialog.setIndeterminate(true);
+                        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        mProgressDialog.show();
+                    } else {
+                        for (ScanResult result : scanResults) {
+                            WiFiDetalhes wiFiDetalhes = new WiFiDetalhes();
+                            wiFiDetalhes.setBSSID(result.BSSID);
+                            wiFiDetalhes.setSSID(result.SSID);
+                            wiFiDetalhes.setWiFiSignal(result.level);
+                            wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+                            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                        }
+                        publishProgress(wiFiDetalhes);
                     }
-                    Log.d("listscan", wifiManager.getScanResults().toString());
-                    publishProgress(wiFiDetalhes);
-                    Thread.sleep(3000);
+                    Log.d("listscan", scanResults.toString());
+                    Thread.sleep(2000);
                 } while (executa == 0);
-
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -120,17 +127,9 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(List<WiFiDetalhes>... values) {
             super.onProgressUpdate(values);
+            mProgressDialog.dismiss();
             lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
         }
-        //
-//        @Override
-//        protected void onProgressUpdate(Integer... values) {
-//            super.onProgressUpdate(values);
-//            mProgressDialog.dismiss();
-//            if (values[0].equals(1)) {
-//                lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
-//            }
-//        }
 
         @Override
         protected void onPostExecute(List<WiFiDetalhes> wiFiDetalhes) {
@@ -178,19 +177,20 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
-                executa=1;
+                executa = 1;
                 finish();
                 break;
-            default:break;
+            default:
+                break;
         }
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        executa =1;
+        executa = 1;
         finish();
     }
 }

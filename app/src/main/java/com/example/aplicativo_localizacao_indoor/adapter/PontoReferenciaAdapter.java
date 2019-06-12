@@ -1,6 +1,7 @@
 package com.example.aplicativo_localizacao_indoor.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -47,9 +48,10 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhes> {
         //vincula os dados do objeto de modelo à view
         tvSSID.setText(wiFiDetalhes.getSSID());
         tvBSSID.setText(wiFiDetalhes.getBSSID());
-        tvDBM.setText(String.valueOf(wiFiDetalhes.getWiFiSignal()));
-        tvDistancia.setText(wiFiDetalhes.getDistacia().toString());
-//        tvDistancia.setText(String.format("%.1f %s", wiFiDetalhes.getDistacia().toString(), getString(R.string.label_aprox)));
+        tvDBM.setText(String.format("%s %s", wiFiDetalhes.getWiFiSignal(), context.getResources().getString(R.string.label_dbm)));
+
+        tvDistancia.setText(String.format("%s %.1f %s", context.getResources().getString(R.string.label_aprox), wiFiDetalhes.getDistacia(), context.getResources().getString(R.string.label_metros)));
+
         if (wiFiDetalhes.getWiFiSignal() >= -55) {
             imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_4_bar_green_24dp);
         } else if (wiFiDetalhes.getWiFiSignal() >= -65 && wiFiDetalhes.getWiFiSignal() < -55) {

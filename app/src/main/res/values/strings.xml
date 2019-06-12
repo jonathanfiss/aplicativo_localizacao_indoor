@@ -46,6 +46,12 @@
     <string name="tv_funcao">Função:</string>
     <string name="tv_corredor">Corredor:</string>
     <string name="tv_seleciona_local">Local</string>
+    <string name="tv_patrimonio">Patrimônio:</string>
+    <string name="tv_nome_usuario">Nome:</string>
+    <string name="tv_sobrenome_usuario">Sobrenome:</string>
+    <string name="tv_email_usuario">Email:</string>
+    <string name="tv_matricula_usuario">Matricula:</string>
+    <string name="tv_senha_usuario">Senha:</string>
     <!--EditText-->
 
     <!--hint-->
@@ -78,11 +84,9 @@
     <string name="andarSelect2">2º Andar</string>
     <string name="andarSelect3">3º Andar</string>
     <string name="andarSelect">Andar:</string>
-    <string name="tv_patrimonio">Patrimônio:</string>
-    <string name="tv_nome_usuario">Nome:</string>
-    <string name="tv_sobrenome_usuario">Sobrenome:</string>
-    <string name="tv_email_usuario">Email:</string>
-    <string name="tv_matricula_usuario">Matricula:</string>
-    <string name="tv_senha_usuario">Senha:</string>
-    <string name="label_aprox">aproximadamente</string>
+
+    <!--label-->
+    <string name="label_aprox">Aprox. </string>
+    <string name="label_metros"> metros</string>
+    <string name="label_dbm">dbm</string>
 </resources>

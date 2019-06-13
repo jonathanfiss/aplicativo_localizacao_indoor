@@ -1,87 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.AdminCadastraSalaActivity">
 
-    <TextView
-        android:id="@+id/tvNomeSala"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout5"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Nome:" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/etNomeSala"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvNomeSala"
-        android:layout_alignStart="@+id/tvNomeSala"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/etNomeSala"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_nome_sala"
+            android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tvNumeroSala"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout6"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etNomeSala"
-        android:layout_alignStart="@+id/etNomeSala"
-        android:layout_marginTop="20dp"
-        android:text="Numero:" />
+        android:layout_marginTop="8dp"
+        android:hint="@string/hint_numero_sala"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
 
-    <EditText
-        android:id="@+id/etNumeroSala"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvNumeroSala"
-        android:layout_alignStart="@+id/tvNumeroSala"
-        android:layout_alignEnd="@+id/etNomeSala"
-        android:layout_marginTop="1dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/etNumeroSala"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/tvLocalSala"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etNumeroSala"
-        android:layout_alignStart="@+id/etNumeroSala"
-        android:layout_marginTop="20dp"
-        android:text="@string/tv_seleciona_local" />
+        android:layout_marginTop="8dp"
+        android:text="@string/tv_seleciona_local"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
 
     <Spinner
         android:id="@+id/spLocalSala"
-        android:layout_width="371dp"
-        android:layout_height="35dp"
-        android:layout_below="@+id/tvLocalSala"
-        android:layout_alignEnd="@+id/etNumeroSala"
-        android:layout_marginTop="1dp" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
+        app:layout_constraintStart_toStartOf="@+id/tvLocalSala"
+        app:layout_constraintTop_toBottomOf="@+id/tvLocalSala" />
 
     <Button
         android:id="@+id/btSelecionaPonto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spLocalSala"
-        android:layout_alignStart="@+id/spLocalSala"
-        android:layout_alignEnd="@+id/spLocalSala"
-        android:layout_marginTop="20dp"
-        android:text="@string/bt_seleciona_ponto" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/bt_seleciona_ponto"
+        app:layout_constraintEnd_toEndOf="@+id/spLocalSala"
+        app:layout_constraintStart_toStartOf="@+id/spLocalSala"
+        app:layout_constraintTop_toBottomOf="@+id/spLocalSala" />
 
     <Button
         android:id="@+id/btCadastrarSala"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btSelecionaPonto"
-        android:layout_alignStart="@+id/btSelecionaPonto"
-        android:layout_alignEnd="@+id/btSelecionaPonto"
-        android:layout_marginTop="30dp"
-        android:text="@string/btCadastrarSala" />
-</RelativeLayout>
+        android:layout_marginTop="16dp"
+        android:text="@string/btCadastrarSala"
+        app:layout_constraintEnd_toEndOf="@+id/btSelecionaPonto"
+        app:layout_constraintStart_toStartOf="@+id/btSelecionaPonto"
+        app:layout_constraintTop_toBottomOf="@+id/btSelecionaPonto" />
+
+</android.support.constraint.ConstraintLayout>

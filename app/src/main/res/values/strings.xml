@@ -40,7 +40,6 @@
 
     <!--TextView-->
     <string name="tv_descricao">Descrição:</string>
-    <string name="tv_predio">Prédio:</string>
     <string name="tv_distancia">Distancia</string>
     <string name="tv_dbm">dbm</string>
     <string name="tv_funcao">Função:</string>
@@ -55,17 +54,19 @@
     <!--EditText-->
 
     <!--hint-->
-    <string name="hint_predio">Ex: Caldelas</string>
-    <string name="hint_sobrenome">Sobreome</string>
+    <string name="hint_predio">Prédio</string>
+    <string name="hint_sobrenome">Sobrenome</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_matricula">Matricula</string>
     <string name="hint_senha">Senha</string>
     <string name="hint_BSSID">Ex:04:0d:ca:2d:cb:a0</string>
     <string name="hint_SSID">Ex:Administrativa</string>
     <string name="hint_patrimonio">Patrimonio</string>
-    <string name="hint_acte_ambiente">Ex: corredor</string>
-    <string name="hint_et_local">Ex: TSI</string>
+    <string name="hint_descricao_local">Descrição</string>
+    <string name="hint_local">Corredor</string>
     <string name="hint_nome">Nome</string>
+    <string name="hint_nome_sala">Nome da sala</string>
+    <string name="hint_numero_sala">Numero da sala</string>
 
     <!--button-->
     <string name="btCadastrarUser">Cadastrar Usuario</string>

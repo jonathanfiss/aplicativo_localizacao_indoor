@@ -1,54 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.AdminCadastraLocalActivity">
 
-    <TextView
-        android:id="@+id/tvPredio"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/tv_predio" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/etPredio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPredio"
-        android:layout_alignStart="@+id/tvPredio"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:hint="@string/hint_predio"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/etPredio"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="@string/hint_predio"
+            android:inputType="textPersonName" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/tvAndarSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPredio"
-        android:layout_alignStart="@+id/etPredio"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:text="@string/andarSelect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <RadioGroup
         android:id="@+id/radioGroupAndar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAndarSelect"
-        android:layout_alignStart="@+id/tvAndarSelect"
-        android:layout_alignEnd="@+id/etPredio"
-        android:orientation="horizontal">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/tvAndarSelect"
+        app:layout_constraintTop_toBottomOf="@+id/tvAndarSelect">
 
         <RadioButton
             android:id="@+id/radioButtonAndar1"
@@ -72,59 +69,55 @@
             android:text="@string/andarSelect3" />
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/tvCorredor"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupAndar"
-        android:layout_alignStart="@+id/radioGroupAndar"
-        android:layout_marginTop="15dp"
-        android:text="@string/tv_corredor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteY="82dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/radioGroupAndar"
+        app:layout_constraintStart_toStartOf="@+id/radioGroupAndar"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupAndar">
 
-    <AutoCompleteTextView
-        android:id="@+id/acCorredor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCorredor"
-        android:layout_alignStart="@+id/tvCorredor"
-        android:layout_alignEnd="@+id/radioGroupAndar"
-        android:hint="@string/hint_et_local"
-        app:layout_constraintTop_toTopOf="parent" />
+        <AutoCompleteTextView
+            android:id="@+id/acCorredor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="232dp"
+            android:hint="@string/hint_local" />
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etDescricaoLocal"
-        android:layout_width="match_parent"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDescricao"
-        android:layout_alignStart="@+id/tvDescricao"
-        android:layout_alignEnd="@+id/acCorredor"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="@string/hint_acte_ambiente"
-        android:inputType="textMultiLine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+        <EditText
+            android:id="@+id/etDescricaoLocal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="348dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/hint_descricao_local"
+            android:inputType="textMultiLine" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btCadLocal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etDescricaoLocal"
-        android:layout_alignStart="@+id/etDescricaoLocal"
-        android:layout_alignEnd="@+id/etDescricaoLocal"
-        android:layout_marginTop="20dp"
-        android:text="@string/btCadastrarLocal" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/btCadastrarLocal"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
-    <TextView
-        android:id="@+id/tvDescricao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/acCorredor"
-        android:layout_alignStart="@+id/acCorredor"
-        android:layout_marginTop="15dp"
-        android:text="@string/tv_descricao" />
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

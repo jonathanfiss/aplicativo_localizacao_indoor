@@ -14,12 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AdminListarUsuariosActivity"></activity>
-        <activity android:name=".activity.AdminListarSalasActivity" />
-        <activity android:name=".activity.AdminListarLocaisActivity" />
-        <activity android:name=".activity.AdminCadastrarLocalEspecialActivity" />
-        <activity android:name=".activity.TesteActivity" />
-        <activity android:name=".activity.AdminSelecionaPontoActivity" />
+        <activity
+            android:name=".activity.AdminListarUsuariosActivity"
+            android:label="Lista de usuarios"></activity>
+        <activity
+            android:name=".activity.AdminListarSalasActivity"
+            android:label="Lista de Salas"></activity>
+        <activity
+            android:name=".activity.AdminListarLocaisActivity"
+            android:label="Lista de Locais"></activity>
+        <activity
+            android:name=".activity.AdminCadastrarLocalEspecialActivity"
+            android:label="Cadastrar locais Especiais"></activity>
+        <activity
+            android:name=".activity.TesteActivity"
+            android:label="Acitivity Teste"></activity>
+        <activity
+            android:name=".activity.AdminSelecionaPontoActivity"
+            android:label="Selecionar Pontos de Referencia"></activity>
         <activity
             android:name=".activity.AdminCadastraPontoActivityDetalhe"
             android:label="Cadastrar Ponto" />

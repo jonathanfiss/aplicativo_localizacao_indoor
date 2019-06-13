@@ -34,7 +34,7 @@ public class AdminListarSalasActivity extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Salas");
+        DatabaseReference myRef = database.getReference("dados/sala");
 
         // Read from the database
         myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {

@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Usuario;
-import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhes;
 
 import java.util.List;
 
@@ -38,20 +37,18 @@ public class ListaUsuariosAdapter extends ArrayAdapter<Usuario> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_usuario, parent, false);
         }
 
-//        //mapeia os componentes da UI para vincular os dados do objeto de modelo
-//        TextView tvSSID = convertView.findViewById(R.id.tvSSIDAdapter);
-//        TextView tvBSSID = convertView.findViewById(R.id.tvBSSIDItemAdapter);
-//        TextView tvDBM = convertView.findViewById(R.id.tvDBM);
-//        TextView tvDistancia = convertView.findViewById(R.id.tvDistancia);
-//        ImageView imvFotoPontoRefAdapter = convertView.findViewById(R.id.imvFotoPontoRefAdapter);
-//
-//        //vincula os dados do objeto de modelo à view
-//        tvSSID.setText(wiFiDetalhes.getSSID());
-//        tvBSSID.setText(wiFiDetalhes.getBSSID());
-//        tvDBM.setText(String.format("%s %s", wiFiDetalhes.getWiFiSignal(), context.getResources().getString(R.string.label_dbm)));
-//
-//        tvDistancia.setText(String.format("%s %.1f %s", context.getResources().getString(R.string.label_aprox), wiFiDetalhes.getDistacia(), context.getResources().getString(R.string.label_metros)));
-//
+        //mapeia os componentes da UI para vincular os dados do objeto de modelo
+        TextView tvNomeCompleto = convertView.findViewById(R.id.tvNomeCompletoAdapter);
+        TextView tvEmailAdapter = convertView.findViewById(R.id.tvEmailAdapter);
+        TextView tvFuncaoAdapter = convertView.findViewById(R.id.tvFuncaoAdapter);
+        TextView tvMatriculaAdapter = convertView.findViewById(R.id.tvMatriculaAdapter);
+
+        //vincula os dados do objeto de modelo à view
+        tvNomeCompleto.setText(usuario.getNome().concat(" "));
+        tvEmailAdapter.setText(usuario.getEmail());
+        tvFuncaoAdapter.setText(usuario.getFuncao());
+        tvMatriculaAdapter.setText(usuario.getMatricula());
+
         return convertView;
     }
 }

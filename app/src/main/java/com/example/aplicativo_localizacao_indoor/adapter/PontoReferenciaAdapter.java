@@ -1,7 +1,6 @@
 package com.example.aplicativo_localizacao_indoor.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
-import com.example.aplicativo_localizacao_indoor.activity.AdminSelecionaPontoActivity;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhes;
 
 import java.util.List;
@@ -39,10 +37,10 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhes> {
         }
 
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
-        TextView tvSSID = convertView.findViewById(R.id.tvSSIDAdapter);
-        TextView tvBSSID = convertView.findViewById(R.id.tvBSSIDItemAdapter);
+        TextView tvSSID = convertView.findViewById(R.id.tvNomeCompletoAdapter);
+        TextView tvBSSID = convertView.findViewById(R.id.tvEmailAdapter);
         TextView tvDBM = convertView.findViewById(R.id.tvDBM);
-        TextView tvDistancia = convertView.findViewById(R.id.tvDistancia);
+        TextView tvDistancia = convertView.findViewById(R.id.tvFuncaoAdapter);
         ImageView imvFotoPontoRefAdapter = convertView.findViewById(R.id.imvFotoPontoRefAdapter);
 
         //vincula os dados do objeto de modelo à view

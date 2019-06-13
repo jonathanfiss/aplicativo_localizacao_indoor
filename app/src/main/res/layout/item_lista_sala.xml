@@ -21,7 +21,7 @@
 
 
             <TextView
-                android:id="@+id/tvSSIDAdapter"
+                android:id="@+id/tvNomeCompletoAdapter"
                 android:layout_width="294dp"
                 android:layout_height="26dp"
                 android:layout_gravity="start"
@@ -48,7 +48,7 @@
 
 
             <TextView
-                android:id="@+id/tvBSSIDItemAdapter"
+                android:id="@+id/tvEmailAdapter"
                 android:layout_width="292dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="84dp"
@@ -56,18 +56,18 @@
                 android:hint="@string/hint_valor"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tvSSIDAdapter"
+                app:layout_constraintEnd_toEndOf="@+id/tvNomeCompletoAdapter"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvDistancia"
+                android:id="@+id/tvFuncaoAdapter"
                 android:layout_width="294dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="84dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/tv_distancia"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tvBSSIDItemAdapter"
+                app:layout_constraintEnd_toEndOf="@+id/tvEmailAdapter"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView

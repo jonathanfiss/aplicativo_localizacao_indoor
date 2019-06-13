@@ -4,20 +4,43 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_cad_acess_point"
-            android:icon="@drawable/ic_menu_acess_point"
-            android:title="@string/menu_cad_acess_point" />
-        <item
-            android:id="@+id/nav_cad_local"
-            android:icon="@drawable/ic_cad_local"
-            android:title="@string/menu_cad_local" />
-        <item
-            android:id="@+id/nav_cad_sala"
-            android:icon="@drawable/ic_cad_sala"
-            android:title="@string/menu_cad_sala" />
-
+    <item android:title="Cadastro">
+        <menu>
+            <item
+                android:id="@+id/nav_cad_access_point"
+                android:icon="@drawable/ic_menu_access_point"
+                android:title="@string/menu_cad_access_point" />
+            <item
+                android:id="@+id/nav_cad_local"
+                android:icon="@drawable/ic_cad_local"
+                android:title="@string/menu_cad_local" />
+            <item
+                android:id="@+id/nav_cad_local_especial"
+                android:icon="@drawable/ic_cad_local"
+                android:title="@string/menu_cad_local_especial" />
+            <item
+                android:id="@+id/nav_cad_sala"
+                android:icon="@drawable/ic_cad_sala"
+                android:title="@string/menu_cad_sala" />
+        </menu>
+    </item>
     </group>
+    <item android:title="Lista">
+        <menu>
+            <item
+                android:id="@+id/nav_list_access_point"
+                android:icon="@drawable/ic_menu_access_point"
+                android:title="@string/menu_list_access_point" />
+            <item
+                android:id="@+id/nav_list_local"
+                android:icon="@drawable/ic_cad_local"
+                android:title="@string/menu_list_local" />
+            <item
+                android:id="@+id/nav_list_sala"
+                android:icon="@drawable/ic_cad_sala"
+                android:title="@string/menu_list_sala" />
+        </menu>
+    </item>
 
     <item android:title="Usuario">
         <menu>
@@ -25,6 +48,10 @@
                 android:id="@+id/nav_add_usuario"
                 android:icon="@drawable/ic_add_user"
                 android:title="@string/menu_add_user" />
+            <item
+            android:id="@+id/nav_list_usuario"
+            android:icon="@drawable/ic_add_user"
+            android:title="@string/menu_list_user" />
 
         </menu>
     </item>

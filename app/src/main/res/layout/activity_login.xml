@@ -10,15 +10,15 @@
 
     <!-- Login progress -->
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="452dp"
-        android:layout_height="679dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.434"
-        app:srcCompat="@drawable/ifsul" />
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView3"-->
+        <!--android:layout_width="452dp"-->
+        <!--android:layout_height="679dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="0.434"-->
+        <!--app:srcCompat="@drawable/ifsul" />-->
 
     <ProgressBar
         android:id="@+id/login_progress"

@@ -14,7 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TesteActivity"></activity>
+        <activity android:name=".activity.AdminListarUsuariosActivity"></activity>
+        <activity android:name=".activity.AdminListarSalasActivity" />
+        <activity android:name=".activity.AdminListarLocaisActivity" />
+        <activity android:name=".activity.AdminCadastrarLocalEspecialActivity" />
+        <activity android:name=".activity.TesteActivity" />
         <activity android:name=".activity.AdminSelecionaPontoActivity" />
         <activity
             android:name=".activity.AdminCadastraPontoActivityDetalhe"
@@ -22,7 +26,7 @@
         <activity
             android:name=".activity.AdminMainActivity"
             android:label="Administrador"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AdminListarPontoActivity"
             android:label="Lista de Pontos" />
@@ -34,7 +38,7 @@
             android:label="Cadastrar Sala" />
         <activity
             android:name=".activity.AdminCadastraLocalActivity"
-            android:label="Cadastrar local"></activity>
+            android:label="Cadastrar local" />
         <activity
             android:name=".activity.AdminCadastraPontoActivity"
             android:label="Cadastrar Ponto" />

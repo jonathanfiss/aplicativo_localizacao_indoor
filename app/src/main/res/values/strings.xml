@@ -28,7 +28,7 @@
     <string name="action_settings">Settings</string>
 
     <!--menu-->
-    <string name="menu_cad_acess_point">Cadastrar Access Point</string>
+    <string name="menu_cad_access_point">Cadastrar Access Point</string>
     <string name="menu_cad_local">Cadastrar local</string>
     <string name="menu_cad_sala">Cadastrar sala</string>
     <string name="menu_tools">Tools</string>
@@ -89,4 +89,9 @@
     <string name="label_aprox">Aprox. </string>
     <string name="label_metros"> metros</string>
     <string name="label_dbm">dbm</string>
+    <string name="menu_list_access_point">Listar Access Point</string>
+    <string name="menu_list_local">Lista locais</string>
+    <string name="menu_list_sala">lista de salas</string>
+    <string name="menu_list_user">Lista de usuarios</string>
+    <string name="menu_cad_local_especial">Cadastrar local especial</string>
 </resources>

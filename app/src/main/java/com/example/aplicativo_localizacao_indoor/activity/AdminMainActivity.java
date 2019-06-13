@@ -77,7 +77,8 @@ public class AdminMainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-//cria o menu
+
+    //cria o menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -104,27 +105,57 @@ public class AdminMainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        switch (item.getItemId()){
-            case R.id.nav_cad_acess_point:{
+        switch (item.getItemId()) {
+            case R.id.nav_cad_access_point: {
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastraPontoActivity.class));
                 Log.d("click", "AdminCadastraPontoActivity");
                 break;
             }
-            case R.id.nav_cad_local:{
+            case R.id.nav_cad_local: {
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastraLocalActivity.class));
                 Log.d("click", "AdminCadastraLocalActivity");
 
                 break;
             }
-            case R.id.nav_cad_sala:{
+            case R.id.nav_cad_local_especial: {
+                startActivity(new Intent(AdminMainActivity.this, AdminCadastrarLocalEspecialActivity.class));
+                Log.d("click", "AdminCadastrarLocalEspecialActivity");
+
+                break;
+            }
+            case R.id.nav_cad_sala: {
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastraSalaActivity.class));
                 Log.d("click", "AdminCadastraSalaActivity");
 
                 break;
             }
-            case R.id.nav_add_usuario:{
+            case R.id.nav_list_access_point: {
+                startActivity(new Intent(AdminMainActivity.this, AdminListarPontoActivity.class));
+                Log.d("click", "AdminListarPontoActivity");
+
+                break;
+            }
+            case R.id.nav_list_local: {
+                startActivity(new Intent(AdminMainActivity.this, AdminListarLocaisActivity.class));
+                Log.d("click", "AdminListarLocaisActivity");
+
+                break;
+            }
+            case R.id.nav_list_sala: {
+                startActivity(new Intent(AdminMainActivity.this, AdminListarSalasActivity.class));
+                Log.d("click", "AdminListarSalasActivity");
+
+                break;
+            }
+            case R.id.nav_add_usuario: {
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastraUsuarioActivity.class));
                 Log.d("click", "AdminCadastraUsuarioActivity");
+
+                break;
+            }
+            case R.id.nav_list_usuario: {
+                startActivity(new Intent(AdminMainActivity.this, AdminListarUsuariosActivity.class));
+                Log.d("click", "AdminListarUsuariosActivity");
 
                 break;
             }

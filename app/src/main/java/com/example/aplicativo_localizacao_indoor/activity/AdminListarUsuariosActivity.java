@@ -2,11 +2,25 @@ package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.adapter.ListaUsuariosAdapter;
+import com.example.aplicativo_localizacao_indoor.model.Usuario;
+import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class AdminListarUsuariosActivity extends AppCompatActivity {
+    private ListView listaUsuarios;
+    private static String TAG = "Lista de usuarios";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +29,33 @@ public class AdminListarUsuariosActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        listaUsuarios = findViewById(R.id.lv_lista_usuarios);
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("usuarios");
+
+        // Read from the database
+        myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Usuario usuario = ds.getValue(Usuario.class);
+//                    usuario.setKey(ds.getKey());
+                    AppSetup.usuarios.add(usuario);
+                }
+                listaUsuarios.setAdapter(new ListaUsuariosAdapter(AdminListarUsuariosActivity.this, AppSetup.usuarios));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

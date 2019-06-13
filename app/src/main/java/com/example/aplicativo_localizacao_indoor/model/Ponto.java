@@ -2,6 +2,8 @@ package com.example.aplicativo_localizacao_indoor.model;
 
 import android.widget.EditText;
 
+import com.google.firebase.database.Exclude;
+
 public class Ponto {
     private String bssid;
     private String ssid;
@@ -9,6 +11,7 @@ public class Ponto {
     private String bssidAnt;
     private String bssidPost;
     private Local local;
+    private String key;
 
     public Local getLocal() {
         return local;
@@ -69,5 +72,15 @@ public class Ponto {
 
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
+    }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
     }
 }

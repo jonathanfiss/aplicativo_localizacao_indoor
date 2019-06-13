@@ -1,6 +1,7 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.Exclude;
 
 public class Usuario {
 
@@ -13,6 +14,7 @@ public class Usuario {
     private String data_hora_modificado;
     private String modificado_por;
     private boolean situacao;
+    private String key;
 
     public Usuario() {
     }
@@ -87,5 +89,15 @@ public class Usuario {
 
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
+    }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
     }
 }

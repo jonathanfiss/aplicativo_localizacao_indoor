@@ -1,5 +1,7 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
+import com.google.firebase.database.Exclude;
+
 public class Sala {
     private String nome;
     private String numero;
@@ -8,6 +10,7 @@ public class Sala {
     private String modificado_por;
     private boolean situacao;
     private Local local;
+    private String key;
 
     public Sala() {
     }
@@ -66,5 +69,13 @@ public class Sala {
 
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
+    }
+@Exclude
+    public String getKey() {
+        return key;
+    }
+@Exclude
+    public void setKey(String key) {
+        this.key = key;
     }
 }

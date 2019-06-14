@@ -9,17 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.example.aplicativo_localizacao_indoor.R;
-import com.example.aplicativo_localizacao_indoor.model.Ponto;
-import com.example.aplicativo_localizacao_indoor.model.Sala;
+import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 
 import java.util.List;
 
-public class ListaPontosRefAdapter extends ArrayAdapter<Ponto>{
+public class ListaPontosRefAdapter extends ArrayAdapter<PontoRef>{
 
     private Context context;
-    private List<Ponto> pontosref;
+    private List<PontoRef> pontosref;
 
-    public ListaPontosRefAdapter(@NonNull Context context, @NonNull List<Ponto> pontosref) {
+    public ListaPontosRefAdapter(@NonNull Context context, @NonNull List<PontoRef> pontosref) {
         super(context, 0, pontosref);
         this.context = context;
     }
@@ -28,7 +27,7 @@ public class ListaPontosRefAdapter extends ArrayAdapter<Ponto>{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //Devolve o objeto do modelo
-        Ponto pontoref = getItem(position);
+        PontoRef pontoref = getItem(position);
 
         //infla a view
         if (convertView == null) {

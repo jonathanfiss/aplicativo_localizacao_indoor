@@ -80,7 +80,7 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
                     local.setSituacao(true);
                     // obtém a referência do database e do nó
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("dados/local");
+                    DatabaseReference myRef = database.getReference("dados/locais");
                     myRef.push().setValue(local)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

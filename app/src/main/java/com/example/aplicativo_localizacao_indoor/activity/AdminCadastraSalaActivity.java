@@ -52,7 +52,7 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("dados/local");
+        DatabaseReference myRef = database.getReference("dados/salas");
 // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -61,8 +61,8 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Local local = ds.getValue(Local.class);
                     local.setKey(ds.getKey());
-                    if (AppSetup.local.size()>0){
-                        for (Local lc: AppSetup.local){
+                    if (AppSetup.locais.size()>0){
+                        for (Local lc: AppSetup.locais){
                             if (!local.getCorredor().equals(lc.getCorredor())){
                                 corredor.add(lc.getCorredor());
                                 Log.d("corredorUnidade",lc.getCorredor());
@@ -70,7 +70,7 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    AppSetup.local.add(local);
+                    AppSetup.locais.add(local);
 
                 }
                 Log.d("corredorTodo",corredor.toString());

@@ -4,7 +4,7 @@ import android.widget.EditText;
 
 import com.google.firebase.database.Exclude;
 
-public class Ponto {
+public class PontoRef {
     private String bssid;
     private String ssid;
     private int patrimonio;
@@ -23,7 +23,7 @@ public class Ponto {
 
     private boolean situacao;
 
-    public Ponto() {
+    public PontoRef() {
     }
 
     public String getBssid() {

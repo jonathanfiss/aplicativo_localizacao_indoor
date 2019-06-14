@@ -12,12 +12,16 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
-import com.example.aplicativo_localizacao_indoor.model.Ponto;
+import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
+    private Button btPontoAnt, btPontoPost, btCadPontoRef;
+    private TextView tvSSID, tvBSSID;
+    private EditText etPatrimonio;
+    private Switch Anterior, Posterior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,60 +34,57 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
         final Integer position = getIntent().getExtras().getInt("position");
 //        Integer positionAnt = getIntent().getExtras().getInt("positionAnt");
 //        Integer positionPost = getIntent().getExtras().getInt("positionPost");
-        TextView tvSSID = findViewById(R.id.tvSSID);
-        TextView tvBSSID = findViewById(R.id.tvBSSID);
+        tvSSID = findViewById(R.id.tvSSID);
+        tvBSSID = findViewById(R.id.tvBSSID);
 
         tvSSID.setText(AppSetup.wiFiDetalhes.get(position).getSSID());
         tvBSSID.setText(AppSetup.wiFiDetalhes.get(position).getBSSID());
 
-        Button btPontoAnt = findViewById(R.id.btCadPontoRefAnt);
-        Button btPontoPost = findViewById(R.id.btCadPontoRefPost);
-        Button btCadPontoRef = findViewById(R.id.btCadPontoRef);
+        btPontoAnt = findViewById(R.id.btCadPontoRefAnt);
+        btPontoPost = findViewById(R.id.btCadPontoRefPost);
+        btCadPontoRef = findViewById(R.id.btCadPontoRef);
         btPontoAnt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminCadastraPontoActivity.class);
-                intent.putExtra("ponto", "1");
+                Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
+                intent.putExtra("retorna", "anterior");
                 startActivity(intent);
             }
         });
         btPontoPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminCadastraPontoActivity.class);
-                intent.putExtra("ponto", "2");
+                Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
+                intent.putExtra("retorna", "posterior");
                 startActivity(intent);
             }
         });
         btCadPontoRef.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText etPatrimonio = findViewById(R.id.etPatrimonio);
-                Switch Anterior = findViewById(R.id.btCadPontoRefAntChecked);
-                Switch Posterior = findViewById(R.id.btCadPontoRefPostChecked);
+                etPatrimonio = findViewById(R.id.etPatrimonio);
+                Anterior = findViewById(R.id.btCadPontoRefAntChecked);
+                Posterior = findViewById(R.id.btCadPontoRefPostChecked);
                 Integer patrimonio = Integer.valueOf(etPatrimonio.getText().toString());
-                Ponto ponto = new Ponto();
-                ponto.setBssid(AppSetup.wiFiDetalhes.get(position).getBSSID());
-                ponto.setSsid(AppSetup.wiFiDetalhes.get(position).getSSID());
-                ponto.setPatrimonio(patrimonio);
+                PontoRef pontoRef = new PontoRef();
+                pontoRef.setBssid(AppSetup.wiFiDetalhes.get(position).getBSSID());
+                pontoRef.setSsid(AppSetup.wiFiDetalhes.get(position).getSSID());
+                pontoRef.setPatrimonio(patrimonio);
                 if (Anterior.isChecked()) {
-                    ponto.setBssidAnt(null);
+                    pontoRef.setBssidAnt(null);
                 } else {
-//                  ponto.setBssidAnt(AppSetup.wiFiDetalhes.get(positionPost).getBSSID());
                 }
                 if (Posterior.isChecked()) {
-                    ponto.setBssidPost(null);
+                    pontoRef.setBssidPost(null);
                 } else {
-//                    ponto.setBssidPost(AppSetup.wiFiDetalhes.get(positionPost).getBSSID());
                 }
                 Log.d("teste", String.valueOf(findViewById(R.id.btCadPontoRefAntChecked)));
 
-//        AppSetup.ponto.setBssidPost(AppSetup.wiFiDetalhes.get(positionPost).getBSSID());
-                ponto.setSituacao(true);
+                pontoRef.setSituacao(true);
                 // obtém a referência do database e do nó
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("dados/pontoref");
-                myRef.push().setValue(ponto);
+                DatabaseReference myRef = database.getReference("dados/pontosref");
+                myRef.push().setValue(pontoRef);
 
             }
         });
@@ -92,11 +93,12 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
-            default:break;
+            default:
+                break;
         }
         return true;
     }

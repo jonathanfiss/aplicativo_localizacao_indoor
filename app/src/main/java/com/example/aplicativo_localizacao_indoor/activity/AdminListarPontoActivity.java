@@ -8,15 +8,13 @@ import android.widget.ListView;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaPontosRefAdapter;
-import com.example.aplicativo_localizacao_indoor.model.Ponto;
+import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class AdminListarPontoActivity extends AppCompatActivity {
     private ListView listaPontoRef;
@@ -41,7 +39,7 @@ public class AdminListarPontoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Ponto ponto = ds.getValue(Ponto.class);
+                    PontoRef ponto = ds.getValue(PontoRef.class);
 //                    produto.setKey(ds.getKey());
                     AppSetup.pontosRef.add(ponto);
                 }

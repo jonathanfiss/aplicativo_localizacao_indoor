@@ -114,49 +114,41 @@ public class AdminMainActivity extends AppCompatActivity
             case R.id.nav_cad_local: {
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastraLocalActivity.class));
                 Log.d("click", "AdminCadastraLocalActivity");
-
                 break;
             }
             case R.id.nav_cad_local_especial: {
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastrarLocalEspecialActivity.class));
                 Log.d("click", "AdminCadastrarLocalEspecialActivity");
-
                 break;
             }
             case R.id.nav_cad_sala: {
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastraSalaActivity.class));
                 Log.d("click", "AdminCadastraSalaActivity");
-
                 break;
             }
             case R.id.nav_list_access_point: {
                 startActivity(new Intent(AdminMainActivity.this, AdminListarPontoActivity.class));
                 Log.d("click", "AdminListarPontoActivity");
-
                 break;
             }
             case R.id.nav_list_local: {
                 startActivity(new Intent(AdminMainActivity.this, AdminListarLocaisActivity.class));
                 Log.d("click", "AdminListarLocaisActivity");
-
                 break;
             }
             case R.id.nav_list_sala: {
                 startActivity(new Intent(AdminMainActivity.this, AdminListarSalasActivity.class));
                 Log.d("click", "AdminListarSalasActivity");
-
                 break;
             }
             case R.id.nav_add_usuario: {
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastraUsuarioActivity.class));
                 Log.d("click", "AdminCadastraUsuarioActivity");
-
                 break;
             }
             case R.id.nav_list_usuario: {
                 startActivity(new Intent(AdminMainActivity.this, AdminListarUsuariosActivity.class));
                 Log.d("click", "AdminListarUsuariosActivity");
-
                 break;
             }
         }

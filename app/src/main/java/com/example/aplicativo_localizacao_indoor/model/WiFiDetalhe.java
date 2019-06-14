@@ -1,12 +1,12 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
-public class WiFiDetalhes {
+public class WiFiDetalhe {
     private String SSID;
     private String BSSID;
     private int wiFiSignal;
     private Double distacia;
 
-    public WiFiDetalhes() {
+    public WiFiDetalhe() {
     }
 
     public String getSSID() {

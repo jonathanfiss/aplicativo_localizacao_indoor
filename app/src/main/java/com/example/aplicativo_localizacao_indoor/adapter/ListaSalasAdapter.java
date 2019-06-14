@@ -10,8 +10,6 @@ import android.widget.ArrayAdapter;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
-import com.example.aplicativo_localizacao_indoor.model.Usuario;
-import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhes;
 
 import java.util.List;
 

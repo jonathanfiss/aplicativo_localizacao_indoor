@@ -3,6 +3,8 @@ package com.example.aplicativo_localizacao_indoor.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +14,18 @@ import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
+import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
 import java.util.List;
 
-public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
+public class SelecionaPontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
 
     private Context context;
     private List<WiFiDetalhe> wiFiDetalhes;
+    private CardView cv_seleciona_lista;
 
-    public PontoReferenciaAdapter(@NonNull Context context, @NonNull List<WiFiDetalhe> wiFiDetalhes) {
+
+    public SelecionaPontoReferenciaAdapter(@NonNull Context context, @NonNull List<WiFiDetalhe> wiFiDetalhes) {
         super(context, 0, wiFiDetalhes);
         this.context = context;
     }
@@ -34,6 +39,12 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
         //infla a view
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_ponto_referencia_adapter, parent, false);
+        }
+
+        if (AppSetup.wiFiDetalhesSelecionados.contains(wiFiDetalhes.getBSSID())){
+            cv_seleciona_lista = convertView.findViewById(R.id.cv_seleciona_lista);
+            cv_seleciona_lista.setCardBackgroundColor(context.getResources().getColor(R.color.colorCinza));
+            cv_seleciona_lista.setCardElevation(0);
         }
 
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
@@ -66,3 +77,5 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
         return convertView;
     }
 }
+
+

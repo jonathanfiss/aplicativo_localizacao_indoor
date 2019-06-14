@@ -100,7 +100,7 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
         usuario.setMatricula(etMatriculaUser.getText().toString());
         usuario.setFuncao(FUNCAO[spFuncaoUser.getSelectedItemPosition()]);
         usuario.setSituacao(true);
-        FirebaseDatabase.getInstance().getReference().child("admin").child(usuario.getFirebaseUser().getUid()).setValue(usuario);
+        FirebaseDatabase.getInstance().getReference().child("user").child(usuario.getFirebaseUser().getUid()).setValue(usuario);
     }
 
     private void limparForm() {

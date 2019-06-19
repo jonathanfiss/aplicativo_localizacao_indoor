@@ -41,11 +41,18 @@ public class SelecionaPontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_ponto_referencia_adapter, parent, false);
         }
 
-        if (AppSetup.wiFiDetalhesSelecionados.contains(wiFiDetalhes.getBSSID())){
-            cv_seleciona_lista = convertView.findViewById(R.id.cv_seleciona_lista);
-            cv_seleciona_lista.setCardBackgroundColor(context.getResources().getColor(R.color.colorCinza));
-            cv_seleciona_lista.setCardElevation(0);
-        }
+
+//        for (WiFiDetalhe wifi : AppSetup.wiFiDetalhesSelecionados){
+//            Log.d("wifi", wifi.getBSSID());
+//            if (wifi.getBSSID().equals(wiFiDetalhes.getBSSID())){
+//
+//            }else{
+//                cv_seleciona_lista = convertView.findViewById(R.id.cv_seleciona_lista);
+//                cv_seleciona_lista.setCardBackgroundColor(context.getResources().getColor(R.color.colorBranco));
+//                cv_seleciona_lista.setCardElevation(0);
+//            }
+//        }
+
 
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
         TextView tvSSID = convertView.findViewById(R.id.tvNomeCompletoAdapter);
@@ -71,7 +78,7 @@ public class SelecionaPontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
         } else if (wiFiDetalhes.getWiFiSignal() >= -85 && wiFiDetalhes.getWiFiSignal() < -75) {
             imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_1_bar_red_24dp);
 
-        } else if (wiFiDetalhes.getWiFiSignal() < -85 ) {
+        } else if (wiFiDetalhes.getWiFiSignal() < -85) {
             imvFotoPontoRefAdapter.setImageResource(R.drawable.ic_signal_wifi_0_bar_black_24dp);
         }
         return convertView;

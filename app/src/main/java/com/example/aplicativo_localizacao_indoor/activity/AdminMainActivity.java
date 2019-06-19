@@ -95,7 +95,7 @@ public class AdminMainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(AdminMainActivity.this, TesteActivity.class));
+//            startActivity(new Intent(AdminMainActivity.this, TesteActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

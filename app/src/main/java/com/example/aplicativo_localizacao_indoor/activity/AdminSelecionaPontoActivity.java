@@ -61,13 +61,17 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
         lv_select_pontos_ref = findViewById(R.id.lv_select_pontos_r);
         new TaskPonto().execute();
 
+//        lv_select_pontos_ref.setMultiChoiceModeListener();
+
         lv_select_pontos_ref.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 cv_seleciona_lista = findViewById(R.id.cv_seleciona_lista);
                 cv_seleciona_lista.setCardBackgroundColor(getResources().getColor(R.color.colorBranco));
                 cv_seleciona_lista.setCardElevation(0);
-                Log.d("seleciona", "não");
+                AppSetup.wiFiDetalhesSelecionados.remove(AppSetup.wiFiDetalhes.get(position));
+                Log.d("botao", "removeu");
+                lv_select_pontos_ref.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
                 return true;
             }
         });
@@ -76,7 +80,7 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 cv_seleciona_lista = findViewById(R.id.cv_seleciona_lista);
-                cv_seleciona_lista.setCardBackgroundColor(getResources().getColor(R.color.colorVerdeClaro));
+                cv_seleciona_lista.setCardBackgroundColor(getResources().getColor(R.color.colorCinza));
                 cv_seleciona_lista.setCardElevation(1);
                 AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
             }
@@ -183,6 +187,7 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 executa = 1;
+                AppSetup.wiFiDetalhesSelecionados.clear();
                 finish();
                 break;
             default:
@@ -194,6 +199,7 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         executa = 1;
+        AppSetup.wiFiDetalhesSelecionados.clear();
         finish();
     }
 }

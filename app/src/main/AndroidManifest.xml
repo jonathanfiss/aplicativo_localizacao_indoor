@@ -27,9 +27,6 @@
             android:name=".activity.AdminCadastrarLocalEspecialActivity"
             android:label="Cadastrar locais Especiais"></activity>
         <activity
-            android:name=".activity.TesteActivity"
-            android:label="Acitivity Teste"></activity>
-        <activity
             android:name=".activity.AdminSelecionaPontoActivity"
             android:label="Selecionar Pontos de Referencia"></activity>
         <activity
@@ -59,18 +56,21 @@
             android:label="Rota" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="Login" />
+            android:label="Login">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.LocalizarActivity"
             android:label="Localizar" />
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

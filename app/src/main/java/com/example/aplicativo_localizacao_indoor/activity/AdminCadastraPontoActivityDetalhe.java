@@ -2,6 +2,7 @@ package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -10,10 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -71,11 +75,11 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
                 pontoRef.setSsid(AppSetup.wiFiDetalhes.get(position).getSSID());
                 pontoRef.setPatrimonio(patrimonio);
                 if (Anterior.isChecked()) {
-                    pontoRef.setBssidAnt(null);
+                    pontoRef.setBssidAnt("0");
                 } else {
                 }
                 if (Posterior.isChecked()) {
-                    pontoRef.setBssidPost(null);
+                    pontoRef.setBssidPost("0");
                 } else {
                 }
                 Log.d("teste", String.valueOf(findViewById(R.id.btCadPontoRefAntChecked)));
@@ -83,8 +87,21 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
                 pontoRef.setSituacao(true);
                 // obtém a referência do database e do nó
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("dados/pontosref");
-                myRef.push().setValue(pontoRef);
+                DatabaseReference myRef = database.getReference("dados").child("pontosref");
+                myRef.push().setValue(pontoRef)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_cadastra_ponto_sucesso), Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_cadastra_ponto), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
             }
         });

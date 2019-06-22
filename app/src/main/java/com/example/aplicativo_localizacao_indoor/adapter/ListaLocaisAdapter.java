@@ -14,7 +14,7 @@ import com.example.aplicativo_localizacao_indoor.model.Sala;
 
 import java.util.List;
 
-public class ListaLocaisAdapter extends ArrayAdapter<Local> {
+public class   ListaLocaisAdapter extends ArrayAdapter<Local> {
 
     private Context context;
     private List<Local> locais;

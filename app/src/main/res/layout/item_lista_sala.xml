@@ -63,7 +63,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="8dp"
-                android:hint="@string/hint_valor"
+                android:hint="@string/hint_email"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvFuncaoAdapter"
                 app:layout_constraintEnd_toStartOf="@+id/imageButton"

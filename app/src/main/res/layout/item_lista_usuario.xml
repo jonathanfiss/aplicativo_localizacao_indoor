@@ -40,7 +40,7 @@
                 android:layout_width="369dp"
                 android:layout_height="22dp"
                 android:layout_marginTop="8dp"
-                android:hint="@string/hint_valor"
+                android:hint="@string/hint_email"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/tvNomeCompletoAdapter"
                 app:layout_constraintStart_toStartOf="@+id/tvNomeCompletoAdapter"

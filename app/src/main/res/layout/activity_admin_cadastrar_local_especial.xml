@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/andarSelect"
+        android:text="@string/andar_select"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
@@ -52,21 +52,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/andarSelect1" />
+            android:text="@string/andar_select_1" />
 
         <RadioButton
             android:id="@+id/radioButtonAndar2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/andarSelect2" />
+            android:text="@string/andar_select_2" />
 
         <RadioButton
             android:id="@+id/radioButtonAndar3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/andarSelect3" />
+            android:text="@string/andar_select_3" />
     </RadioGroup>
 
     <android.support.design.widget.TextInputLayout
@@ -115,7 +115,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/btCadastrarLocal"
+        android:text="@string/bt_cadastrar_local"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />

@@ -28,15 +28,15 @@
     <string name="action_settings">Settings</string>
 
     <!--menu-->
-    <string name="menu_cad_access_point">Cadastrar Access Point</string>
+    <string name="menu_cad_access_point">Cadastrar ponto de referência</string>
     <string name="menu_cad_local">Cadastrar local</string>
     <string name="menu_cad_sala">Cadastrar sala</string>
-    <string name="menu_tools">Tools</string>
     <string name="menu_add_user">Adicionar Usuario</string>
-    <string name="menu_send">Send</string>
-
-    <string name="content_description_foto_produto">pf</string>
-    <string name="hint_valor">pf</string>
+    <string name="menu_list_access_point">Listar ponto de referência</string>
+    <string name="menu_list_local">Lista locais</string>
+    <string name="menu_list_sala">lista de salas</string>
+    <string name="menu_list_user">Lista de usuarios</string>
+    <string name="menu_cad_local_especial">Cadastrar local especial</string>
 
     <!--TextView-->
     <string name="tv_descricao">Descrição:</string>
@@ -69,30 +69,32 @@
     <string name="hint_numero_sala">Numero da sala</string>
 
     <!--button-->
-    <string name="btCadastrarUser">Cadastrar Usuario</string>
-    <string name="bt_seleciona_ponto">Selecionar Access Points</string>
-    <string name="btCadastrarLocal">Cadatrar Local</string>
-    <string name="btCadastrarSala">Cadastrar Sala</string>
-    <string name="btCadastrarPonto">Cadastrar Access Point</string>
-    <string name="btListar">Listar</string>
-    <string name="bt_cad_ponto_ref_ant">Access Point Anterior</string>
-    <string name="bt_cad_ponto_ref_post">Access Point Posterior</string>
-    <string name="btLocalizar">Localizar</string>
-    <string name="btRota">Buscar Rota</string>
+    <string name="bt_cadastrar_user">Cadastrar Usuario</string>
+    <string name="bt_seleciona_ponto">Selecionar ponto de referência</string>
+    <string name="bt_cadastrar_local">Cadatrar Local</string>
+    <string name="bt_cadastrar_sala">Cadastrar Sala</string>
+    <string name="bt_cadastrar_ponto">Cadastrar ponto de referência</string>
+    <string name="bt_listar">Listar</string>
+    <string name="bt_cad_ponto_ref_ant">Ponto de referência Anterior</string>
+    <string name="bt_cad_ponto_ref_post">Ponto de referênciat Posterior</string>
+    <string name="bt_localizar">Localizar</string>
+    <string name="bt_rota">Buscar Rota</string>
 
     <!--radiobutton-->
-    <string name="andarSelect1">1º Andar</string>
-    <string name="andarSelect2">2º Andar</string>
-    <string name="andarSelect3">3º Andar</string>
-    <string name="andarSelect">Andar:</string>
+    <string name="andar_select_1">1º Andar</string>
+    <string name="andar_select_2">2º Andar</string>
+    <string name="andar_select_3">3º Andar</string>
+    <string name="andar_select">Andar:</string>
 
     <!--label-->
     <string name="label_aprox">Aprox. </string>
     <string name="label_metros"> metros</string>
     <string name="label_dbm">dbm</string>
-    <string name="menu_list_access_point">Listar Access Point</string>
-    <string name="menu_list_local">Lista locais</string>
-    <string name="menu_list_sala">lista de salas</string>
-    <string name="menu_list_user">Lista de usuarios</string>
-    <string name="menu_cad_local_especial">Cadastrar local especial</string>
+
+    <!--toast-->
+    <string name="toast_cadastra_ponto_sucesso">Ponto Cadastrado com Sucesso</string>
+    <string name="toast_erro_cadastra_ponto">Falha ao realizar o cadastro</string>
+
+    <!--descrição-->
+    <string name="content_description_ponto_ref">Esta imagem demostra a intensidade do sinanl Wi-Fi</string>
 </resources>

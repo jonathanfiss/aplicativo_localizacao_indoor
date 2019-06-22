@@ -44,13 +44,6 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-//        final Integer retorno = getIntent().getExtras().getInt("retorno");
-//        if (retorno.equals("anterior")) {
-//
-//        } else if (retorno.equals("posterior")) {
-//
-//        }
-
         final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         verificaPermissao();
         if (!wifiManager.isWifiEnabled()) {
@@ -61,20 +54,6 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
         lv_select_pontos_ref = findViewById(R.id.lv_select_pontos_r);
         new TaskPonto().execute();
 
-//        lv_select_pontos_ref.setMultiChoiceModeListener();
-
-        lv_select_pontos_ref.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                cv_seleciona_lista = findViewById(R.id.cv_seleciona_lista);
-                cv_seleciona_lista.setCardBackgroundColor(getResources().getColor(R.color.colorBranco));
-                cv_seleciona_lista.setCardElevation(0);
-                AppSetup.wiFiDetalhesSelecionados.remove(AppSetup.wiFiDetalhes.get(position));
-                Log.d("botao", "removeu");
-                lv_select_pontos_ref.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
-                return true;
-            }
-        });
 
         lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

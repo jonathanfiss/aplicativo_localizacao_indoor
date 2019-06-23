@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuitem_adm:
-//                startActivity(new Intent(MainActivity.this, LoginActivity.class ));
-                startActivity(new Intent(MainActivity.this, AdminMainActivity.class ));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class ));
+//                startActivity(new Intent(MainActivity.this, AdminMainActivity.class ));
                 break;
         }
         return true;

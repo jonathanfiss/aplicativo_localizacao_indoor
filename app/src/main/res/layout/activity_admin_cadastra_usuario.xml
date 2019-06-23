@@ -10,9 +10,9 @@
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tiNomeUser"
                 android:layout_alignStart="@+id/tiNomeUser"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/etSobrenomeUser"
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tiSobrenomeUser"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/etEmailUser"
@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tiEmailUser"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/etMatriculaUser"
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tiMatriculaUser"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
 
                 <TextView
                     android:id="@+id/tv_funcao"
@@ -115,14 +115,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tiFuncaoUser"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/etPasswordUser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
-                    android:ems="10"
                     android:hint="@string/hint_senha"
                     android:inputType="textPassword" />
 
@@ -133,8 +132,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tiSenhaUser"
-                android:layout_marginTop="10dp"
-                android:text="@string/bt_cadastrar_user" />
+                android:layout_alignStart="@+id/tiSenhaUser"
+                android:layout_alignEnd="@+id/tiSenhaUser"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorButton"
+                android:text="@string/bt_cadastrar_user"
+                android:textColor="@color/colorTextButton" />
 
         </RelativeLayout>
     </ScrollView>

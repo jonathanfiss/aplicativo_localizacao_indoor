@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("retorno user", user.toString());
 //                            updateUI(user);
                             startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Login", "signInWithEmail:failure", task.getException());

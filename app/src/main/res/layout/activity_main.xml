@@ -11,18 +11,22 @@
         android:id="@+id/btLocalizar"
         android:layout_width="@dimen/activity_button_tamanho_horizontal"
         android:layout_height="@dimen/activity_button_tamanho_vertical"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/bt_localizar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorTextButton"
+        android:background="@color/colorButton"/>
 
     <Button
         android:id="@+id/btRota"
         android:layout_width="@dimen/activity_button_tamanho_horizontal"
         android:layout_height="@dimen/activity_button_tamanho_vertical"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/colorButton"
         android:text="@string/bt_rota"
+        android:textColor="@color/colorTextButton"
         app:layout_constraintBottom_toTopOf="@+id/btLocalizar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

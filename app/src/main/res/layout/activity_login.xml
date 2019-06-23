@@ -10,16 +10,6 @@
 
     <!-- Login progress -->
 
-    <!--<ImageView-->
-        <!--android:id="@+id/imageView3"-->
-        <!--android:layout_width="452dp"-->
-        <!--android:layout_height="679dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="0.434"-->
-        <!--app:srcCompat="@drawable/ifsul" />-->
-
     <ProgressBar
         android:id="@+id/login_progress"
         android:layout_width="150dp"
@@ -40,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/tiSenha"
         app:layout_constraintEnd_toEndOf="@+id/tiSenha"
         app:layout_constraintStart_toStartOf="@+id/tiSenha">
@@ -60,9 +50,9 @@
         android:id="@+id/tiSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/btLogin"
         app:layout_constraintEnd_toEndOf="@+id/btLogin"
         app:layout_constraintStart_toStartOf="@+id/btLogin">
@@ -87,11 +77,12 @@
         android:id="@+id/btLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/action_sign_in"
-        android:textStyle="bold"
+        android:background="@color/colorButton"
+        android:textColor="@color/colorTextButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

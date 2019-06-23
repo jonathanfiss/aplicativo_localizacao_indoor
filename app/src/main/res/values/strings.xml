@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Aplicativo_localizacao_indoor</string>
+    <string name="app_name">Localização Indoor</string>
 
-    <string name="menu_adm">Login Administrador</string>
+    <string name="menu_adm">Login administrador</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.widget.Button;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
 public class AdminMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -149,6 +150,11 @@ public class AdminMainActivity extends AppCompatActivity
             case R.id.nav_list_usuario: {
                 startActivity(new Intent(AdminMainActivity.this, AdminListarUsuariosActivity.class));
                 Log.d("click", "AdminListarUsuariosActivity");
+                break;
+            }
+            case R.id.nav_sair: {
+//                AppSetup.usuario.getFirebaseUser(). deslogar
+                finish();
                 break;
             }
         }

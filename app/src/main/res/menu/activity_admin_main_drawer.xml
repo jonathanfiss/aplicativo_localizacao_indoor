@@ -16,7 +16,7 @@
                 android:title="@string/menu_cad_local" />
             <item
                 android:id="@+id/nav_cad_local_especial"
-                android:icon="@drawable/ic_cad_local"
+                android:icon="@drawable/ic_edit_location_black_24dp"
                 android:title="@string/menu_cad_local_especial" />
             <item
                 android:id="@+id/nav_cad_sala"
@@ -50,10 +50,17 @@
                 android:title="@string/menu_add_user" />
             <item
             android:id="@+id/nav_list_usuario"
-            android:icon="@drawable/ic_add_user"
+            android:icon="@drawable/ic_group_black_24dp"
             android:title="@string/menu_list_user" />
 
         </menu>
     </item>
-
+    <item>
+        <menu>
+            <item
+                android:id="@+id/nav_sair"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="@string/menu_sair" />
+        </menu>
+    </item>
 </menu>

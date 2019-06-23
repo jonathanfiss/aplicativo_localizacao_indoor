@@ -97,4 +97,5 @@
 
     <!--descrição-->
     <string name="content_description_ponto_ref">Esta imagem demostra a intensidade do sinanl Wi-Fi</string>
+    <string name="menu_sair">Sair</string>
 </resources>

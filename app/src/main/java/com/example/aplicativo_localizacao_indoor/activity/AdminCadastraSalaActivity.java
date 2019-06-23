@@ -2,6 +2,7 @@ package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.Usuario;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,19 +64,19 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Local local = ds.getValue(Local.class);
                     local.setKey(ds.getKey());
-                    if (AppSetup.locais.size()>0){
-                        for (Local lc: AppSetup.locais){
-                            if (!local.getCorredor().equals(lc.getCorredor())){
+                    if (AppSetup.locais.size() > 0) {
+                        for (Local lc : AppSetup.locais) {
+                            if (!local.getCorredor().equals(lc.getCorredor())) {
                                 corredor.add(lc.getCorredor());
-                                Log.d("corredorUnidade",lc.getCorredor());
-                                Log.d("corredorUnid",corredor.toString());
+                                Log.d("corredorUnidade", lc.getCorredor());
+                                Log.d("corredorUnid", corredor.toString());
                             }
                         }
                     }
                     AppSetup.locais.add(local);
 
                 }
-                Log.d("corredorTodo",corredor.toString());
+                Log.d("corredorTodo", corredor.toString());
             }
 
             @Override
@@ -100,18 +103,30 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
         btCadastrarSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etNomeSala.getText().toString().isEmpty() && !etNumeroSala.getText().toString().isEmpty() && !spLocalSala.toString().isEmpty()){
+                if (!etNomeSala.getText().toString().isEmpty() && !etNumeroSala.getText().toString().isEmpty() && !spLocalSala.toString().isEmpty()) {
                     sala.setNome(etNomeSala.getText().toString());
                     sala.setNumero(etNumeroSala.getText().toString());
 //                sala.setlocal();
                     sala.setSituacao(true);
                     // obtém a referência do database e do nó
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("dados/sala");
-                    myRef.push().setValue(sala);
-                    Toast.makeText(AdminCadastraSalaActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
-                    limparForm();
-                }else{
+                    DatabaseReference myRef = database.getReference("dados").child("sala");
+                    myRef.push().setValue(sala)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(AdminCadastraSalaActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
+                                    limparForm();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AdminCadastraSalaActivity.this, "Falha ao realizar o cadastro", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                } else {
                     Toast.makeText(AdminCadastraSalaActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
 
                 }
@@ -119,18 +134,21 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
             }
         });
     }
+
     private void limparForm() {
         sala = new Sala();
         etNomeSala.setText(null);
         etNumeroSala.setText(null);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
-            default:break;
+            default:
+                break;
         }
         return true;
     }

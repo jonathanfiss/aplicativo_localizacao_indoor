@@ -31,7 +31,7 @@ public class ListaPontosRefAdapter extends ArrayAdapter<PontoRef>{
 
         //infla a view
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_sala, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_pontos, parent, false);
         }
 //        //mapeia os componentes da UI para vincular os dados do objeto de modelo
 //        TextView tvSSID = convertView.findViewById(R.id.tvSSIDAdapter);

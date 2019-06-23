@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
-import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
 import java.util.List;
 
@@ -55,10 +53,10 @@ public class SelecionaPontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
 
 
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
-        TextView tvSSID = convertView.findViewById(R.id.tvNomeCompletoAdapter);
+        TextView tvSSID = convertView.findViewById(R.id.tvDescricaoAdapter);
         TextView tvBSSID = convertView.findViewById(R.id.tvEmailAdapter);
         TextView tvDBM = convertView.findViewById(R.id.tvDBM);
-        TextView tvDistancia = convertView.findViewById(R.id.tvFuncaoAdapter);
+        TextView tvDistancia = convertView.findViewById(R.id.tvDescricaoAdapter);
         ImageView imvFotoPontoRefAdapter = convertView.findViewById(R.id.imvFotoPontoRefAdapter);
 
         //vincula os dados do objeto de modelo à view

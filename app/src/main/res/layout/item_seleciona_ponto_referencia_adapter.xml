@@ -20,7 +20,7 @@ tools:layout_editor_absoluteY="81dp">
 
 
         <TextView
-            android:id="@+id/tvNomeCompletoAdapter"
+            android:id="@+id/tvPredioAdapter"
             android:layout_width="294dp"
             android:layout_height="26dp"
             android:layout_gravity="start"
@@ -55,11 +55,11 @@ tools:layout_editor_absoluteY="81dp">
             android:hint="@string/hint_email"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvNomeCompletoAdapter"
+            app:layout_constraintEnd_toEndOf="@+id/tvDescricaoAdapter"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tvFuncaoAdapter"
+            android:id="@+id/tvPredioAdapter"
             android:layout_width="294dp"
             android:layout_height="24dp"
             android:layout_marginStart="84dp"

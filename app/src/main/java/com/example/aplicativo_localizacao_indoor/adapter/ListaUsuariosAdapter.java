@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
@@ -38,9 +37,9 @@ public class ListaUsuariosAdapter extends ArrayAdapter<Usuario> {
         }
 
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
-        TextView tvNomeCompleto = convertView.findViewById(R.id.tvNomeCompletoAdapter);
+        TextView tvNomeCompleto = convertView.findViewById(R.id.tvDescricaoAdapter);
         TextView tvEmailAdapter = convertView.findViewById(R.id.tvEmailAdapter);
-        TextView tvFuncaoAdapter = convertView.findViewById(R.id.tvFuncaoAdapter);
+        TextView tvFuncaoAdapter = convertView.findViewById(R.id.tvDescricaoAdapter);
         TextView tvMatriculaAdapter = convertView.findViewById(R.id.tvMatriculaAdapter);
 
         //vincula os dados do objeto de modelo à view

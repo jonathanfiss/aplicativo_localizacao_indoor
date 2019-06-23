@@ -32,7 +32,7 @@ public class AdminListarPontoActivity extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ponto");
+        DatabaseReference myRef = database.getReference("dados").child("pontosref");
 
         // Read from the database
         myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {
@@ -40,7 +40,7 @@ public class AdminListarPontoActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     PontoRef ponto = ds.getValue(PontoRef.class);
-//                    produto.setKey(ds.getKey());
+                    ponto.setKey(ds.getKey());
                     AppSetup.pontosRef.add(ponto);
                 }
 

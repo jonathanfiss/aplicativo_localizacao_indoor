@@ -34,7 +34,7 @@ public class AdminListarSalasActivity extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("dados/sala");
+        DatabaseReference myRef = database.getReference("dados").child("sala");
 
         // Read from the database
         myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {
@@ -45,7 +45,7 @@ public class AdminListarSalasActivity extends AppCompatActivity {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Sala sala = ds.getValue(Sala.class);
-//                    sala.setKey(ds.getKey());
+                    sala.setKey(ds.getKey());
                     AppSetup.salas.add(sala);
                 }
 

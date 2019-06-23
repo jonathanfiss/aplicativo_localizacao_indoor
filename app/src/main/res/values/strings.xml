@@ -98,4 +98,7 @@
     <!--descrição-->
     <string name="content_description_ponto_ref">Esta imagem demostra a intensidade do sinanl Wi-Fi</string>
     <string name="menu_sair">Sair</string>
+    <string name="hint_data">00/00/0000</string>
+    <string name="hint_corredor">corredor</string>
+    <string name="hint_andar">1</string>
 </resources>

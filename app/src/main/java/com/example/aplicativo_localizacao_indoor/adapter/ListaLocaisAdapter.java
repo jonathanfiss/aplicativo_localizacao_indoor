@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Local;
@@ -14,7 +15,7 @@ import com.example.aplicativo_localizacao_indoor.model.Sala;
 
 import java.util.List;
 
-public class   ListaLocaisAdapter extends ArrayAdapter<Local> {
+public class ListaLocaisAdapter extends ArrayAdapter<Local> {
 
     private Context context;
     private List<Local> locais;
@@ -32,22 +33,21 @@ public class   ListaLocaisAdapter extends ArrayAdapter<Local> {
 
         //infla a view
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_sala, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_locais, parent, false);
         }
 //        //mapeia os componentes da UI para vincular os dados do objeto de modelo
-//        TextView tvSSID = convertView.findViewById(R.id.tvSSIDAdapter);
-//        TextView tvBSSID = convertView.findViewById(R.id.tvBSSIDItemAdapter);
-//        TextView tvDBM = convertView.findViewById(R.id.tvDBM);
-//        TextView tvDistancia = convertView.findViewById(R.id.tvDistancia);
-//        ImageView imvFotoPontoRefAdapter = convertView.findViewById(R.id.imvFotoPontoRefAdapter);
+        TextView tvPredio = convertView.findViewById(R.id.tvPredioAdapter);
+        TextView tvCorredor = convertView.findViewById(R.id.tvCorredorAdapter);
+        TextView tvAndar = convertView.findViewById(R.id.tvAndarAdapter);
+        TextView tvDescricao = convertView.findViewById(R.id.tvDescricaoAdapter);
+        TextView tvData = convertView.findViewById(R.id.tvDataAdapter);
 //
 //        //vincula os dados do objeto de modelo à view
-//        tvSSID.setText(wiFiDetalhes.getSSID());
-//        tvBSSID.setText(wiFiDetalhes.getBSSID());
-//        tvDBM.setText(String.format("%s %s", wiFiDetalhes.getWiFiSignal(), context.getResources().getString(R.string.label_dbm)));
-//
-//        tvDistancia.setText(String.format("%s %.1f %s", context.getResources().getString(R.string.label_aprox), wiFiDetalhes.getDistacia(), context.getResources().getString(R.string.label_metros)));
-//
+        tvPredio.setText(local.getPredio());
+        tvCorredor.setText(local.getCorredor());
+        tvAndar.setText(String.valueOf(local.getAndar()));
+        tvDescricao.setText(local.getDescricao());
+//        tvData.setText(local.getData_hora_modificado().toString());
         return convertView;
     }
 }

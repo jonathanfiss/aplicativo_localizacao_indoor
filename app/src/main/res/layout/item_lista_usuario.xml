@@ -21,7 +21,7 @@
 
 
             <TextView
-                android:id="@+id/tvNomeCompletoAdapter"
+                android:id="@+id/tvPredioAdapter"
                 android:layout_width="0dp"
                 android:layout_height="22dp"
                 android:layout_gravity="start"
@@ -42,12 +42,12 @@
                 android:layout_marginTop="8dp"
                 android:hint="@string/hint_email"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/tvNomeCompletoAdapter"
-                app:layout_constraintStart_toStartOf="@+id/tvNomeCompletoAdapter"
-                app:layout_constraintTop_toBottomOf="@+id/tvNomeCompletoAdapter" />
+                app:layout_constraintEnd_toEndOf="@+id/tvDescricaoAdapter"
+                app:layout_constraintStart_toStartOf="@+id/tvDescricaoAdapter"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescricaoAdapter" />
 
             <TextView
-                android:id="@+id/tvFuncaoAdapter"
+                android:id="@+id/tvPredioAdapter"
                 android:layout_width="212dp"
                 android:layout_height="22dp"
                 android:layout_marginTop="8dp"
@@ -65,7 +65,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
-                app:layout_constraintEnd_toEndOf="@+id/tvNomeCompletoAdapter"
+                app:layout_constraintEnd_toEndOf="@+id/tvDescricaoAdapter"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/tvEmailAdapter"
                 app:layout_constraintTop_toBottomOf="@+id/tvEmailAdapter" />

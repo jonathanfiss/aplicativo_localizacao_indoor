@@ -35,15 +35,16 @@ public class AdminListarLocaisActivity extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("locais");
+        DatabaseReference myRef = database.getReference("dados").child("locais");
 
         // Read from the database
         myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                AppSetup.locais.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Local local = ds.getValue(Local.class);
-//                    local.setKey(ds.getKey());
+                    local.setKey(ds.getKey());
                     AppSetup.locais.add(local);
                 }
                 listaLocais.setAdapter(new ListaLocaisAdapter(AdminListarLocaisActivity.this, AppSetup.locais));

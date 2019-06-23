@@ -7,6 +7,7 @@ public class Local {
     private Integer andar;
     private String descricao;
     private String corredor;
+    private String predio;
     private String data_hora_modificado;
     private String modificado_por;
     private boolean situacao;
@@ -70,6 +71,14 @@ public class Local {
 
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
+    }
+
+    public String getPredio() {
+        return predio;
+    }
+
+    public void setPredio(String predio) {
+        this.predio = predio;
     }
 
     @Exclude

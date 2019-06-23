@@ -25,7 +25,7 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
     private Local local;
     private RadioGroup radioGroupAndar;
     private AutoCompleteTextView autoCompleteSetor;
-    private EditText etDescricaoLocal;
+    private EditText etDescricaoLocal, etPredio;
     private Button btCadLocal;
 
     @Override
@@ -47,6 +47,7 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
         autoCompleteSetor.setAdapter(adapter);
 
         etDescricaoLocal = findViewById(R.id.etDescricaoLocal);
+        etPredio = findViewById(R.id.etPredio);
 
         radioGroupAndar = findViewById(R.id.radioGroupAndar);
         radioGroupAndar.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -74,7 +75,8 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
         btCadLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etDescricaoLocal.getText().toString().isEmpty() && !autoCompleteSetor.getText().toString().isEmpty() && !radioGroupAndar.isSelected()) {
+                if (!etDescricaoLocal.getText().toString().isEmpty() && !etPredio.getText().toString().isEmpty() && !autoCompleteSetor.getText().toString().isEmpty() && !radioGroupAndar.isSelected()) {
+                    local.setPredio(etPredio.getText().toString());
                     local.setCorredor(autoCompleteSetor.getText().toString());
                     local.setDescricao(etDescricaoLocal.getText().toString());
                     local.setSituacao(true);
@@ -94,7 +96,7 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
                             Toast.makeText(AdminCadastraLocalActivity.this, "Fallha ao salvar local", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }else{
+                } else {
                     Toast.makeText(AdminCadastraLocalActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
 
                 }
@@ -109,13 +111,15 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
         autoCompleteSetor.setText(null);
         etDescricaoLocal.setText(null);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
-            default:break;
+            default:
+                break;
         }
         return true;
     }

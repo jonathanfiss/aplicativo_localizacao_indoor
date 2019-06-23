@@ -33,6 +33,7 @@ public class ListaSalasAdapter extends ArrayAdapter<Sala> {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_sala, parent, false);
         }
+
 //        //mapeia os componentes da UI para vincular os dados do objeto de modelo
 //        TextView tvSSID = convertView.findViewById(R.id.tvSSIDAdapter);
 //        TextView tvBSSID = convertView.findViewById(R.id.tvBSSIDItemAdapter);

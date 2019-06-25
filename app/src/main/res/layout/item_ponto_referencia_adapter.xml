@@ -7,7 +7,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cv_seleciona_lista"
+        android:id="@+id/cv_lista_ponto_ref"
         android:layout_width="395dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="2dp"
@@ -21,7 +21,7 @@
 
 
             <TextView
-                android:id="@+id/tvPredioAdapter"
+                android:id="@+id/tvSSID"
                 android:layout_width="294dp"
                 android:layout_height="26dp"
                 android:layout_gravity="start"
@@ -56,11 +56,10 @@
                 android:hint="@string/hint_email"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tvDescricaoAdapter"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvPredioAdapter"
+                android:id="@+id/tvDistancia"
                 android:layout_width="294dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="84dp"

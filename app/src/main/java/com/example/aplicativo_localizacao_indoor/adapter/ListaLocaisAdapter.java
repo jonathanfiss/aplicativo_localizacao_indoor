@@ -28,27 +28,42 @@ public class ListaLocaisAdapter extends ArrayAdapter<Local> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //Devolve o objeto do modelo
+
+        ViewHolder holder;
         Local local = getItem(position);
 
         //infla a view
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_locais, parent, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder) convertView.getTag();
         }
-//        //mapeia os componentes da UI para vincular os dados do objeto de modelo
-        TextView tvPredio = convertView.findViewById(R.id.tvPredioAdapter);
-        TextView tvCorredor = convertView.findViewById(R.id.tvCorredorAdapter);
-        TextView tvAndar = convertView.findViewById(R.id.tvAndarAdapter);
-        TextView tvDescricao = convertView.findViewById(R.id.tvDescricaoAdapter);
-        TextView tvData = convertView.findViewById(R.id.tvDataAdapter);
-//
+
 //        //vincula os dados do objeto de modelo à view
-        tvPredio.setText(local.getPredio());
-        tvCorredor.setText(local.getCorredor());
-        tvAndar.setText(String.valueOf(local.getAndar()));
-        tvDescricao.setText(local.getDescricao());
-//        tvData.setText(local.getData_hora_modificado().toString());
+        holder.tvPredio.setText(local.getPredio());
+        holder.tvCorredor.setText(local.getCorredor());
+        holder.tvAndar.setText(String.valueOf(local.getAndar()));
+        holder.tvDescricao.setText(local.getDescricao());
+//        holder.tvData.setText(local.getData_hora_modificado().toString());
         return convertView;
+    }
+    private class ViewHolder {
+        TextView tvPredio;
+        TextView tvCorredor;
+        TextView tvAndar;
+        TextView tvDescricao;
+        TextView tvData;
+
+        private ViewHolder(View convertView) {
+            //mapeia os componentes da UI para vincular os dados do objeto de modelo
+            tvPredio = convertView.findViewById(R.id.tvPredioAdapter);
+            tvCorredor = convertView.findViewById(R.id.tvCorredorAdapter);
+            tvAndar = convertView.findViewById(R.id.tvAndarAdapter);
+            tvDescricao = convertView.findViewById(R.id.tvDescricaoAdapter);
+            tvData = convertView.findViewById(R.id.tvDataAdapter);
+        }
     }
 }
 

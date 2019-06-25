@@ -37,10 +37,10 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
         }
 
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
-        TextView tvSSID = convertView.findViewById(R.id.tvDescricaoAdapter);
+        TextView tvSSID = convertView.findViewById(R.id.tvSSID);
         TextView tvBSSID = convertView.findViewById(R.id.tvEmailAdapter);
         TextView tvDBM = convertView.findViewById(R.id.tvDBM);
-        TextView tvDistancia = convertView.findViewById(R.id.tvDescricaoAdapter);
+        TextView tvDistancia = convertView.findViewById(R.id.tvDistancia);
         ImageView imvFotoPontoRefAdapter = convertView.findViewById(R.id.imvFotoPontoRefAdapter);
 
         //vincula os dados do objeto de modelo à view

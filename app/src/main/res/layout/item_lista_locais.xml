@@ -7,7 +7,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cv_seleciona_lista"
+        android:id="@+id/cv_lista_locais"
         android:layout_width="395dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="2dp"
@@ -25,7 +25,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/hint_predio"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -34,20 +34,22 @@
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                app:layout_constraintStart_toEndOf="@+id/tvDescricaoAdapter"
                 app:srcCompat="@drawable/ic_delete_white_24dp" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageButton"
                 app:srcCompat="@drawable/ic_edit_white_24dp" />
 
             <TextView
@@ -56,7 +58,9 @@
                 android:layout_height="45dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/hint_descricao_local"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvAndarAdapter"
                 app:layout_constraintTop_toBottomOf="@+id/tvPredioAdapter" />
 
@@ -64,11 +68,12 @@
                 android:id="@+id/tvDataAdapter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/hint_data"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvAndarAdapter"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvAndarAdapter" />
 
             <TextView
@@ -86,9 +91,10 @@
                 android:id="@+id/tvAndarAdapter"
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/hint_andar"
-                app:layout_constraintStart_toStartOf="@+id/tvPredioAdapter"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvPredioAdapter" />
 
         </android.support.constraint.ConstraintLayout>

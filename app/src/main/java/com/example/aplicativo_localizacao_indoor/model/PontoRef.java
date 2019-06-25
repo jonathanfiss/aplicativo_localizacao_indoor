@@ -7,7 +7,7 @@ import com.google.firebase.database.Exclude;
 public class PontoRef {
     private String bssid;
     private String ssid;
-    private int patrimonio;
+    private Integer patrimonio;
     private String bssidAnt;
     private String bssidPost;
     private Local local;
@@ -42,11 +42,11 @@ public class PontoRef {
         this.ssid = ssid;
     }
 
-    public int getPatrimonio() {
+    public Integer getPatrimonio() {
         return patrimonio;
     }
 
-    public void setPatrimonio(int patrimonio) {
+    public void setPatrimonio(Integer patrimonio) {
         this.patrimonio = patrimonio;
     }
 

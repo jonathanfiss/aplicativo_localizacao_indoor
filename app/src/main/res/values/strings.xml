@@ -32,11 +32,12 @@
     <string name="menu_cad_local">Cadastrar local</string>
     <string name="menu_cad_sala">Cadastrar sala</string>
     <string name="menu_add_user">Adicionar Usuario</string>
-    <string name="menu_list_access_point">Listar ponto de referência</string>
-    <string name="menu_list_local">Lista locais</string>
-    <string name="menu_list_sala">lista de salas</string>
+    <string name="menu_list_access_point">Lista de pontos de referência</string>
+    <string name="menu_list_local">Lista de locais</string>
+    <string name="menu_list_sala">Lista de salas</string>
     <string name="menu_list_user">Lista de usuarios</string>
     <string name="menu_cad_local_especial">Cadastrar local especial</string>
+    <string name="menu_sair">Sair</string>
 
     <!--TextView-->
     <string name="tv_descricao">Descrição:</string>
@@ -67,7 +68,9 @@
     <string name="hint_nome">Nome</string>
     <string name="hint_nome_sala">Nome da sala</string>
     <string name="hint_numero_sala">Numero da sala</string>
-
+    <string name="hint_data">00/00/0000</string>
+    <string name="hint_corredor">corredor</string>
+    <string name="hint_andar">1</string>
     <!--button-->
     <string name="bt_cadastrar_user">Cadastrar Usuario</string>
     <string name="bt_seleciona_ponto">Selecionar ponto de referência</string>
@@ -97,8 +100,7 @@
 
     <!--descrição-->
     <string name="content_description_ponto_ref">Esta imagem demostra a intensidade do sinanl Wi-Fi</string>
-    <string name="menu_sair">Sair</string>
-    <string name="hint_data">00/00/0000</string>
-    <string name="hint_corredor">corredor</string>
-    <string name="hint_andar">1</string>
+    <string name="contentDescriptionEditar">Botão de Editar</string>
+    <string name="contentDescriptionExcluir">Botão de Excluir</string>
+    <string name="tv_local_sala">local da sala</string>
 </resources>

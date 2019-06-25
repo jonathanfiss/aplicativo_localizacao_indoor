@@ -47,7 +47,6 @@ public class ListaPontosRefAdapter extends ArrayAdapter<PontoRef> {
         holder.tvPatrimonioAdapter.setText(pontoref.getPatrimonio().toString());
 //        holder.tvLocalAdapter.setText(pontoref.getLocal().getCorredor());
 
-
         return convertView;
     }
 

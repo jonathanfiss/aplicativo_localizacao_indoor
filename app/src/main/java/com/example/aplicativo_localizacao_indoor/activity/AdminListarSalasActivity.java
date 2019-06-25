@@ -40,9 +40,7 @@ public class AdminListarSalasActivity extends AppCompatActivity {
         myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-//                Log.d(TAG, "Value is: " + dataSnapshot.getValue());
-
+                AppSetup.salas.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Sala sala = ds.getValue(Sala.class);
                     sala.setKey(ds.getKey());

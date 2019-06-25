@@ -38,6 +38,7 @@ public class AdminListarPontoActivity extends AppCompatActivity {
         myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                AppSetup.pontosRef.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     PontoRef ponto = ds.getValue(PontoRef.class);
                     ponto.setKey(ds.getKey());

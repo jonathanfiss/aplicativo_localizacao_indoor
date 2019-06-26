@@ -56,7 +56,7 @@
     <Spinner
         android:id="@+id/spLocalSala"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
         app:layout_constraintStart_toStartOf="@+id/tvLocalSala"
         app:layout_constraintTop_toBottomOf="@+id/tvLocalSala" />

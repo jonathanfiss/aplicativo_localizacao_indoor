@@ -7,21 +7,21 @@
     <item android:title="Cadastro">
         <menu>
             <item
-                android:id="@+id/nav_cad_access_point"
-                android:icon="@drawable/ic_menu_access_point"
-                android:title="@string/menu_cad_access_point" />
-            <item
                 android:id="@+id/nav_cad_local"
                 android:icon="@drawable/ic_cad_local"
                 android:title="@string/menu_cad_local" />
             <item
-                android:id="@+id/nav_cad_local_especial"
-                android:icon="@drawable/ic_edit_location_black_24dp"
-                android:title="@string/menu_cad_local_especial" />
+                android:id="@+id/nav_cad_access_point"
+                android:icon="@drawable/ic_menu_access_point"
+                android:title="@string/menu_cad_access_point" />
             <item
                 android:id="@+id/nav_cad_sala"
                 android:icon="@drawable/ic_cad_sala"
                 android:title="@string/menu_cad_sala" />
+            <item
+                android:id="@+id/nav_cad_local_especial"
+                android:icon="@drawable/ic_edit_location_black_24dp"
+                android:title="@string/menu_cad_local_especial" />
         </menu>
     </item>
     </group>

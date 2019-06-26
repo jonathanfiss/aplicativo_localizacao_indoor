@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdminCadastraSalaActivity extends AppCompatActivity {
 
@@ -50,33 +52,29 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
         btSelecionaPonto = findViewById(R.id.btSelecionaPonto);
         btCadastrarSala = findViewById(R.id.btCadastrarSala);
 
-        corredor = new ArrayList<>();
+        final List<String> corredor = new ArrayList<>();
+
         sala = new Sala();
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("dados/salas");
-// Read from the database
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("dados").child("locais");
+        // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                AppSetup.locais.clear();
                 corredor.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Local local = ds.getValue(Local.class);
                     local.setKey(ds.getKey());
-                    if (AppSetup.locais.size() > 0) {
-                        for (Local lc : AppSetup.locais) {
-                            if (!local.getCorredor().equals(lc.getCorredor())) {
-                                corredor.add(lc.getCorredor());
-                                Log.d("corredorUnidade", lc.getCorredor());
-                                Log.d("corredorUnid", corredor.toString());
-                            }
-                        }
-                    }
-                    AppSetup.locais.add(local);
 
+                    AppSetup.locais.add(local);
+                    for (Local lc : AppSetup.locais) {
+                        corredor.add(lc.getCorredor());
+                    }
+                    Log.d("corredorTodo", corredor.toString());
                 }
-                Log.d("corredorTodo", corredor.toString());
             }
 
             @Override
@@ -85,10 +83,21 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
                 Log.w("erro de leitura", "Failed to read value.", error.toException());
             }
         });
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, corredor);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, corredor);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spLocalSala.setAdapter(adapter);
+        spLocalSala.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                sala.setLocal(AppSetup.locais.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btSelecionaPonto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +119,7 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
                     sala.setSituacao(true);
                     // obtém a referência do database e do nó
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("dados").child("sala");
+                    DatabaseReference myRef = database.getReference("dados").child("salas");
                     myRef.push().setValue(sala)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

@@ -103,4 +103,5 @@
     <string name="contentDescriptionEditar">Botão de Editar</string>
     <string name="contentDescriptionExcluir">Botão de Excluir</string>
     <string name="tv_local_sala">local da sala</string>
+    <string name="hint_funcao">Administrador</string>
 </resources>

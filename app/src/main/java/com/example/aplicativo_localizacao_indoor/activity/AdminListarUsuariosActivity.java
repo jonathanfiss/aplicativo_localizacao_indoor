@@ -35,17 +35,17 @@ public class AdminListarUsuariosActivity extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("admin");
+        DatabaseReference myRef = database.getReference("user");
         // Read from the database
         myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Usuario> usuarios = new ArrayList<>();
-                Log.d("banco", String.valueOf(dataSnapshot.getValue()));
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Usuario usuario = ds.getValue(Usuario.class);
                     usuario.setKey(ds.getKey());
+                    usuarios.add(usuario);
                 }
                 listaUsuarios.setAdapter(new ListaUsuariosAdapter(AdminListarUsuariosActivity.this, usuarios));
             }

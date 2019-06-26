@@ -1,4 +1,5 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">Localizacao Indoor Campus Pelotas</string>
     <string name="btAdicionar">Adicionar</string>
     <string name="btEditar">Alterar</string>
@@ -9,4 +10,111 @@
     <string name="btLogin">Entrar</string>
     <string name="hintSenha">Senha</string>
     <string name="hintEmail">E-mail</string>
+=======
+    <string name="app_name">Localização Indoor</string>
+
+    <string name="menu_adm">Login administrador</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_admin_main">AdminMainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!--menu-->
+    <string name="menu_cad_access_point">Cadastrar ponto de referência</string>
+    <string name="menu_cad_local">Cadastrar local</string>
+    <string name="menu_cad_sala">Cadastrar sala</string>
+    <string name="menu_add_user">Adicionar Usuario</string>
+    <string name="menu_list_access_point">Lista de pontos de referência</string>
+    <string name="menu_list_local">Lista de locais</string>
+    <string name="menu_list_sala">Lista de salas</string>
+    <string name="menu_list_user">Lista de usuarios</string>
+    <string name="menu_cad_local_especial">Cadastrar local especial</string>
+    <string name="menu_sair">Sair</string>
+
+    <!--TextView-->
+    <string name="tv_descricao">Descrição:</string>
+    <string name="tv_distancia">Distancia</string>
+    <string name="tv_dbm">dbm</string>
+    <string name="tv_funcao">Função:</string>
+    <string name="tv_corredor">Corredor:</string>
+    <string name="tv_seleciona_local">Local</string>
+    <string name="tv_patrimonio">Patrimônio:</string>
+    <string name="tv_nome_usuario">Nome:</string>
+    <string name="tv_sobrenome_usuario">Sobrenome:</string>
+    <string name="tv_email_usuario">Email:</string>
+    <string name="tv_matricula_usuario">Matricula:</string>
+    <string name="tv_senha_usuario">Senha:</string>
+    <!--EditText-->
+
+    <!--hint-->
+    <string name="hint_predio">Prédio</string>
+    <string name="hint_sobrenome">Sobrenome</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_matricula">Matricula</string>
+    <string name="hint_senha">Senha</string>
+    <string name="hint_BSSID">Ex:04:0d:ca:2d:cb:a0</string>
+    <string name="hint_SSID">Ex:Administrativa</string>
+    <string name="hint_patrimonio">Patrimonio</string>
+    <string name="hint_descricao_local">Descrição</string>
+    <string name="hint_local">Corredor</string>
+    <string name="hint_nome">Nome</string>
+    <string name="hint_nome_sala">Nome da sala</string>
+    <string name="hint_numero_sala">Numero da sala</string>
+    <string name="hint_data">00/00/0000</string>
+    <string name="hint_corredor">corredor</string>
+    <string name="hint_andar">1</string>
+    <!--button-->
+    <string name="bt_cadastrar_user">Cadastrar Usuario</string>
+    <string name="bt_seleciona_ponto">Selecionar ponto de referência</string>
+    <string name="bt_cadastrar_local">Cadatrar Local</string>
+    <string name="bt_cadastrar_sala">Cadastrar Sala</string>
+    <string name="bt_cadastrar_ponto">Cadastrar ponto de referência</string>
+    <string name="bt_listar">Listar</string>
+    <string name="bt_cad_ponto_ref_ant">Ponto de referência Anterior</string>
+    <string name="bt_cad_ponto_ref_post">Ponto de referênciat Posterior</string>
+    <string name="bt_localizar">Localizar</string>
+    <string name="bt_rota">Buscar Rota</string>
+
+    <!--radiobutton-->
+    <string name="andar_select_1">1º Andar</string>
+    <string name="andar_select_2">2º Andar</string>
+    <string name="andar_select_3">3º Andar</string>
+    <string name="andar_select">Andar:</string>
+
+    <!--label-->
+    <string name="label_aprox">Aprox. </string>
+    <string name="label_metros"> metros</string>
+    <string name="label_dbm">dbm</string>
+
+    <!--toast-->
+    <string name="toast_cadastra_ponto_sucesso">Ponto Cadastrado com Sucesso</string>
+    <string name="toast_erro_cadastra_ponto">Falha ao realizar o cadastro</string>
+
+    <!--descrição-->
+    <string name="content_description_ponto_ref">Esta imagem demostra a intensidade do sinanl Wi-Fi</string>
+    <string name="contentDescriptionEditar">Botão de Editar</string>
+    <string name="contentDescriptionExcluir">Botão de Excluir</string>
+    <string name="tv_local_sala">local da sala</string>
+    <string name="hint_funcao">Administrador</string>
+>>>>>>> dev
 </resources>

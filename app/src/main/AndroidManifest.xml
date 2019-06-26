@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aplicativo_localizacao_indoor">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".adm.RemoverActivity" ></activity>
         <activity android:name=".adm.AlterarActivity" />
         <activity android:name=".adm.InserirActivity" />
@@ -17,11 +23,63 @@
         <activity android:name=".activity.BuscarRotaActivity" android:label="@string/btBuscaRota"/>
         <activity android:name=".activity.LoginActivity" android:label="@string/mn_login"/>
         <activity android:name=".activity.MainActivity">
+=======
+        <activity
+            android:name=".activity.AdminListarUsuariosActivity"
+            android:label="Lista de usuarios"></activity>
+        <activity
+            android:name=".activity.AdminListarSalasActivity"
+            android:label="Lista de Salas"></activity>
+        <activity
+            android:name=".activity.AdminListarLocaisActivity"
+            android:label="Lista de Locais"></activity>
+        <activity
+            android:name=".activity.AdminCadastrarLocalEspecialActivity"
+            android:label="Cadastrar locais Especiais"></activity>
+        <activity
+            android:name=".activity.AdminSelecionaPontoActivity"
+            android:label="Selecionar Pontos de Referencia"></activity>
+        <activity
+            android:name=".activity.AdminCadastraPontoActivityDetalhe"
+            android:label="Cadastrar Ponto"></activity>
+        <activity
+            android:name=".activity.AdminMainActivity"
+            android:label="Administrador"
+            android:theme="@style/AppTheme.NoActionBar">
+>>>>>>> dev
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.AdminListarPontoActivity"
+            android:label="Lista de Pontos"></activity>
+        <activity
+            android:name=".activity.AdminCadastraUsuarioActivity"
+            android:label="Cadastrar Usuarios"></activity>
+        <activity
+            android:name=".activity.AdminCadastraSalaActivity"
+            android:label="Cadastrar Sala"></activity>
+        <activity
+            android:name=".activity.AdminCadastraLocalActivity"
+            android:label="Cadastrar local"></activity>
+        <activity
+            android:name=".activity.AdminCadastraPontoActivity"
+            android:label="Cadastrar Ponto"></activity>
+        <activity
+            android:name=".activity.RotaActivity"
+            android:label="Rota"></activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="Login"></activity>
+        <activity
+            android:name=".activity.LocalizarActivity"
+            android:label="Localizar"></activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name">
         </activity>
     </application>
 

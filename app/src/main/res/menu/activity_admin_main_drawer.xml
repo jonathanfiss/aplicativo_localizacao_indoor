@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+    <item android:title="Cadastro">
+        <menu>
+            <item
+                android:id="@+id/nav_cad_local"
+                android:icon="@drawable/ic_cad_local"
+                android:title="@string/menu_cad_local" />
+            <item
+                android:id="@+id/nav_cad_access_point"
+                android:icon="@drawable/ic_menu_access_point"
+                android:title="@string/menu_cad_access_point" />
+            <item
+                android:id="@+id/nav_cad_sala"
+                android:icon="@drawable/ic_cad_sala"
+                android:title="@string/menu_cad_sala" />
+            <item
+                android:id="@+id/nav_cad_local_especial"
+                android:icon="@drawable/ic_edit_location_black_24dp"
+                android:title="@string/menu_cad_local_especial" />
+        </menu>
+    </item>
+    </group>
+    <item android:title="Lista">
+        <menu>
+            <item
+                android:id="@+id/nav_list_access_point"
+                android:icon="@drawable/ic_menu_access_point"
+                android:title="@string/menu_list_access_point" />
+            <item
+                android:id="@+id/nav_list_local"
+                android:icon="@drawable/ic_cad_local"
+                android:title="@string/menu_list_local" />
+            <item
+                android:id="@+id/nav_list_sala"
+                android:icon="@drawable/ic_cad_sala"
+                android:title="@string/menu_list_sala" />
+        </menu>
+    </item>
+
+    <item android:title="Usuario">
+        <menu>
+            <item
+                android:id="@+id/nav_add_usuario"
+                android:icon="@drawable/ic_add_user"
+                android:title="@string/menu_add_user" />
+            <item
+            android:id="@+id/nav_list_usuario"
+            android:icon="@drawable/ic_group_black_24dp"
+            android:title="@string/menu_list_user" />
+
+        </menu>
+    </item>
+    <item>
+        <menu>
+            <item
+                android:id="@+id/nav_sair"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="@string/menu_sair" />
+        </menu>
+    </item>
+</menu>

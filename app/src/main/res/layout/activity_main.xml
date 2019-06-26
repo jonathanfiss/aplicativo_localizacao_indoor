@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
+<<<<<<< HEAD
 
     <Button
         android:id="@+id/btBuscarRota"
@@ -17,6 +18,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+=======
+    <!--android:background="@drawable/ifsul_background">-->
+
+    <Button
+        android:id="@+id/btLocalizar"
+        android:layout_width="@dimen/activity_button_tamanho_horizontal"
+        android:layout_height="@dimen/activity_button_tamanho_vertical"
+        android:layout_marginBottom="50dp"
+        android:text="@string/bt_localizar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorTextButton"
+        android:background="@color/colorButton"/>
+
+    <Button
+        android:id="@+id/btRota"
+        android:layout_width="@dimen/activity_button_tamanho_horizontal"
+        android:layout_height="@dimen/activity_button_tamanho_vertical"
+        android:layout_marginBottom="32dp"
+        android:background="@color/colorButton"
+        android:text="@string/bt_rota"
+        android:textColor="@color/colorTextButton"
+        app:layout_constraintBottom_toTopOf="@+id/btLocalizar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+>>>>>>> dev
 
     <Button
         android:id="@+id/btLocalizar"

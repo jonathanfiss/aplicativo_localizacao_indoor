@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
     <color name="colorPrimary">#076318</color>
     <color name="colorPrimaryDark">#00420c</color>
     <color name="colorAccent">#b20000</color>
     <color name="colorSegundaryGrey">#d6d6d6</color>
     <color name="colorSegundary">#ffffff</color>
+=======
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#00420c</color>
+
+    <color name="colorVerdeClaro">#076318</color>
+    <color name="colorVerdeEscuro">#00420c</color>
+    <color name="colorCinza">#d6d6d6</color>
+    <color name="colorBranco">#fff</color>
+    <color name="colorButton">#008577</color>
+    <color name="colorTextButton">#fff</color>
+
+>>>>>>> dev
 </resources>

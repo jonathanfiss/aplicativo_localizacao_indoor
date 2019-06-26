@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AdminCadastraPontoActivityDetalhe">
+
+    <TextView
+        android:id="@+id/tvBSSID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/hint_BSSID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSSID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/hint_SSID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btCadPontoRefAnt"
+        android:layout_width="249dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorButton"
+        android:text="@string/bt_cad_ponto_ref_ant"
+        android:textColor="@color/colorTextButton"
+        app:layout_constraintStart_toStartOf="@+id/tvSSID"
+        app:layout_constraintTop_toBottomOf="@+id/tvSSID" />
+
+    <Switch
+        android:id="@+id/btCadPontoRefAntChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toEndOf="@+id/btCadPontoRefAnt"
+        app:layout_constraintTop_toTopOf="@+id/btCadPontoRefAnt" />
+
+    <Button
+        android:id="@+id/btCadPontoRefPost"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorButton"
+        android:text="@string/bt_cad_ponto_ref_post"
+        android:textColor="@color/colorTextButton"
+        app:layout_constraintEnd_toEndOf="@+id/btCadPontoRefAnt"
+        app:layout_constraintStart_toStartOf="@+id/btCadPontoRefAnt"
+        app:layout_constraintTop_toBottomOf="@+id/btCadPontoRefAnt" />
+
+    <Switch
+        android:id="@+id/btCadPontoRefPostChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btCadPontoRefPost"
+        app:layout_constraintTop_toTopOf="@+id/btCadPontoRefPost" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvBSSID"
+        app:layout_constraintStart_toStartOf="@+id/btCadPontoRefPost"
+        app:layout_constraintTop_toBottomOf="@+id/btCadPontoRefPost">
+
+        <EditText
+            android:id="@+id/etPatrimonio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_patrimonio"
+            android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btCadPontoRef"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorButton"
+        android:text="@string/bt_cadastrar_ponto"
+        android:textColor="@color/colorTextButton"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+
+</android.support.constraint.ConstraintLayout>

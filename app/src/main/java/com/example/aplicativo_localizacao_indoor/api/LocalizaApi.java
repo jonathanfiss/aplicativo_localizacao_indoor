@@ -13,8 +13,8 @@ public interface LocalizaApi {
     @GET("pontoref/read.php/")
     Call<PontoRefList> getPonto();
 
-//    @GET("carros")
-//    Call<CarroSync> getCarros();
+//    @GET("resto endereço")
+//    Call<classe> getmetodo();
 //
 //    @GET("carros/tipo/{tipo}")
 //    Call<CarroSync> getCarrosByTipo(@Path("tipo") String tipo);

@@ -1,16 +1,4 @@
 <resources>
-<<<<<<< HEAD
-    <string name="app_name">Localizacao Indoor Campus Pelotas</string>
-    <string name="btAdicionar">Adicionar</string>
-    <string name="btEditar">Alterar</string>
-    <string name="btremover">Remover</string>
-    <string name="btBuscaRota">Buscar Rota</string>
-    <string name="btLocalizar">Localizar</string>
-    <string name="mn_login">Login</string>
-    <string name="btLogin">Entrar</string>
-    <string name="hintSenha">Senha</string>
-    <string name="hintEmail">E-mail</string>
-=======
     <string name="app_name">Localização Indoor</string>
 
     <string name="menu_adm">Login administrador</string>
@@ -64,6 +52,8 @@
     <string name="tv_email_usuario">Email:</string>
     <string name="tv_matricula_usuario">Matricula:</string>
     <string name="tv_senha_usuario">Senha:</string>
+    <string name="tv_local_sala">local da sala</string>
+
     <!--EditText-->
 
     <!--hint-->
@@ -83,6 +73,8 @@
     <string name="hint_data">00/00/0000</string>
     <string name="hint_corredor">corredor</string>
     <string name="hint_andar">1</string>
+    <string name="hint_funcao">Administrador</string>
+
     <!--button-->
     <string name="bt_cadastrar_user">Cadastrar Usuario</string>
     <string name="bt_seleciona_ponto">Selecionar ponto de referência</string>
@@ -92,8 +84,8 @@
     <string name="bt_listar">Listar</string>
     <string name="bt_cad_ponto_ref_ant">Ponto de referência Anterior</string>
     <string name="bt_cad_ponto_ref_post">Ponto de referênciat Posterior</string>
-    <string name="bt_localizar">Localizar</string>
-    <string name="bt_rota">Buscar Rota</string>
+    <string name="bt_localizar">Onde você está?</string>
+    <string name="bt_rota">Onde você deseja ir?</string>
 
     <!--radiobutton-->
     <string name="andar_select_1">1º Andar</string>
@@ -105,16 +97,26 @@
     <string name="label_aprox">Aprox. </string>
     <string name="label_metros"> metros</string>
     <string name="label_dbm">dbm</string>
+    <string name="label_msg_predio">Você esta no prédio</string>
+    <string name="label_msg_andar">no andar</string>
+    <string name="label_msg_corredor">no corredor</string>
 
     <!--toast-->
     <string name="toast_cadastra_ponto_sucesso">Ponto Cadastrado com Sucesso</string>
     <string name="toast_erro_cadastra_ponto">Falha ao realizar o cadastro</string>
+    <string name="toast_ponto_selecionado">Ponto selecionado com Sucesso</string>
 
     <!--descrição-->
     <string name="content_description_ponto_ref">Esta imagem demostra a intensidade do sinanl Wi-Fi</string>
     <string name="contentDescriptionEditar">Botão de Editar</string>
     <string name="contentDescriptionExcluir">Botão de Excluir</string>
-    <string name="tv_local_sala">local da sala</string>
-    <string name="hint_funcao">Administrador</string>
->>>>>>> dev
+    <string name="alertdialog_editar">Editar</string>
+    <string name="alertdialog_excluir">Excluir</string>
+    <string name="title_opcao">Qual opção você deseja realizar?</string>
+
+
+    <!--builder -->
+    <string name="builder_titulo">Permissão</string>
+    <string name="builder_mensagem">Para você poder utilizar o sistema é necessario a permissão a localização</string>
+
 </resources>

@@ -18,7 +18,6 @@ import java.util.List;
 public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
 
     private Context context;
-    private List<WiFiDetalhe> wiFiDetalhes;
 
     public PontoReferenciaAdapter(@NonNull Context context, @NonNull List<WiFiDetalhe> wiFiDetalhes) {
         super(context, 0, wiFiDetalhes);
@@ -38,7 +37,7 @@ public class PontoReferenciaAdapter extends ArrayAdapter<WiFiDetalhe> {
 
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
         TextView tvSSID = convertView.findViewById(R.id.tvSSID);
-        TextView tvBSSID = convertView.findViewById(R.id.tvEmailAdapter);
+        TextView tvBSSID = convertView.findViewById(R.id.tvBSSID);
         TextView tvDBM = convertView.findViewById(R.id.tvDBM);
         TextView tvDistancia = convertView.findViewById(R.id.tvDistancia);
         ImageView imvFotoPontoRefAdapter = convertView.findViewById(R.id.imvFotoPontoRefAdapter);

@@ -1,14 +1,5 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
-<<<<<<< HEAD
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.example.aplicativo_localizacao_indoor.R;
-
-public class LoginActivity extends AppCompatActivity {
-
-=======
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -38,15 +29,10 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 //    private
 
->>>>>>> dev
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-<<<<<<< HEAD
-    }
-}
-=======
         FirebaseApp.initializeApp(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -230,4 +216,3 @@ public class LoginActivity extends AppCompatActivity {
 //    }
 //}
 
->>>>>>> dev

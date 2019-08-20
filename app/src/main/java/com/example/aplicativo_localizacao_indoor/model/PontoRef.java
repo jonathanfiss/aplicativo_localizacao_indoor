@@ -3,12 +3,16 @@ package com.example.aplicativo_localizacao_indoor.model;
 import android.widget.EditText;
 
 import com.google.firebase.database.Exclude;
+import com.google.gson.annotations.SerializedName;
 
 public class PontoRef {
+    private Long id_ponto;
     private String bssid;
     private String ssid;
     private Integer patrimonio;
+   @SerializedName("bssid_ant")
     private String bssidAnt;
+    @SerializedName("bssid_post")
     private String bssidPost;
     private Local local;
     private String key;
@@ -82,5 +86,20 @@ public class PontoRef {
     @Exclude
     public void setKey(String key) {
         this.key = key;
+    }
+
+    @Override
+    public String toString() {
+        return "PontoRef{" +
+                "id_ponto=" + id_ponto +
+                ", bssid='" + bssid + '\'' +
+                ", ssid='" + ssid + '\'' +
+                ", patrimonio=" + patrimonio +
+                ", bssidAnt='" + bssidAnt + '\'' +
+                ", bssidPost='" + bssidPost + '\'' +
+                ", local=" + local +
+                ", key='" + key + '\'' +
+                ", situacao=" + situacao +
+                '}';
     }
 }

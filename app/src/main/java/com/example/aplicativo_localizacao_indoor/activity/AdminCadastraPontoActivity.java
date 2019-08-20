@@ -28,7 +28,7 @@ import java.util.List;
 
 import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetalhes;
 
-public class AdminCadastraPontoActivity extends AppCompatActivity {
+public class AdminCadastraPontoActivity extends BaseActivity {
     private static final int REQUEST_PERMISSIONS_CODE = 0;
     private ProgressDialog mProgressDialog;
     private ListView lvPontosRef;
@@ -44,11 +44,8 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-        verificaPermissao();
-        if (!wifiManager.isWifiEnabled()) {
-            wifiManager.setWifiEnabled(true);
-        }
+        verificaPermissao(AdminCadastraPontoActivity.this);
+        verificaWifi();
 
         lvPontosRef = findViewById(R.id.lv_pontos_ref);
 //        lvPontosRef.setAdapter(pontoReferenciaAdapter);
@@ -73,11 +70,7 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(AdminCadastraPontoActivity.this);
-            mProgressDialog.setMessage("Buscando redes...");
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            mProgressDialog.show();
+            showWait(AdminCadastraPontoActivity.this);
         }
 
         @Override
@@ -90,11 +83,7 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
                     AppSetup.wiFiDetalhes.clear();
                     wiFiDetalhes.clear();
                     if (scanResults.isEmpty()) {
-                        mProgressDialog = new ProgressDialog(AdminCadastraPontoActivity.this);
-                        mProgressDialog.setMessage("Buscando redes...");
-                        mProgressDialog.setIndeterminate(true);
-                        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                        mProgressDialog.show();
+                        showWait(AdminCadastraPontoActivity.this);
                     } else {
                         for (ScanResult result : scanResults) {
                             WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
@@ -119,47 +108,61 @@ public class AdminCadastraPontoActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(List<WiFiDetalhe>... values) {
             super.onProgressUpdate(values);
-            mProgressDialog.dismiss();
+            dismissWait();
             lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
         }
 
         @Override
         protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
             super.onPostExecute(wiFiDetalhes);
-            mProgressDialog.dismiss();
+            dismissWait();
             lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
         }
     }
+//    public void  showWait(){
+//        //cria e configura a caixa de diálogo e progressão
+//        mProgressDialog = new ProgressDialog(AdminCadastraPontoActivity.this);
+//        mProgressDialog.setMessage("Buscando redes...");
+//        mProgressDialog.setIndeterminate(true);
+//        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        mProgressDialog.show();
+//    }
+//
+//    //Faz Dismiss na ProgressDialog
+//    public void dismissWait(){
+//        mProgressDialog.dismiss();
+//    }
 
-    private boolean verificaPermissao() {
-        //verifica se o aplicativo tem permissão para utilizar a localização
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //verifica se permissão ja foi negada alguma vez para utilizar a localização
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                //adiciona um título e uma mensagem
-                builder.setTitle("Permissão");
-                builder.setMessage("Para você poder utilizar o sistema é necessario a permissão a localização");
-                //adiciona os botões
-                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions(AdminCadastraPontoActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
-                    }
-                });
-                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                builder.show();
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
-            }
-        }//retorna true se tiver tudo certo
-        return true;
-    }
+
+//    private boolean verificaPermissao() {
+//        //verifica se o aplicativo tem permissão para utilizar a localização
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            //verifica se permissão ja foi negada alguma vez para utilizar a localização
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                //adiciona um título e uma mensagem
+//                builder.setTitle("Permissão");
+//                builder.setMessage("Para você poder utilizar o sistema é necessario a permissão a localização");
+//                //adiciona os botões
+//                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        ActivityCompat.requestPermissions(AdminCadastraPontoActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
+//                    }
+//                });
+//                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        finish();
+//                    }
+//                });
+//                builder.show();
+//            } else {
+//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
+//            }
+//        }//retorna true se tiver tudo certo
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -24,8 +24,7 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
 
     private Local local;
     private RadioGroup radioGroupAndar;
-    private AutoCompleteTextView autoCompleteSetor;
-    private EditText etDescricaoLocal, etPredio;
+    private EditText etDescricaoLocal, etPredio, etCorredor;
     private Button btCadLocal;
 
     @Override
@@ -38,16 +37,11 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
 
         btCadLocal = findViewById(R.id.btCadLocal);
 
-        String[] SETORES = new String[]{"Principal", "Tecnologia em sistemas para Internet", "Design", "Caldelas"};
-
         local = new Local();
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SETORES);
-        autoCompleteSetor = (AutoCompleteTextView) findViewById(R.id.acCorredor);
-        autoCompleteSetor.setAdapter(adapter);
 
         etDescricaoLocal = findViewById(R.id.etDescricaoLocal);
         etPredio = findViewById(R.id.etPredio);
+        etCorredor = findViewById(R.id.etCorredor);
 
         radioGroupAndar = findViewById(R.id.radioGroupAndar);
         radioGroupAndar.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -75,9 +69,9 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
         btCadLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etDescricaoLocal.getText().toString().isEmpty() && !etPredio.getText().toString().isEmpty() && !autoCompleteSetor.getText().toString().isEmpty() && !radioGroupAndar.isSelected()) {
+                if (!etDescricaoLocal.getText().toString().isEmpty() && !etPredio.getText().toString().isEmpty() && !etCorredor.getText().toString().isEmpty() && !radioGroupAndar.isSelected()) {
                     local.setPredio(etPredio.getText().toString());
-                    local.setCorredor(autoCompleteSetor.getText().toString());
+                    local.setCorredor(etCorredor.getText().toString());
                     local.setDescricao(etDescricaoLocal.getText().toString());
                     local.setSituacao(true);
                     // obtém a referência do database e do nó
@@ -107,8 +101,9 @@ public class AdminCadastraLocalActivity extends AppCompatActivity {
 
     private void limparForm() {
         local = new Local();
+        etPredio.setText(null);
         radioGroupAndar.clearCheck();
-        autoCompleteSetor.setText(null);
+        etCorredor.setText(null);
         etDescricaoLocal.setText(null);
     }
 

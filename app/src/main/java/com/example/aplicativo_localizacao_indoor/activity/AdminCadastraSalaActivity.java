@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -33,10 +34,9 @@ import java.util.List;
 public class AdminCadastraSalaActivity extends AppCompatActivity {
 
     private EditText etNomeSala, etNumeroSala;
-    private Spinner spLocalSala;
+    private AutoCompleteTextView acLocalSala;
     private Button btSelecionaPonto, btCadastrarSala;
     private Sala sala;
-    private ArrayList corredor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
 
         etNomeSala = findViewById(R.id.etNomeSala);
         etNumeroSala = findViewById(R.id.etNumeroSala);
-        spLocalSala = findViewById(R.id.spLocalSala);
+        acLocalSala = findViewById(R.id.acLocalSala);
         btSelecionaPonto = findViewById(R.id.btSelecionaPonto);
         btCadastrarSala = findViewById(R.id.btCadastrarSala);
 
@@ -64,12 +64,13 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 AppSetup.locais.clear();
-                corredor.clear();
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Local local = ds.getValue(Local.class);
                     local.setKey(ds.getKey());
 
                     AppSetup.locais.add(local);
+                    corredor.clear();
                     for (Local lc : AppSetup.locais) {
                         corredor.add(lc.getCorredor());
                     }
@@ -83,39 +84,30 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
                 Log.w("erro de leitura", "Failed to read value.", error.toException());
             }
         });
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, corredor);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spLocalSala.setAdapter(adapter);
-        spLocalSala.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                sala.setLocal(AppSetup.locais.get(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, corredor);
+        acLocalSala = (AutoCompleteTextView) findViewById(R.id.acLocalSala);
+        acLocalSala.setAdapter(adapter);
 
         btSelecionaPonto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(AdminCadastraSalaActivity.this ,AdminSelecionaPontoActivity.class);
-//                intent.putExtra("salaSelect", 1);
-//                startActivity(intent);
-                startActivity(new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class));
+//
+//                startActivity(new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class));
             }
         });
 
         btCadastrarSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etNomeSala.getText().toString().isEmpty() && !etNumeroSala.getText().toString().isEmpty() && !spLocalSala.toString().isEmpty()) {
+                if (!etNomeSala.getText().toString().isEmpty() && !etNumeroSala.getText().toString().isEmpty() && !acLocalSala.getText().toString().isEmpty()) {
                     sala.setNome(etNomeSala.getText().toString());
                     sala.setNumero(etNumeroSala.getText().toString());
-//                sala.setlocal();
+                    for (Local lc : AppSetup.locais) {
+                        if (lc.getCorredor().contains(acLocalSala.getText())) {
+                            sala.setLocal(lc);
+                        }
+                    }
                     sala.setSituacao(true);
                     // obtém a referência do database e do nó
                     FirebaseDatabase database = FirebaseDatabase.getInstance();

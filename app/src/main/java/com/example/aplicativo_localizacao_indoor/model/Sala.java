@@ -6,6 +6,7 @@ public class Sala {
     private String nome;
     private String numero;
     private String descricao;
+    private String bssid_prox;
     private String data_hora_modificado;
     private String modificado_por;
     private boolean situacao;
@@ -53,6 +54,14 @@ public class Sala {
 
     public void setData_hora_modificado(String data_hora_modificado) {
         this.data_hora_modificado = data_hora_modificado;
+    }
+
+    public String getBssid_prox() {
+        return bssid_prox;
+    }
+
+    public void setBssid_prox(String bssid_prox) {
+        this.bssid_prox = bssid_prox;
     }
 
     public String getModificado_por() {

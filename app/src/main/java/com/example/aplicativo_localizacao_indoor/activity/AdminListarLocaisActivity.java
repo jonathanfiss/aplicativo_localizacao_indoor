@@ -1,9 +1,13 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.aplicativo_localizacao_indoor.R;
@@ -38,7 +42,7 @@ public class AdminListarLocaisActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("dados").child("locais");
 
         // Read from the database
-        myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild("situacao").equalTo(true).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 AppSetup.locais.clear();
@@ -56,6 +60,43 @@ public class AdminListarLocaisActivity extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+        listaLocais.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+        listaLocais.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                dialogLongClink(position);
+                return true;
+            }
+        });
+    }
+    private void dialogLongClink(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //adiciona um título e uma mensagem
+        builder.setTitle(R.string.title_opcao);
+//        builder.setMessage(R.string.mensagem_exclui);
+        //adiciona os botões
+        builder.setPositiveButton(R.string.alertdialog_editar, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("dados").child("locais").child(AppSetup.locais.get(position).getKey()).child("situacao");
+                myRef.setValue(true);
+            }
+        });
+        builder.setNegativeButton(R.string.alertdialog_excluir, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("dados").child("locais").child(AppSetup.locais.get(position).getKey()).child("situacao");
+                myRef.setValue(false);
+            }
+        });
+        builder.show();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

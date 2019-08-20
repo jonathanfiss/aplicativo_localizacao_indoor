@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
@@ -36,7 +37,7 @@ public class ListaPontosRefAdapter extends ArrayAdapter<PontoRef> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_pontos, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         PontoRef pontoref = getItem(position);
@@ -56,12 +57,14 @@ public class ListaPontosRefAdapter extends ArrayAdapter<PontoRef> {
         TextView tvPatrimonioAdapter;
         TextView tvLocalAdapter;
 
+
         private ViewHolder(View convertView) {
             //mapeia os componentes da UI para vincular os dados do objeto de modelo
             tvSsidAdapter = convertView.findViewById(R.id.tvSsidAdapter);
             tvBssidAdapter = convertView.findViewById(R.id.tvBssidAdapter);
             tvPatrimonioAdapter = convertView.findViewById(R.id.tvPatrimonioAdapter);
             tvLocalAdapter = convertView.findViewById(R.id.tvLocalAdapter);
+
         }
     }
 }

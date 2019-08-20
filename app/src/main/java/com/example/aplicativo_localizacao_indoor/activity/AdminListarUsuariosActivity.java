@@ -37,7 +37,7 @@ public class AdminListarUsuariosActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("user");
         // Read from the database
-        myRef.orderByChild("nome").addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild("situacao").equalTo(true).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Usuario> usuarios = new ArrayList<>();

@@ -90,6 +90,23 @@
             android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+        <AutoCompleteTextView
+            android:id="@+id/acLocalPonto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/hint_local" />
+    </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/btCadPontoRef"
         android:layout_width="match_parent"
@@ -102,6 +119,6 @@
         android:textColor="@color/colorTextButton"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
 
 </android.support.constraint.ConstraintLayout>

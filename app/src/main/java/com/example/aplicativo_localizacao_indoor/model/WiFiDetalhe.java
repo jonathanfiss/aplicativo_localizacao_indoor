@@ -5,6 +5,7 @@ public class WiFiDetalhe {
     private String BSSID;
     private int wiFiSignal;
     private Double distacia;
+    private Integer frequencia;
 
     public WiFiDetalhe() {
     }
@@ -36,6 +37,14 @@ public class WiFiDetalhe {
     public Double getDistacia() { return distacia; }
 
     public void setDistacia(Double distacia) { this.distacia = distacia; }
+
+    public Integer getFrequencia() {
+        return frequencia;
+    }
+
+    public void setFrequencia(Integer frequencia) {
+        this.frequencia = frequencia;
+    }
 
     public double calculaDistancia(int frequency, int level){
         double DISTANCE_MHZ_M = 27.55;

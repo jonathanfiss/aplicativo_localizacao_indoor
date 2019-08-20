@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,16 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".adm.RemoverActivity" ></activity>
-        <activity android:name=".adm.AlterarActivity" />
-        <activity android:name=".adm.InserirActivity" />
-        <activity android:name=".adm.MenuAdmActivity" />
-        <activity android:name=".activity.LocalizarActivity" android:label="@string/btLocalizar"/>
-        <activity android:name=".activity.BuscarRotaActivity" android:label="@string/btBuscaRota"/>
-        <activity android:name=".activity.LoginActivity" android:label="@string/mn_login"/>
-        <activity android:name=".activity.MainActivity">
-=======
         <activity
             android:name=".activity.AdminListarUsuariosActivity"
             android:label="Lista de usuarios"></activity>
@@ -46,12 +37,7 @@
             android:name=".activity.AdminMainActivity"
             android:label="Administrador"
             android:theme="@style/AppTheme.NoActionBar">
->>>>>>> dev
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.AdminListarPontoActivity"
@@ -80,6 +66,11 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

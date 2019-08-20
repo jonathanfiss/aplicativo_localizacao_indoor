@@ -3,6 +3,7 @@ package com.example.aplicativo_localizacao_indoor.activity;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.PontoReferenciaAdapter;
@@ -33,7 +35,6 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_CODE = 0;
     private ProgressDialog mProgressDialog;
     private ListView lv_select_pontos_ref;
-    private CardView cv_seleciona_lista;
     private int executa = 0;
 
     @Override
@@ -47,7 +48,6 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
         final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         verificaPermissao();
         if (!wifiManager.isWifiEnabled()) {
-            //gerar modal perguntando se deseja ligar o wifi
             wifiManager.setWifiEnabled(true);
         }
 
@@ -58,10 +58,12 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
         lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                cv_seleciona_lista = findViewById(R.id.cv_seleciona_lista);
-                cv_seleciona_lista.setCardBackgroundColor(getResources().getColor(R.color.colorCinza));
-                cv_seleciona_lista.setCardElevation(1);
-                AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
+                Intent i = new Intent();
+                i.putExtra("position", position);
+                setResult(1, i);
+                Toast.makeText(AdminSelecionaPontoActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
+                finish();
+                executa = 1;
             }
 
         });

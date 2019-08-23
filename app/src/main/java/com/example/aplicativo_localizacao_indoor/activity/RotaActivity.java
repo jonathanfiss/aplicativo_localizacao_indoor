@@ -1,16 +1,17 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
-import com.example.aplicativo_localizacao_indoor.api.LocalizaApi;
+import com.example.aplicativo_localizacao_indoor.adapter.ListaPontosRefAdapter;
+import com.example.aplicativo_localizacao_indoor.service.PontoRefService;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
+import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,27 +29,21 @@ public class RotaActivity extends BaseActivity {
 
         verificaWifi();
         verificaPermissao(RotaActivity.this);
+        final ListView rota = findViewById(R.id.lvrota);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.106/api-project/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        LocalizaApi service = retrofit.create(LocalizaApi.class);
-
-        Call<PontoRefList> call = service.getPonto();
+        Call<PontoRefList> call = new RetrofitSetup().getPontoRefService().getPonto();
 
         call.enqueue(new Callback<PontoRefList>() {
             @Override
             public void onResponse(Call<PontoRefList> call, Response<PontoRefList> response) {
                 if (response.isSuccessful()) {
-                    PontoRefList endereço = response.body();
-//                    Log.d("retorno api", response.toString());
-
-                    for (PontoRef pontoRef : endereço.pontoref){
-                        Log.d("retorno api", pontoRef.toString());
-
+                    PontoRefList pontoRefList = response.body();
+                    for (PontoRef pontoRef : pontoRefList.getPontoref()){
+                        AppSetup.pontosRef.add(pontoRef);
                     }
+                    rota.setAdapter(new ListaPontosRefAdapter(RotaActivity.this, AppSetup.pontosRef));
+//                        Log.d("retorno api apos for", AppSetup.pontosRef.toString());
+
                 }
             }
 

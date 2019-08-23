@@ -114,9 +114,20 @@
     <string name="alertdialog_excluir">Excluir</string>
     <string name="title_opcao">Qual opção você deseja realizar?</string>
 
+    <string name="frase_voce">Você esta</string>
+    <string name="frase_predio">no predio </string>
+    <string name="frase_andar">no andar</string>
+    <string name="frase_corredor">no corredor</string>
+    <string name="frase_salas">proximo das salas</string>
+    <string name="frase_sala">proximo da sala</string>
 
     <!--builder -->
     <string name="builder_titulo">Permissão</string>
     <string name="builder_mensagem">Para você poder utilizar o sistema é necessario a permissão a localização</string>
+
+    <string name="btAdicionar">btAdicionar</string>
+    <string name="btEditar">btEditar</string>
+    <string name="btremover">btremover</string>
+    <string name="mn_login">mn_login</string>
 
 </resources>

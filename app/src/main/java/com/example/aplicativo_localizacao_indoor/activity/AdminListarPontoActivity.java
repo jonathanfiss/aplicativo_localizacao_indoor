@@ -75,7 +75,7 @@ public class AdminListarPontoActivity extends AppCompatActivity {
                     AppSetup.pontosRef.clear();
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         PontoRef ponto = ds.getValue(PontoRef.class);
-                        ponto.setKey(ds.getKey());
+//                        ponto.setKey(ds.getKey());
                         AppSetup.pontosRef.add(ponto);
                     }
                 }
@@ -107,16 +107,16 @@ public class AdminListarPontoActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("dados").child("pontosref").child(AppSetup.pontosRef.get(position).getKey()).child("situacao");
-                myRef.setValue("true");
+//                DatabaseReference myRef = database.getReference("dados").child("pontosref").child(AppSetup.pontosRef.get(position).getKey()).child("situacao");
+//                myRef.setValue("true");
             }
         });
         builder.setNegativeButton(R.string.alertdialog_excluir, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("dados").child("pontosref").child(AppSetup.pontosRef.get(position).getKey()).child("situacao");
-                myRef.setValue("false");
+//                DatabaseReference myRef = database.getReference("dados").child("pontosref").child(AppSetup.pontosRef.get(position).getKey()).child("situacao");
+//                myRef.setValue("false");
             }
         });
         builder.show();

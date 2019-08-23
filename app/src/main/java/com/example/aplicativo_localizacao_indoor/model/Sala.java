@@ -1,5 +1,6 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
+import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.google.firebase.database.Exclude;
 
 public class Sala {

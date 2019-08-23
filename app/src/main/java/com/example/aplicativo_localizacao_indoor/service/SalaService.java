@@ -1,16 +1,12 @@
-package com.example.aplicativo_localizacao_indoor.api;
+package com.example.aplicativo_localizacao_indoor.service;
 
-import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Part;
 
-public interface LocalizaApi {
-    @GET("pontoref/read.php/")
+public interface SalaService {
+    @GET("sala/read.php/")
     Call<PontoRefList> getPonto();
 
 //    @GET("resto endereço")

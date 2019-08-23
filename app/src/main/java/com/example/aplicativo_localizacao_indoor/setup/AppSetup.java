@@ -1,10 +1,10 @@
 package com.example.aplicativo_localizacao_indoor.setup;
 
-import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
+import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
+import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.Usuario;
-import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
 
 import java.util.ArrayList;
 import java.util.List;

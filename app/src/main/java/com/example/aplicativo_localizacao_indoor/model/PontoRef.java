@@ -14,20 +14,18 @@ public class PontoRef {
     private String bssidAnt;
     @SerializedName("bssid_post")
     private String bssidPost;
+    private Boolean Situacao;
     private Local local;
-    private String key;
-
-    public Local getLocal() {
-        return local;
-    }
-
-    public void setLocal(Local local) {
-        this.local = local;
-    }
-
-    private boolean situacao;
 
     public PontoRef() {
+    }
+
+    public Long getId_ponto() {
+        return id_ponto;
+    }
+
+    public void setId_ponto(Long id_ponto) {
+        this.id_ponto = id_ponto;
     }
 
     public String getBssid() {
@@ -70,22 +68,20 @@ public class PontoRef {
         this.bssidPost = bssidPost;
     }
 
-    public boolean isSituacao() {
-        return situacao;
+    public Boolean getSituacao() {
+        return Situacao;
     }
 
-    public void setSituacao(boolean situacao) {
-        this.situacao = situacao;
+    public void setSituacao(Boolean situacao) {
+        Situacao = situacao;
     }
 
-    @Exclude
-    public String getKey() {
-        return key;
+    public Local getLocal() {
+        return local;
     }
 
-    @Exclude
-    public void setKey(String key) {
-        this.key = key;
+    public void setLocal(Local local) {
+        this.local = local;
     }
 
     @Override
@@ -98,8 +94,6 @@ public class PontoRef {
                 ", bssidAnt='" + bssidAnt + '\'' +
                 ", bssidPost='" + bssidPost + '\'' +
                 ", local=" + local +
-                ", key='" + key + '\'' +
-                ", situacao=" + situacao +
                 '}';
     }
 }

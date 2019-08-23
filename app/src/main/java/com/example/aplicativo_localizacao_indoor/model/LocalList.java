@@ -4,4 +4,6 @@ import java.util.List;
 
 public class LocalList {
     public List<Local> localLists;
+
+    public List<Local> getLocalLists(){ return localLists;}
 }

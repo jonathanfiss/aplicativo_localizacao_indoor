@@ -67,7 +67,7 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Local local = ds.getValue(Local.class);
-                    local.setKey(ds.getKey());
+//                    local.setKey(ds.getKey());
 
                     AppSetup.locais.add(local);
                     corredor.clear();

@@ -1,13 +1,13 @@
 package com.example.aplicativo_localizacao_indoor.service;
 
-import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
+import com.example.aplicativo_localizacao_indoor.model.LocalList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface LocalService {
     @GET("local/read.php/")
-    Call<PontoRefList> getPonto();
+    Call<LocalList> getLocal();
 
 //    @GET("resto endereço")
 //    Call<classe> getmetodo();

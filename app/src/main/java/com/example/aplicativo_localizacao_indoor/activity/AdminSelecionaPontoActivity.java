@@ -62,8 +62,8 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
                 i.putExtra("position", position);
                 setResult(1, i);
                 Toast.makeText(AdminSelecionaPontoActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                finish();
                 executa = 1;
+                finish();
             }
 
         });

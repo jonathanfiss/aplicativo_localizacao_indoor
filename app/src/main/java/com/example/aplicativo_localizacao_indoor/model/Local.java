@@ -1,27 +1,26 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
-import com.google.firebase.database.Exclude;
+import com.google.gson.annotations.SerializedName;
 
 public class Local {
-    private Long id;
+    @SerializedName("id_local")
+    private Integer id;
     private Integer andar;
     private String descricao;
     private String corredor;
     private String predio;
     private String data_hora_modificado;
     private String modificado_por;
-    private boolean situacao;
-    private String key; //atributo apenas local
-
+    private Boolean situacao;
 
     public Local() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,6 +48,14 @@ public class Local {
         this.corredor = corredor;
     }
 
+    public String getPredio() {
+        return predio;
+    }
+
+    public void setPredio(String predio) {
+        this.predio = predio;
+    }
+
     public String getData_hora_modificado() {
         return data_hora_modificado;
     }
@@ -65,30 +72,26 @@ public class Local {
         this.modificado_por = modificado_por;
     }
 
-    public boolean isSituacao() {
+    public Boolean getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(boolean situacao) {
+    public void setSituacao(Boolean situacao) {
         this.situacao = situacao;
     }
 
-    public String getPredio() {
-        return predio;
-    }
-
-    public void setPredio(String predio) {
-        this.predio = predio;
-    }
-
-    @Exclude
-    public String getKey() {
-        return key;
-    }
-
-    @Exclude
-    public void setKey(String key) {
-        this.key = key;
+    @Override
+    public String toString() {
+        return "Local{" +
+                "id=" + id +
+                ", andar=" + andar +
+                ", descricao='" + descricao + '\'' +
+                ", corredor='" + corredor + '\'' +
+                ", predio='" + predio + '\'' +
+                ", data_hora_modificado='" + data_hora_modificado + '\'' +
+                ", modificado_por='" + modificado_por + '\'' +
+                ", situacao=" + situacao +
+                '}';
     }
 }
 

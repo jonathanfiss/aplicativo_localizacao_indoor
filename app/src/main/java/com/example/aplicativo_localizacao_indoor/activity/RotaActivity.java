@@ -1,6 +1,7 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class RotaActivity extends BaseActivity {
             public void onResponse(Call<PontoRefList> call, Response<PontoRefList> response) {
                 if (response.isSuccessful()) {
                     PontoRefList pontoRefList = response.body();
+                    Log.d("list", "lis="+ pontoRefList.getPontoref().toString());
                     for (PontoRef pontoRef : pontoRefList.getPontoref()){
                         AppSetup.pontosRef.add(pontoRef);
                     }

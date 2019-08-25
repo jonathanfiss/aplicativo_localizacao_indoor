@@ -18,6 +18,6 @@ public class AppSetup {
     public static List<Sala> salas = new ArrayList<>();
     public static List<PontoRef> pontosRef = new ArrayList<>();
     public static List<Local> locais = new ArrayList<>();
-    public static String urlapi = "192.168.0.106:8080/api-project/";
+    public static String urlapi = "192.168.0.106/api-project/";
 
 }

@@ -44,11 +44,10 @@ public class AdminCadastraPontoActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        verificaPermissao(AdminCadastraPontoActivity.this);
         verificaWifi();
+        verificaPermissao(AdminCadastraPontoActivity.this);
 
         lvPontosRef = findViewById(R.id.lv_pontos_ref);
-//        lvPontosRef.setAdapter(pontoReferenciaAdapter);
         new TaskPonto().execute();
 
         lvPontosRef.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,6 +57,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                 Intent intent = new Intent(AdminCadastraPontoActivity.this, AdminCadastraPontoActivityDetalhe.class);
                 intent.putExtra("position", position);
                 executa = 1;
+                finish();
                 startActivity(intent);
             }
 //            }

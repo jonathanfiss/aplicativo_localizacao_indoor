@@ -13,7 +13,7 @@ public class RetrofitSetup {
     public RetrofitSetup() {
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(AppSetup.urlapi)
+                .baseUrl("http://192.168.0.106/api-project/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

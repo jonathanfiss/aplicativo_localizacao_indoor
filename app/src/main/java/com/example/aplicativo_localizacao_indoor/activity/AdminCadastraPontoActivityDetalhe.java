@@ -16,8 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.adapter.ListaPontosRefAdapter;
 import com.example.aplicativo_localizacao_indoor.model.Local;
+import com.example.aplicativo_localizacao_indoor.model.LocalList;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
+import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
+import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,7 +34,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
     private Button btPontoAnt, btPontoPost, btCadPontoRef;
     private TextView tvSSID, tvBSSID;
     private EditText etPatrimonio;
@@ -75,36 +83,29 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
                 startActivityForResult(intent, Activity_code);
             }
         });
-        // Write a message to the database
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("dados").child("locais");
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
+        Call<LocalList> call = new RetrofitSetup().getLocalService().getLocal();
+
+        call.enqueue(new Callback<LocalList>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                AppSetup.locais.clear();
-
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Local local = ds.getValue(Local.class);
-                    local.setKey(ds.getKey());
-
-                    AppSetup.locais.add(local);
-                    corredor.clear();
-                    for (Local lc : AppSetup.locais) {
-                        corredor.add(lc.getCorredor());
+            public void onResponse(Call<LocalList> call, Response<LocalList> response) {
+                if (response.isSuccessful()) {
+                    LocalList localList = response.body();
+                    for (Local local : localList.getLocalLists()){
+                        corredor.add(local.getCorredor());
                     }
-                    Log.d("corredorTodo", corredor.toString());
+                    AppSetup.locais.addAll(localList.getLocalLists());
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("erro de leitura", "Failed to read value.", error.toException());
+            public void onFailure(Call<LocalList> call, Throwable t) {
+                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
             }
         });
+
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, corredor);
-        acLocalPonto = (AutoCompleteTextView) findViewById(R.id.acLocalPonto);
+        acLocalPonto = findViewById(R.id.acLocalPonto);
         acLocalPonto.setAdapter(adapter);
         btCadPontoRef.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +120,7 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
                 pontoRef.setPatrimonio(patrimonio);
                 for (Local lc : AppSetup.locais) {
                     if (lc.getCorredor().contains(acLocalPonto.getText())) {
-                        pontoRef.setLocal(lc);
+//                        pontoRef.setLocal(lc);
                     }
                 }
                 if (Anterior.isChecked()) {
@@ -134,26 +135,44 @@ public class AdminCadastraPontoActivityDetalhe extends AppCompatActivity {
                     pontoRef.setBssidPost("0");
 //                    pontoRef.setBssidPost(AppSetup.pontoPost.getBSSID());
                 }
-                Log.d("teste", String.valueOf(findViewById(R.id.btCadPontoRefAntChecked)));
+//                Log.d("teste", String.valueOf(findViewById(R.id.btCadPontoRefAntChecked)));
 
                 pontoRef.setSituacao(true);
-                // obtém a referência do database e do nó
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("dados").child("pontosref");
-                myRef.push().setValue(pontoRef)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_cadastra_ponto_sucesso), Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_cadastra_ponto), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                showWait(AdminCadastraPontoActivityDetalhe.this);
+                Call call = new RetrofitSetup().getPontoRefService().inserir(pontoRef);
+
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onResponse(Call call, Response response) {
+                        dismissWait();
+                        Log.d("retorno", response.message());
+                    }
+
+                    @Override
+                    public void onFailure(Call call, Throwable t) {
+                        dismissWait();
+                        Toast.makeText(AdminCadastraPontoActivityDetalhe.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+//                // obtém a referência do database e do nó
+//                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                DatabaseReference myRef = database.getReference("dados").child("pontosref");
+//                myRef.push().setValue(pontoRef)
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_cadastra_ponto_sucesso), Toast.LENGTH_SHORT).show();
+//                                finish();
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_cadastra_ponto), Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
 
             }
         });

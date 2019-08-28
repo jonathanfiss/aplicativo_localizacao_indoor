@@ -13,7 +13,8 @@ public class RetrofitSetup {
     public RetrofitSetup() {
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.106/api-project/")
+//                .baseUrl("http://192.168.0.106/api-project/")
+                .baseUrl("https://puff-altitude.000webhostapp.com/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

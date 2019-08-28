@@ -102,9 +102,11 @@
     <string name="label_msg_corredor">no corredor</string>
 
     <!--toast-->
-    <string name="toast_cadastra_ponto_sucesso">Ponto Cadastrado com Sucesso</string>
-    <string name="toast_erro_cadastra_ponto">Falha ao realizar o cadastro</string>
-    <string name="toast_ponto_selecionado">Ponto selecionado com Sucesso</string>
+    <string name="toast_cadastra_sucesso">Cadastrado realizado com sucesso</string>
+    <string name="toast_erro_cadastra">Falha ao realizar o cadastro</string>
+    <string name="toast_falta_dados_cadastra">Preencha todos os campos</string>
+    <string name="toast_ponto_selecionado">Ponto selecionado com sucesso</string>
+    <string name="toast_erro_requisicao">Não foi possível realizar a requisição</string>
 
     <!--descrição-->
     <string name="content_description_ponto_ref">Esta imagem demostra a intensidade do sinanl Wi-Fi</string>

@@ -17,8 +17,10 @@ import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Local;
+import com.example.aplicativo_localizacao_indoor.model.LocalList;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.Usuario;
+import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,7 +33,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminCadastraSalaActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class AdminCadastraSalaActivity extends BaseActivity {
 
     private EditText etNomeSala, etNumeroSala;
     private AutoCompleteTextView acLocalSala;
@@ -56,37 +62,28 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
 
         sala = new Sala();
 
-        // Write a message to the database
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("dados").child("locais");
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
+        Call<LocalList> call = new RetrofitSetup().getLocalService().getLocal();
+
+        call.enqueue(new Callback<LocalList>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                AppSetup.locais.clear();
-
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Local local = ds.getValue(Local.class);
-//                    local.setKey(ds.getKey());
-
-                    AppSetup.locais.add(local);
-                    corredor.clear();
-                    for (Local lc : AppSetup.locais) {
-                        corredor.add(lc.getCorredor());
+            public void onResponse(Call<LocalList> call, Response<LocalList> response) {
+                if (response.isSuccessful()) {
+                    LocalList localList = response.body();
+                    for (Local local : localList.getLocalLists()){
+                        corredor.add(local.getCorredor());
                     }
-                    Log.d("corredorTodo", corredor.toString());
+                    AppSetup.locais.addAll(localList.getLocalLists());
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("erro de leitura", "Failed to read value.", error.toException());
+            public void onFailure(Call<LocalList> call, Throwable t) {
+                Toast.makeText(AdminCadastraSalaActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
             }
         });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, corredor);
-        acLocalSala = (AutoCompleteTextView) findViewById(R.id.acLocalSala);
+        acLocalSala = findViewById(R.id.acLocalSala);
         acLocalSala.setAdapter(adapter);
 
         btSelecionaPonto.setOnClickListener(new View.OnClickListener() {
@@ -109,29 +106,39 @@ public class AdminCadastraSalaActivity extends AppCompatActivity {
                         }
                     }
                     sala.setSituacao(true);
-                    // obtém a referência do database e do nó
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("dados").child("salas");
-                    myRef.push().setValue(sala)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(AdminCadastraSalaActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
-                                    limparForm();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(AdminCadastraSalaActivity.this, "Falha ao realizar o cadastro", Toast.LENGTH_SHORT).show();
-                                }
-                            });
 
+                    showWait(AdminCadastraSalaActivity.this);
+                    Call call = new RetrofitSetup().getSalaRefService().inserir(sala);
+
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onResponse(Call call, Response response) {
+                            if(response.isSuccessful()){
+                                dismissWait();
+                                switch (response.code()){
+                                    case 201:
+                                        Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
+                                        limparForm();
+//                                        finish();
+                                        break;
+                                    case 503:
+                                        Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 400:
+                                        Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_falta_dados_cadastra), Toast.LENGTH_SHORT).show();
+                                        break;
+                                }
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call call, Throwable t) {
+                            dismissWait();
+                            Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_erro_requisicao), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } else {
                     Toast.makeText(AdminCadastraSalaActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-
                 }
-
             }
         });
     }

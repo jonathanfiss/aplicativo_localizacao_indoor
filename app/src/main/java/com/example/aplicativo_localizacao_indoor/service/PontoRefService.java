@@ -19,7 +19,7 @@ public interface PontoRefService {
 //    Call<CarroSync> getCarrosByTipo(@Path("tipo") String tipo);
 //
     @POST("pontoref/create.php/")
-    Call<String> inserir(@Body PontoRef pontoRef);
+    Call<Void> inserir(@Body PontoRef pontoRef);
 //
 //    @PUT ("carros")
 //    Call<Void> alterar(@Body Carro carro);

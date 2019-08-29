@@ -33,6 +33,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
     private ProgressDialog mProgressDialog;
     private ListView lvPontosRef;
     private int executa = 0;
+    private int temponovabusca = 15000; //tempo em milisegundos
 
 
     @Override
@@ -80,11 +81,10 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                 while (executa == 0) {
                     wifiManager.startScan();
                     List<ScanResult> scanResults = wifiManager.getScanResults();
-                    AppSetup.wiFiDetalhes.clear();
-                    wiFiDetalhes.clear();
                     if (scanResults.isEmpty()) {
                         showWait(AdminCadastraPontoActivity.this);
                     } else {
+                        AppSetup.wiFiDetalhes.clear();
                         for (ScanResult result : scanResults) {
                             WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
                             wiFiDetalhes.setBSSID(result.BSSID);
@@ -93,10 +93,10 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                             wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
                             AppSetup.wiFiDetalhes.add(wiFiDetalhes);
                         }
-                        publishProgress(wiFiDetalhes);
+                        publishProgress(AppSetup.wiFiDetalhes);
                     }
                     Log.d("listscan", scanResults.toString());
-                    Thread.sleep(2000);
+                    Thread.sleep(temponovabusca);
                 }
 
             } catch (Exception e) {
@@ -119,50 +119,6 @@ public class AdminCadastraPontoActivity extends BaseActivity {
             lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
         }
     }
-//    public void  showWait(){
-//        //cria e configura a caixa de diálogo e progressão
-//        mProgressDialog = new ProgressDialog(AdminCadastraPontoActivity.this);
-//        mProgressDialog.setMessage("Buscando redes...");
-//        mProgressDialog.setIndeterminate(true);
-//        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        mProgressDialog.show();
-//    }
-//
-//    //Faz Dismiss na ProgressDialog
-//    public void dismissWait(){
-//        mProgressDialog.dismiss();
-//    }
-
-
-//    private boolean verificaPermissao() {
-//        //verifica se o aplicativo tem permissão para utilizar a localização
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            //verifica se permissão ja foi negada alguma vez para utilizar a localização
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                //adiciona um título e uma mensagem
-//                builder.setTitle("Permissão");
-//                builder.setMessage("Para você poder utilizar o sistema é necessario a permissão a localização");
-//                //adiciona os botões
-//                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ActivityCompat.requestPermissions(AdminCadastraPontoActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
-//                    }
-//                });
-//                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        finish();
-//                    }
-//                });
-//                builder.show();
-//            } else {
-//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
-//            }
-//        }//retorna true se tiver tudo certo
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

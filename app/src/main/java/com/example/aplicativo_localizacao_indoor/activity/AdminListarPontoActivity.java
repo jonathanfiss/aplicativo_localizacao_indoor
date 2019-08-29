@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaPontosRefAdapter;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
+import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
+import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,10 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AdminListarPontoActivity extends AppCompatActivity {
     private ListView listaPontoRef;
     private static String TAG = "Lista de pontos referencia";
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +42,24 @@ public class AdminListarPontoActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         listaPontoRef = findViewById(R.id.lv_lista_pontos_ref);
-        new TaskBuscaPontos().execute();
-        // Write a message to the database
+        Call<PontoRefList> call = new RetrofitSetup().getPontoRefService().getPonto();
 
+        call.enqueue(new Callback<PontoRefList>() {
+            @Override
+            public void onResponse(Call<PontoRefList> call, Response<PontoRefList> response) {
+                if (response.isSuccessful()) {
+                    PontoRefList pontoRefList = response.body();
+                    AppSetup.pontosRef.clear();
+                    AppSetup.pontosRef.addAll(pontoRefList.getPontoref());
+                    listaPontoRef.setAdapter(new ListaPontosRefAdapter(AdminListarPontoActivity.this, AppSetup.pontosRef));
+                }
+            }
 
+            @Override
+            public void onFailure(Call<PontoRefList> call, Throwable t) {
+                Toast.makeText(AdminListarPontoActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         listaPontoRef.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,45 +77,6 @@ public class AdminListarPontoActivity extends AppCompatActivity {
     }
 
     //    AsyncTask <Params, Progress, Result>:
-    class TaskBuscaPontos extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            DatabaseReference myRef = database.getReference("dados").child("pontosref");
-
-            // Read from the database
-            myRef.orderByChild("situacao").equalTo(true).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    AppSetup.pontosRef.clear();
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        PontoRef ponto = ds.getValue(PontoRef.class);
-//                        ponto.setKey(ds.getKey());
-                        AppSetup.pontosRef.add(ponto);
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    Log.w(TAG, "Failed to read value.", error.toException());
-                }
-            });
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            //carrega os dados na View
-            listaPontoRef.setAdapter(new ListaPontosRefAdapter(AdminListarPontoActivity.this, AppSetup.pontosRef));
-        }
-    }
 
     private void dialogLongClink(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

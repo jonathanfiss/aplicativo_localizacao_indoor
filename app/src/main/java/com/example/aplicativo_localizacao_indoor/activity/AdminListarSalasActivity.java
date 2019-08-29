@@ -9,10 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.adapter.ListaLocaisAdapter;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaSalasAdapter;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
+import com.example.aplicativo_localizacao_indoor.model.SalaList;
+import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdminListarSalasActivity extends AppCompatActivity {
     private ListView listaSalas;
@@ -36,33 +44,53 @@ public class AdminListarSalasActivity extends AppCompatActivity {
 
         listaSalas = findViewById(R.id.lv_lista_salas);
 
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("dados").child("salas");
+        Call<SalaList> call = new RetrofitSetup().getSalaRefService().getSala();
 
-        // Read from the database
-        myRef.orderByChild("situacao").equalTo(true).addValueEventListener(new ValueEventListener() {
+        call.enqueue(new Callback<SalaList>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                AppSetup.salas.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Sala sala = ds.getValue(Sala.class);
-                    sala.setKey(ds.getKey());
-                    AppSetup.salas.add(sala);
+            public void onResponse(Call<SalaList> call, Response<SalaList> response) {
+                if (response.isSuccessful()) {
+                    SalaList salaList = response.body();
+                    AppSetup.salas.clear();
+                    AppSetup.salas.addAll(salaList.getSalasLists());
+                    listaSalas.setAdapter(new ListaSalasAdapter(AdminListarSalasActivity.this, AppSetup.salas));
                 }
-
-                //carrega os dados na View
-
-                listaSalas.setAdapter(new ListaSalasAdapter(AdminListarSalasActivity.this, AppSetup.salas));
-
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+            public void onFailure(Call<SalaList> call, Throwable t) {
+                Toast.makeText(AdminListarSalasActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+//        // Write a message to the database
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("dados").child("salas");
+//
+//        // Read from the database
+//        myRef.orderByChild("situacao").equalTo(true).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                AppSetup.salas.clear();
+//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                    Sala sala = ds.getValue(Sala.class);
+//                    sala.setKey(ds.getKey());
+//                    AppSetup.salas.add(sala);
+//                }
+//
+//                //carrega os dados na View
+//
+//                listaSalas.setAdapter(new ListaSalasAdapter(AdminListarSalasActivity.this, AppSetup.salas));
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
         listaSalas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

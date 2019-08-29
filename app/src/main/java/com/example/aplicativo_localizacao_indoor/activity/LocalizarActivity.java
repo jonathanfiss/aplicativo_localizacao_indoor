@@ -4,20 +4,18 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
-import com.example.aplicativo_localizacao_indoor.adapter.PontoReferenciaAdapter;
-import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
+import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
+import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,11 +25,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetalhes;
 
 public class LocalizarActivity extends BaseActivity {
     PontoRef pontoRef;
     private int executa = 0;
+    private int temponovabusca = 15000; //tempo em milisegundos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,23 @@ public class LocalizarActivity extends BaseActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        Call<PontoRefList> call = new RetrofitSetup().getPontoRefService().getPonto();
+
+        call.enqueue(new Callback<PontoRefList>() {
+            @Override
+            public void onResponse(Call<PontoRefList> call, Response<PontoRefList> response) {
+                if (response.isSuccessful()) {
+                    PontoRefList pontoRefList = response.body();
+                    AppSetup.pontosRef.clear();
+                    AppSetup.pontosRef.addAll(pontoRefList.getPontoref());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PontoRefList> call, Throwable t) {
+                Toast.makeText(LocalizarActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         new TaskPonto().execute();
     }
@@ -68,26 +88,16 @@ public class LocalizarActivity extends BaseActivity {
                     if (scanResults.isEmpty()) {
                         showWait(LocalizarActivity.this);
                     } else {
-                        WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
                         for (ScanResult result : scanResults) {
-                            if (result.level > wiFiDetalhes.getWiFiSignal()) {
-                                wiFiDetalhes.setWiFiSignal(result.level);
-                                Log.d("teste", String.valueOf(wiFiDetalhes.getWiFiSignal()));
-                                dismissWait();
+                            for (PontoRef pontoRef : AppSetup.pontosRef) {
+                                if (pontoRef.getBssid().contains(result.BSSID)) {
 
-//                                wiFiDetalhes.setBSSID(result.BSSID);
-//                                buscaDados(wiFiDetalhes);
-//                                if(result.frequency> wiFiDetalhes.getFrequencia()){
-//                                    wiFiDetalhes.setBSSID(result.BSSID);
-//                                    buscaDados(wiFiDetalhes);
-//                                    dismissWait();
-//                                }
+                                }
                             }
                         }
                     }
-                    Log.d("listscan", scanResults.toString());
-                    Thread.sleep(5000);
                 }
+                    Thread.sleep(temponovabusca);
             } catch (Exception e) {
                 e.printStackTrace();
             }

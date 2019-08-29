@@ -2,6 +2,7 @@ package com.example.aplicativo_localizacao_indoor.service;
 
 import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
+import com.example.aplicativo_localizacao_indoor.model.SalaList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -10,7 +11,7 @@ import retrofit2.http.POST;
 
 public interface SalaService {
     @GET("sala/read.php/")
-    Call<PontoRefList> getSala();
+    Call<SalaList> getSala();
 
 //    @GET("resto endereço")
 //    Call<classe> getmetodo();

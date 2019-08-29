@@ -9,10 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaLocaisAdapter;
 import com.example.aplicativo_localizacao_indoor.model.Local;
+import com.example.aplicativo_localizacao_indoor.model.LocalList;
+import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdminListarLocaisActivity extends AppCompatActivity {
     private ListView listaLocais;
@@ -37,29 +44,25 @@ public class AdminListarLocaisActivity extends AppCompatActivity {
 
         listaLocais = findViewById(R.id.lv_lista_locais);
 
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("dados").child("locais");
+        Call<LocalList> call = new RetrofitSetup().getLocalService().getLocal();
 
-        // Read from the database
-        myRef.orderByChild("situacao").equalTo(true).addValueEventListener(new ValueEventListener() {
+        call.enqueue(new Callback<LocalList>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                AppSetup.locais.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Local local = ds.getValue(Local.class);
-//                    local.setKey(ds.getKey());
-                    AppSetup.locais.add(local);
+            public void onResponse(Call<LocalList> call, Response<LocalList> response) {
+                if (response.isSuccessful()) {
+                    LocalList localList = response.body();
+                    AppSetup.locais.clear();
+                    AppSetup.locais.addAll(localList.getLocalLists());
+                    listaLocais.setAdapter(new ListaLocaisAdapter(AdminListarLocaisActivity.this, AppSetup.locais));
                 }
-                listaLocais.setAdapter(new ListaLocaisAdapter(AdminListarLocaisActivity.this, AppSetup.locais));
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+            public void onFailure(Call<LocalList> call, Throwable t) {
+                Toast.makeText(AdminListarLocaisActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
             }
         });
+
         listaLocais.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -71,7 +71,7 @@
     <string name="hint_nome_sala">Nome da sala</string>
     <string name="hint_numero_sala">Numero da sala</string>
     <string name="hint_data">00/00/0000</string>
-    <string name="hint_corredor">corredor</string>
+    <string name="hint_corredor">Corredor</string>
     <string name="hint_andar">1</string>
     <string name="hint_funcao">Administrador</string>
 

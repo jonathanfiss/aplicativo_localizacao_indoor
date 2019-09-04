@@ -31,6 +31,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
+        android:text="@string/tv_frase_inicial"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btRota"
+        app:layout_constraintEnd_toEndOf="@+id/btRota"
+        app:layout_constraintStart_toStartOf="@+id/btRota" />
 
 
 </android.support.constraint.ConstraintLayout>

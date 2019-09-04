@@ -131,5 +131,7 @@
     <string name="btEditar">btEditar</string>
     <string name="btremover">btremover</string>
     <string name="mn_login">mn_login</string>
+    <string name="tvdata">Data</string>
+    <string name="tv_frase_inicial">Olá! Bem vindo ao sistema de localização indoor do campus Pelotas.</string>
 
 </resources>

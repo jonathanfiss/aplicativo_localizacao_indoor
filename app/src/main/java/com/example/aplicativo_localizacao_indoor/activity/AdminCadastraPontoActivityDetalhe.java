@@ -182,14 +182,14 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 if (Activity_code == 1) {
                     AppSetup.pontoAnt = AppSetup.wiFiDetalhes.get(position);
                     btPontoAnt.setText("Ponto anterior selecionado");
-                    Anterior.setChecked(false);
+//                    Anterior.setChecked(false);
 //                    btPontoPost.setBackgroundColor(R.color.colorVerdeEscuro);
                     Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
                 } else if (Activity_code == 2) {
                     AppSetup.pontoPost = AppSetup.wiFiDetalhes.get(position);
 //                    btPontoPost.setBackgroundColor(R.color.colorVerdeEscuro);
                     btPontoPost.setText("Ponto posterior selecionado");
-                    Posterior.setChecked(false);
+//                    Posterior.setChecked(false);
                     Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
                 }
             }

@@ -21,6 +21,18 @@ public class PontoRef {
     public PontoRef() {
     }
 
+    public PontoRef(Long id_ponto, String bssid, String ssid, Integer patrimonio, String bssidAnt, String bssidPost, Boolean situacao, Integer local_id, Local local) {
+        this.id_ponto = id_ponto;
+        this.bssid = bssid;
+        this.ssid = ssid;
+        this.patrimonio = patrimonio;
+        this.bssidAnt = bssidAnt;
+        this.bssidPost = bssidPost;
+        Situacao = situacao;
+        this.local_id = local_id;
+        this.local = local;
+    }
+
     public Long getId_ponto() {
         return id_ponto;
     }

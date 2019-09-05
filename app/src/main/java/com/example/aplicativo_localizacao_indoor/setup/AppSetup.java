@@ -13,6 +13,7 @@ public class AppSetup {
     public static List<WiFiDetalhe> wiFiDetalhes = new ArrayList<>();
     public static List<WiFiDetalhe> wiFiDetalhesSelecionados = new ArrayList<>();
     public static Usuario usuario = null;
+    public static PontoRef pontoRef = null;
     public static WiFiDetalhe pontoAnt = null;
     public static WiFiDetalhe pontoPost = null;
     public static List<Sala> salas = new ArrayList<>();

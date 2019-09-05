@@ -35,12 +35,16 @@ import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetal
 public class LocalizarActivity extends BaseActivity {
     PontoRef pontoRef;
     private int executa = 0;
+    private boolean wifi = true;
     private int temponovabusca = 15000; //tempo em milisegundos
+    TextView tvLocaliza;
+    List<ScanResult> scanResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_localizar);
+        tvLocaliza = findViewById(R.id.tvLocaliza);
 
         verificaWifi();
         verificaPermissao(LocalizarActivity.this);
@@ -56,6 +60,9 @@ public class LocalizarActivity extends BaseActivity {
                     PontoRefList pontoRefList = response.body();
                     AppSetup.pontosRef.clear();
                     AppSetup.pontosRef.addAll(pontoRefList.getPontoref());
+                    Log.d("ponto", AppSetup.pontosRef.toString());
+                    new TaskPonto().execute();
+
                 }
             }
 
@@ -65,7 +72,7 @@ public class LocalizarActivity extends BaseActivity {
             }
         });
 
-        new TaskPonto().execute();
+
     }
 
     //    AsyncTask <Params, Progress, Result>:
@@ -81,40 +88,24 @@ public class LocalizarActivity extends BaseActivity {
         protected List<WiFiDetalhe> doInBackground(Void... voids) {
             try {
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                AppSetup.wiFiDetalhes.clear();
+                wiFiDetalhes.clear();
+                Log.d("a", "passou aqui 1");
+
                 while (executa == 0) {
-                    wifiManager.startScan();
-                    List<ScanResult> scanResults = wifiManager.getScanResults();
-                    AppSetup.wiFiDetalhes.clear();
-                    wiFiDetalhes.clear();
-                    if (scanResults.isEmpty()) {
-                        showWait(LocalizarActivity.this);
-                    } else {
-                        for (ScanResult result : scanResults) {
-                            for (PontoRef pontoRef : AppSetup.pontosRef) {
-                                if (pontoRef.getBssid().contains(result.BSSID)) {
-                                    Call<LocalList> call = new RetrofitSetup().getLocalService().getLocalByTipo(pontoRef.getLocal_id().toString());
-
-                                    call.enqueue(new Callback<LocalList>() {
-                                        @Override
-                                        public void onResponse(Call<LocalList> call, Response<LocalList> response) {
-                                            if (response.isSuccessful()) {
-                                                LocalList localList = response.body();
-                                                AppSetup.locais.clear();
-                                                AppSetup.locais.addAll(localList.getLocalLists());
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<LocalList> call, Throwable t) {
-                                            Toast.makeText(LocalizarActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            }
-                        }
+                    if (wifi) {
+                        wifiManager.startScan();
+                        scanResults = wifiManager.getScanResults();
+                        Log.d("wifi", scanResults.toString());
+                        wifi = false;
+                        Log.d("a", "passou aqui 2");
                     }
+
+                    percorreArray(scanResults);
+
+
                 }
-                    Thread.sleep(temponovabusca);
+                Thread.sleep(temponovabusca);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -126,6 +117,30 @@ public class LocalizarActivity extends BaseActivity {
             super.onPostExecute(wiFiDetalhes);
             dismissWait();
         }
+    }
+    public int percorreArray(List<ScanResult> scanResult){
+        for (ScanResult result : scanResults) {
+            for (PontoRef ponto : AppSetup.pontosRef) {
+                Log.d("result", result.BSSID);
+                Log.d("pontoRef", ponto.getBssid());
+                if (ponto.getBssid().contains(result.BSSID)) {
+                    AppSetup.pontoRef.setBssid(ponto.getBssid());
+                    AppSetup.pontoRef.setBssidAnt(ponto.getBssidAnt());
+                    AppSetup.pontoRef.setBssidPost(ponto.getBssidPost());
+                    AppSetup.pontoRef.setId_ponto(ponto.getId_ponto());
+                    AppSetup.pontoRef.setLocal(ponto.getLocal());
+                    AppSetup.pontoRef.setLocal_id(ponto.getLocal_id());
+                    AppSetup.pontoRef.setPatrimonio(ponto.getPatrimonio());
+                    AppSetup.pontoRef.setSituacao(ponto.getSituacao());
+                    AppSetup.pontoRef.setSsid(ponto.getSsid());
+                    break;
+                }
+                Log.d("a", "passou aqui ttttttttttttttttttttt");
+            }
+            Log.d("a", "passou aqui dddddddddddddd");
+
+        }
+        return 1;
     }
 
     public void buscaDados(WiFiDetalhe wiFiDetalhe) {

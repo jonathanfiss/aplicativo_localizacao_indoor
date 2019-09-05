@@ -113,8 +113,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 etPatrimonio = findViewById(R.id.etPatrimonio);
                 Anterior = findViewById(R.id.btCadPontoRefAntChecked);
                 Posterior = findViewById(R.id.btCadPontoRefPostChecked);
-                Anterior.setChecked(true);
-                Posterior.setChecked(true);
+
 
                 Integer patrimonio = Integer.valueOf(etPatrimonio.getText().toString());
                 pontoRef.setBssid(AppSetup.wiFiDetalhes.get(position).getBSSID());

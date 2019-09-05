@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.model.LocalList;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
@@ -91,7 +92,23 @@ public class LocalizarActivity extends BaseActivity {
                         for (ScanResult result : scanResults) {
                             for (PontoRef pontoRef : AppSetup.pontosRef) {
                                 if (pontoRef.getBssid().contains(result.BSSID)) {
+                                    Call<LocalList> call = new RetrofitSetup().getLocalService().getLocalByTipo(pontoRef.getLocal_id().toString());
 
+                                    call.enqueue(new Callback<LocalList>() {
+                                        @Override
+                                        public void onResponse(Call<LocalList> call, Response<LocalList> response) {
+                                            if (response.isSuccessful()) {
+                                                LocalList localList = response.body();
+                                                AppSetup.locais.clear();
+                                                AppSetup.locais.addAll(localList.getLocalLists());
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<LocalList> call, Throwable t) {
+                                            Toast.makeText(LocalizarActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             }
                         }

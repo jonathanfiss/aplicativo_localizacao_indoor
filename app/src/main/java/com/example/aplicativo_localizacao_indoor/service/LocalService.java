@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface LocalService {
     @GET("local/read.php/")
@@ -15,8 +16,8 @@ public interface LocalService {
 //    @GET("resto endereço")
 //    Call<classe> getmetodo();
 //
-//    @GET("carros/tipo/{tipo}")
-//    Call<CarroSync> getCarrosByTipo(@Path("tipo") String tipo);
+    @GET("local/read.php/{id_local}")
+    Call<LocalList> getLocalByTipo(@Path("id_local") String id_local);
 //
 @POST("local/create.php/")
 Call<Void> inserir(@Body Local local);

@@ -15,6 +15,7 @@ public class PontoRef {
     @SerializedName("bssid_post")
     private String bssidPost;
     private Boolean Situacao;
+    private Integer local_id;
     private Local local;
 
     public PontoRef() {
@@ -84,6 +85,14 @@ public class PontoRef {
         this.local = local;
     }
 
+    public Integer getLocal_id() {
+        return local_id;
+    }
+
+    public void setLocal_id(Integer local_id) {
+        this.local_id = local_id;
+    }
+
     @Override
     public String toString() {
         return "PontoRef{" +
@@ -93,6 +102,8 @@ public class PontoRef {
                 ", patrimonio=" + patrimonio +
                 ", bssidAnt='" + bssidAnt + '\'' +
                 ", bssidPost='" + bssidPost + '\'' +
+                ", Situacao=" + Situacao +
+                ", local_id=" + local_id +
                 ", local=" + local +
                 '}';
     }

@@ -12,15 +12,15 @@ import retrofit2.http.Path;
 public interface LocalService {
     @GET("local/read.php/")
     Call<LocalList> getLocal();
-
-//    @GET("resto endereço")
+    //    @GET("resto endereço")
 //    Call<classe> getmetodo();
 //
-    @GET("local/read.php/{id_local}")
-    Call<LocalList> getLocalByTipo(@Path("id_local") String id_local);
-//
-@POST("local/create.php/")
-Call<Void> inserir(@Body Local local);
+    @GET("local/read_one.php/id={id}")
+    Call<LocalList> getLocalById(@Path("id") String id);
+
+    //
+    @POST("local/create.php/")
+    Call<Void> inserir(@Body Local local);
 //
 //    @PUT ("carros")
 //    Call<Void> alterar(@Body Carro carro);

@@ -71,7 +71,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showWait(AdminCadastraPontoActivity.this);
+            showWait(AdminCadastraPontoActivity.this, R.string.builder_redes);
         }
 
         @Override
@@ -82,7 +82,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                     wifiManager.startScan();
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     if (scanResults.isEmpty()) {
-                        showWait(AdminCadastraPontoActivity.this);
+                        showWait(AdminCadastraPontoActivity.this, R.string.builder_redes);
                     } else {
                         AppSetup.wiFiDetalhes.clear();
                         for (ScanResult result : scanResults) {

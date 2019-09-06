@@ -114,16 +114,16 @@ public class AdminListarSalasActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("dados").child("salas").child(AppSetup.salas.get(position).getKey()).child("situacao");
-                myRef.setValue("true");
+//                DatabaseReference myRef = database.getReference("dados").child("salas").child(AppSetup.salas.get(position).getKey()).child("situacao");
+//                myRef.setValue("true");
             }
         });
         builder.setNegativeButton(R.string.alertdialog_excluir, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("dados").child("salas").child(AppSetup.salas.get(position).getKey()).child("situacao");
-                myRef.setValue("false");
+//                DatabaseReference myRef = database.getReference("dados").child("salas").child(AppSetup.salas.get(position).getKey()).child("situacao");
+//                myRef.setValue("false");
             }
         });
         builder.show();

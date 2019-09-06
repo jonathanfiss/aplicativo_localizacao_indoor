@@ -12,7 +12,7 @@ public class Sala {
     private String modificado_por;
     private boolean situacao;
     private Local local;
-    private String key;
+    private String local_id;
 
     public Sala() {
     }
@@ -80,12 +80,12 @@ public class Sala {
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
     }
-@Exclude
-    public String getKey() {
-        return key;
+
+    public String getLocal_id() {
+        return local_id;
     }
-@Exclude
-    public void setKey(String key) {
-        this.key = key;
+
+    public void setLocal_id(String local_id) {
+        this.local_id = local_id;
     }
 }

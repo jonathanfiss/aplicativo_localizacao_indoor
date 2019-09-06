@@ -134,4 +134,9 @@
     <string name="tvdata">Data</string>
     <string name="tv_frase_inicial">Olá! Bem vindo ao sistema de localização indoor do campus Pelotas.</string>
 
+    <string name="builder_redes">Buscando redes Wi-Fi...</string>
+    <string name="builder_cadastro">Realizando Cadastro...</string>
+    <string name="builder_localizar">Um momento, estamos localizando você</string>
+
+
 </resources>

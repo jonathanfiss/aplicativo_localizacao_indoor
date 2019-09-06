@@ -15,6 +15,7 @@ import com.example.aplicativo_localizacao_indoor.model.LocalList;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
+import com.example.aplicativo_localizacao_indoor.model.SalaList;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
 import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
@@ -36,7 +37,7 @@ public class LocalizarActivity extends BaseActivity {
     PontoRef pontoRef;
     private int executa = 0;
     private boolean wifi = true;
-    private int temponovabusca = 15000; //tempo em milisegundos
+    private int temponovabusca = 40000; //tempo em milisegundos
     TextView tvLocaliza;
     List<ScanResult> scanResults;
 
@@ -52,7 +53,7 @@ public class LocalizarActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         Call<PontoRefList> call = new RetrofitSetup().getPontoRefService().getPonto();
-
+        showWait(LocalizarActivity.this, R.string.builder_localizar);
         call.enqueue(new Callback<PontoRefList>() {
             @Override
             public void onResponse(Call<PontoRefList> call, Response<PontoRefList> response) {
@@ -60,7 +61,6 @@ public class LocalizarActivity extends BaseActivity {
                     PontoRefList pontoRefList = response.body();
                     AppSetup.pontosRef.clear();
                     AppSetup.pontosRef.addAll(pontoRefList.getPontoref());
-                    Log.d("ponto", AppSetup.pontosRef.toString());
                     new TaskPonto().execute();
 
                 }
@@ -81,7 +81,6 @@ public class LocalizarActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showWait(LocalizarActivity.this);
         }
 
         @Override
@@ -90,20 +89,75 @@ public class LocalizarActivity extends BaseActivity {
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 AppSetup.wiFiDetalhes.clear();
                 wiFiDetalhes.clear();
-                Log.d("a", "passou aqui 1");
 
-                while (executa == 0) {
-                    if (wifi) {
-                        wifiManager.startScan();
-                        scanResults = wifiManager.getScanResults();
-                        Log.d("wifi", scanResults.toString());
+                if (wifi) {
+                    wifiManager.startScan();
+                    scanResults = wifiManager.getScanResults();
+                    if (!scanResults.isEmpty()) {
                         wifi = false;
-                        Log.d("a", "passou aqui 2");
+                    } else {
+                        wifi = true;
                     }
+                }
+                for (ScanResult result : scanResults) {
+                    for (final PontoRef ponto : AppSetup.pontosRef) {
+                        if (result.BSSID.equals(ponto.getBssid())) {
+                            AppSetup.pontoRef = ponto;
+                            Log.d("resultado", result.toString());
+                            Call<LocalList> call = new RetrofitSetup().getLocalService().getLocalById(ponto.getLocal_id().toString());
 
-                    percorreArray(scanResults);
+                            call.enqueue(new Callback<LocalList>() {
+                                @Override
+                                public void onResponse(Call<LocalList> call, Response<LocalList> response) {
+                                    if (response.isSuccessful()) {
+                                        LocalList localList = response.body();
+                                        AppSetup.local = localList.getLocalLists().get(0);
+                                        AppSetup.pontoRef.setLocal(localList.getLocalLists().get(0));
+                                        Log.d("resultado", AppSetup.pontoRef.toString());
 
+                                    }
+                                }
 
+                                @Override
+                                public void onFailure(Call<LocalList> call, Throwable t) {
+                                    Toast.makeText(LocalizarActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            Call<SalaList> call2 = new RetrofitSetup().getSalaRefService().getSalaById(ponto.getLocal_id().toString());
+
+                            call2.enqueue(new Callback<SalaList>() {
+                                @Override
+                                public void onResponse(Call<SalaList> call, Response<SalaList> response) {
+                                    if (response.isSuccessful()) {
+                                        SalaList salaList = response.body();
+                                        AppSetup.salas.clear();
+                                        for (Sala sala : salaList.getSalasLists()){
+                                            sala.setLocal(AppSetup.local);
+                                            AppSetup.salas.add(sala);
+                                        }
+                                        dismissWait();
+                                        tvLocaliza.setText(getResources().getText(R.string.frase_voce)+" " +
+                                                ""+getResources().getText(R.string.frase_predio)+" " +
+                                                ""+AppSetup.pontoRef.getLocal().getPredio()+" " +
+                                                ""+getResources().getText(R.string.frase_andar)+" " +
+                                                ""+AppSetup.pontoRef.getLocal().getAndar()+" " +
+                                                ""+getResources().getText(R.string.frase_corredor)+" " +
+                                                ""+AppSetup.pontoRef.getLocal().getCorredor()+" " +
+                                                ""+getResources().getText(R.string.frase_sala)+" " +
+                                                ""+AppSetup.salas.get(0).getNumero() );
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<SalaList> call, Throwable t) {
+                                    Toast.makeText(LocalizarActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            break;
+                        }
+                    }
                 }
                 Thread.sleep(temponovabusca);
             } catch (Exception e) {
@@ -117,30 +171,6 @@ public class LocalizarActivity extends BaseActivity {
             super.onPostExecute(wiFiDetalhes);
             dismissWait();
         }
-    }
-    public int percorreArray(List<ScanResult> scanResult){
-        for (ScanResult result : scanResults) {
-            for (PontoRef ponto : AppSetup.pontosRef) {
-                Log.d("result", result.BSSID);
-                Log.d("pontoRef", ponto.getBssid());
-                if (ponto.getBssid().contains(result.BSSID)) {
-                    AppSetup.pontoRef.setBssid(ponto.getBssid());
-                    AppSetup.pontoRef.setBssidAnt(ponto.getBssidAnt());
-                    AppSetup.pontoRef.setBssidPost(ponto.getBssidPost());
-                    AppSetup.pontoRef.setId_ponto(ponto.getId_ponto());
-                    AppSetup.pontoRef.setLocal(ponto.getLocal());
-                    AppSetup.pontoRef.setLocal_id(ponto.getLocal_id());
-                    AppSetup.pontoRef.setPatrimonio(ponto.getPatrimonio());
-                    AppSetup.pontoRef.setSituacao(ponto.getSituacao());
-                    AppSetup.pontoRef.setSsid(ponto.getSsid());
-                    break;
-                }
-                Log.d("a", "passou aqui ttttttttttttttttttttt");
-            }
-            Log.d("a", "passou aqui dddddddddddddd");
-
-        }
-        return 1;
     }
 
     public void buscaDados(WiFiDetalhe wiFiDetalhe) {

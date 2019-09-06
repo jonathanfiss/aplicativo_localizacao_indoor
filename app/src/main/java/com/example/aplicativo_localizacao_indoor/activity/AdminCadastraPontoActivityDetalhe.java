@@ -138,7 +138,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 }
 
                 pontoRef.setSituacao(true);
-                showWait(AdminCadastraPontoActivityDetalhe.this);
+                showWait(AdminCadastraPontoActivityDetalhe.this, R.string.builder_cadastro);
                 Call call = new RetrofitSetup().getPontoRefService().inserir(pontoRef);
 
                 call.enqueue(new Callback() {

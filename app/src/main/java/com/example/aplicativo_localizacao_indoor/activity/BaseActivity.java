@@ -56,10 +56,10 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void  showWait(Context context){
+    public void  showWait(final Context context, int message){
         //cria e configura a caixa de diálogo e progressão
         mProgressDialog = new ProgressDialog(context);
-        mProgressDialog.setMessage("Buscando redes...");
+        mProgressDialog.setMessage(context.getResources().getString(message));
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressDialog.show();

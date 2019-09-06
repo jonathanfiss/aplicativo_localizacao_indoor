@@ -107,7 +107,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                     }
                     sala.setSituacao(true);
 
-                    showWait(AdminCadastraSalaActivity.this);
+                    showWait(AdminCadastraSalaActivity.this, R.string.builder_cadastro);
                     Call call = new RetrofitSetup().getSalaRefService().inserir(sala);
 
                     call.enqueue(new Callback() {

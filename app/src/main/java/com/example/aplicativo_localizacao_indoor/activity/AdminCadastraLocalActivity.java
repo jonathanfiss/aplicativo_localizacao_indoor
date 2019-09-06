@@ -80,7 +80,7 @@ public class AdminCadastraLocalActivity extends BaseActivity {
                     local.setDescricao(etDescricaoLocal.getText().toString());
                     local.setSituacao(true);
 
-                    showWait(AdminCadastraLocalActivity.this);
+                    showWait(AdminCadastraLocalActivity.this, R.string.builder_cadastro);
                     Call call = new RetrofitSetup().getLocalService().inserir(local);
 
                     call.enqueue(new Callback() {

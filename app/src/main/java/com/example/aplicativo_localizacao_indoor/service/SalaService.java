@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface SalaService {
     @GET("sala/read.php/")
@@ -16,9 +17,9 @@ public interface SalaService {
 //    @GET("resto endereço")
 //    Call<classe> getmetodo();
 //
-//    @GET("carros/tipo/{tipo}")
-//    Call<CarroSync> getCarrosByTipo(@Path("tipo") String tipo);
-//
+@GET("sala/read_one.php/id={id}")
+Call<SalaList> getSalaById(@Path("id") String id);
+
 @POST("sala/create.php/")
 Call<Void> inserir(@Body Sala sala);
 //

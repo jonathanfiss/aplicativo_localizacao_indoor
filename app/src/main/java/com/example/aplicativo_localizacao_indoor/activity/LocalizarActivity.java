@@ -61,7 +61,9 @@ public class LocalizarActivity extends BaseActivity {
                     PontoRefList pontoRefList = response.body();
                     AppSetup.pontosRef.clear();
                     AppSetup.pontosRef.addAll(pontoRefList.getPontoref());
-                    new TaskPonto().execute();
+                    Log.d("pontoref", AppSetup.pontosRef.toString());
+                    if(!pontoRefList.pontoref.isEmpty())
+                        new TaskPonto().execute();
 
                 }
             }

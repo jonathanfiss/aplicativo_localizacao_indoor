@@ -97,6 +97,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                     }
                     Log.d("listscan", scanResults.toString());
                     Thread.sleep(temponovabusca);
+                    scanResults.clear();
                 }
 
             } catch (Exception e) {

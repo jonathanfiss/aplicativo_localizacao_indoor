@@ -61,7 +61,7 @@ public class LocalizarActivity extends BaseActivity {
                     PontoRefList pontoRefList = response.body();
                     AppSetup.pontosRef.clear();
                     AppSetup.pontosRef.addAll(pontoRefList.getPontoref());
-                    Log.d("pontoref", AppSetup.pontosRef.toString());
+                    Log.d("PontoRef Banco", AppSetup.pontosRef.toString());
                     if(!pontoRefList.pontoref.isEmpty())
                         new TaskPonto().execute();
 
@@ -73,8 +73,6 @@ public class LocalizarActivity extends BaseActivity {
                 Toast.makeText(LocalizarActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     //    AsyncTask <Params, Progress, Result>:
@@ -101,22 +99,67 @@ public class LocalizarActivity extends BaseActivity {
                         wifi = true;
                     }
                 }
+                if (!scanResults.isEmpty() && !AppSetup.pontosRef.isEmpty())
                 for (ScanResult result : scanResults) {
                     for (final PontoRef ponto : AppSetup.pontosRef) {
                         if (result.BSSID.equals(ponto.getBssid())) {
                             AppSetup.pontoRef = ponto;
-                            Log.d("resultado", result.toString());
+                            Log.d("PontoRef busca", result.toString());
                             Call<LocalList> call = new RetrofitSetup().getLocalService().getLocalById(ponto.getLocal_id().toString());
 
                             call.enqueue(new Callback<LocalList>() {
                                 @Override
                                 public void onResponse(Call<LocalList> call, Response<LocalList> response) {
                                     if (response.isSuccessful()) {
+                                        AppSetup.local = null;
                                         LocalList localList = response.body();
                                         AppSetup.local = localList.getLocalLists().get(0);
                                         AppSetup.pontoRef.setLocal(localList.getLocalLists().get(0));
-                                        Log.d("resultado", AppSetup.pontoRef.toString());
+                                        Log.d("PontoRef Local", AppSetup.pontoRef.toString());
+                                        tvLocaliza.setText(getResources().getText(R.string.frase_voce)+" " +
+                                                ""+getResources().getText(R.string.frase_predio)+" " +
+                                                ""+AppSetup.pontoRef.getLocal().getPredio()+" " +
+                                                ""+getResources().getText(R.string.frase_andar)+" " +
+                                                ""+AppSetup.pontoRef.getLocal().getAndar()+" " +
+                                                ""+getResources().getText(R.string.frase_corredor)+" " +
+                                                ""+AppSetup.pontoRef.getLocal().getCorredor());
+                                        Call<SalaList> call2 = new RetrofitSetup().getSalaRefService().getSalaById(ponto.getLocal_id().toString());
 
+                                        call2.enqueue(new Callback<SalaList>() {
+                                            @Override
+                                            public void onResponse(Call<SalaList> call, Response<SalaList> response) {
+                                                if (response.isSuccessful()) {
+                                                    Log.d("sala", "ok");
+                                                    SalaList salaList = response.body();
+                                                    AppSetup.salas.clear();
+                                                    for (Sala sala : salaList.getSalasLists()) {
+                                                        sala.setLocal(AppSetup.local);
+                                                        AppSetup.salas.add(sala);
+                                                        Log.d("sala", sala.toString());
+                                                    }
+                                                    dismissWait();
+
+                                                    tvLocaliza.setText(getResources().getText(R.string.frase_voce) + " " +
+                                                            "" + getResources().getText(R.string.frase_predio) + " " +
+                                                            "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
+                                                            "" + getResources().getText(R.string.frase_andar) + " " +
+                                                            "" + AppSetup.pontoRef.getLocal().getAndar() + " " +
+                                                            "" + getResources().getText(R.string.frase_corredor) + " " +
+                                                            "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
+                                                            "" + getResources().getText(R.string.frase_sala) + " " +
+                                                            "" + AppSetup.salas.get(0).getNumero());
+                                                }
+                                                Log.d("sala", "fora if");
+
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<SalaList> call, Throwable t) {
+                                                Log.d("sala", "erro");
+
+                                                Toast.makeText(LocalizarActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                     }
                                 }
 
@@ -125,42 +168,11 @@ public class LocalizarActivity extends BaseActivity {
                                     Toast.makeText(LocalizarActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
                                 }
                             });
-
-                            Call<SalaList> call2 = new RetrofitSetup().getSalaRefService().getSalaById(ponto.getLocal_id().toString());
-
-                            call2.enqueue(new Callback<SalaList>() {
-                                @Override
-                                public void onResponse(Call<SalaList> call, Response<SalaList> response) {
-                                    if (response.isSuccessful()) {
-                                        SalaList salaList = response.body();
-                                        AppSetup.salas.clear();
-                                        for (Sala sala : salaList.getSalasLists()){
-                                            sala.setLocal(AppSetup.local);
-                                            AppSetup.salas.add(sala);
-                                        }
-                                        dismissWait();
-                                        tvLocaliza.setText(getResources().getText(R.string.frase_voce)+" " +
-                                                ""+getResources().getText(R.string.frase_predio)+" " +
-                                                ""+AppSetup.pontoRef.getLocal().getPredio()+" " +
-                                                ""+getResources().getText(R.string.frase_andar)+" " +
-                                                ""+AppSetup.pontoRef.getLocal().getAndar()+" " +
-                                                ""+getResources().getText(R.string.frase_corredor)+" " +
-                                                ""+AppSetup.pontoRef.getLocal().getCorredor()+" " +
-                                                ""+getResources().getText(R.string.frase_sala)+" " +
-                                                ""+AppSetup.salas.get(0).getNumero() );
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<SalaList> call, Throwable t) {
-                                    Toast.makeText(LocalizarActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
                             break;
                         }
                     }
                 }
+                scanResults.clear();
                 Thread.sleep(temponovabusca);
             } catch (Exception e) {
                 e.printStackTrace();

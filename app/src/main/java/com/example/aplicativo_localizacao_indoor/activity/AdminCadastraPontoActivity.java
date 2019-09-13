@@ -33,7 +33,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
     private ProgressDialog mProgressDialog;
     private ListView lvPontosRef;
     private int executa = 0;
-    private int temponovabusca = 15000; //tempo em milisegundos
+    private int temponovabusca = 5000; //tempo em milisegundos
 
 
     @Override
@@ -81,9 +81,6 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                 while (executa == 0) {
                     wifiManager.startScan();
                     List<ScanResult> scanResults = wifiManager.getScanResults();
-                    if (scanResults.isEmpty()) {
-                        showWait(AdminCadastraPontoActivity.this, R.string.builder_redes);
-                    } else {
                         AppSetup.wiFiDetalhes.clear();
                         for (ScanResult result : scanResults) {
                             WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
@@ -94,7 +91,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                             AppSetup.wiFiDetalhes.add(wiFiDetalhes);
                         }
                         publishProgress(AppSetup.wiFiDetalhes);
-                    }
+
                     Log.d("listscan", scanResults.toString());
                     Thread.sleep(temponovabusca);
                     scanResults.clear();

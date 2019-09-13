@@ -16,11 +16,11 @@ public class AppSetup {
     public static PontoRef pontoRef = null;
     public static Sala sala = null;
     public static Local local = null;
+    public static WiFiDetalhe pontoWiFi = null;
     public static WiFiDetalhe pontoAnt = null;
     public static WiFiDetalhe pontoPost = null;
     public static List<Sala> salas = new ArrayList<>();
     public static List<PontoRef> pontosRef = new ArrayList<>();
     public static List<Local> locais = new ArrayList<>();
-    public static String urlapi = "192.168.0.106/api-project/";
 
 }

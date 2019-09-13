@@ -91,23 +91,42 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     AppSetup.wiFiDetalhes.clear();
                     wiFiDetalhes.clear();
-                    if (scanResults.isEmpty()) {
-                        mProgressDialog = new ProgressDialog(AdminSelecionaPontoActivity.this);
-                        mProgressDialog.setMessage("Buscando redes...");
-                        mProgressDialog.setIndeterminate(true);
-                        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                        mProgressDialog.show();
-                    } else {
                         for (ScanResult result : scanResults) {
-                            WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
-                            wiFiDetalhes.setBSSID(result.BSSID);
-                            wiFiDetalhes.setSSID(result.SSID);
-                            wiFiDetalhes.setWiFiSignal(result.level);
-                            wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
-                            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                            if (!result.BSSID.equals(AppSetup.pontoWiFi.getBSSID())){
+                                WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
+                                wiFiDetalhes.setBSSID(result.BSSID);
+                                wiFiDetalhes.setSSID(result.SSID);
+                                wiFiDetalhes.setWiFiSignal(result.level);
+                                wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+                                AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                            }
                         }
+//                        for (ScanResult result : scanResults) {
+//                            if (!result.BSSID.equals(AppSetup.pontoWiFi.getBSSID())) {
+//                                if (!AppSetup.pontoAnt.equals(null)) {
+//                                    if (!result.BSSID.equals(AppSetup.pontoAnt.getBSSID())) {
+//                                        WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
+//                                        wiFiDetalhes.setBSSID(result.BSSID);
+//                                        wiFiDetalhes.setSSID(result.SSID);
+//                                        wiFiDetalhes.setWiFiSignal(result.level);
+//                                        wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+//                                        AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+//                                    }
+//                                }
+//                                if (!AppSetup.pontoPost == null) {
+//                                    if (!result.BSSID.equals(AppSetup.pontoPost.getBSSID())) {
+//                                        WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
+//                                        wiFiDetalhes.setBSSID(result.BSSID);
+//                                        wiFiDetalhes.setSSID(result.SSID);
+//                                        wiFiDetalhes.setWiFiSignal(result.level);
+//                                        wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+//                                        AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+//                                    }
+//                                }
+//
+//                            }
+//                        }
                         publishProgress(AppSetup.wiFiDetalhes);
-                    }
                     Log.d("listscan", scanResults.toString());
                     Thread.sleep(4000);
                 }

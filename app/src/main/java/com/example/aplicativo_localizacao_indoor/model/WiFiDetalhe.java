@@ -51,4 +51,14 @@ public class WiFiDetalhe {
         return Math.pow(10.0, (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
     }
 
+    @Override
+    public String toString() {
+        return "WiFiDetalhe{" +
+                "SSID='" + SSID + '\'' +
+                ", BSSID='" + BSSID + '\'' +
+                ", wiFiSignal=" + wiFiSignal +
+                ", distacia=" + distacia +
+                ", frequencia=" + frequencia +
+                '}';
+    }
 }

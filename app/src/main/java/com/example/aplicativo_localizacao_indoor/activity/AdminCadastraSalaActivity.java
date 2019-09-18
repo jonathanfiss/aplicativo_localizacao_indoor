@@ -43,6 +43,8 @@ public class AdminCadastraSalaActivity extends BaseActivity {
     private AutoCompleteTextView acLocalSala;
     private Button btSelecionaPonto, btCadastrarSala;
     private Sala sala;
+    private static int Activity_code = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +91,9 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         btSelecionaPonto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-//                startActivity(new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class));
+                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
+                Activity_code = 3;
+                startActivityForResult(intent, Activity_code);
             }
         });
 
@@ -164,6 +167,23 @@ public class AdminCadastraSalaActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+    protected void onActivityResult(int codigo, int resultado, Intent i) {
+
+        // se o resultado de uma Activity for Activity_UM_DOIS...
+        if (codigo == Activity_code) {
+            // se o "i" (Intent) estiver preenchido, pega os seus dados (getExtras())
+            Bundle params = i != null ? i.getExtras() : null;
+            if (params != null) {
+                ArrayList<Integer> positions= params.getIntegerArrayList("positions");
+                if (Activity_code == 3) {
+                    for (Integer position : positions){
+                        AppSetup.wiFiDetalhes.get(position);
+                    }
+                    Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
 }

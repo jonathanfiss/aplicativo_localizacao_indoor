@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,8 +41,8 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Integer Activity_code = getIntent().getExtras().getInt("Activity_code");
         setContentView(R.layout.activity_admin_seleciona_ponto);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -52,21 +53,30 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
         }
 
         lv_select_pontos_ref = findViewById(R.id.lv_select_pontos_r);
+        AppSetup.pontosRef.clear();
         new TaskPonto().execute();
 
+        if (Activity_code == 3) {
+            lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
+                }
+            });
+        } else {
+            lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent i = new Intent();
+                    i.putExtra("position", position);
+                    setResult(1, i);
+                    Toast.makeText(AdminSelecionaPontoActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
+                    executa = 1;
+                    finish();
+                }
 
-        lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent();
-                i.putExtra("position", position);
-                setResult(1, i);
-                Toast.makeText(AdminSelecionaPontoActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                executa = 1;
-                finish();
-            }
-
-        });
+            });
+        }
     }
 
     //    AsyncTask <Params, Progress, Result>:
@@ -91,16 +101,16 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     AppSetup.wiFiDetalhes.clear();
                     wiFiDetalhes.clear();
-                        for (ScanResult result : scanResults) {
-                            if (!result.BSSID.equals(AppSetup.pontoWiFi.getBSSID())){
-                                WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
-                                wiFiDetalhes.setBSSID(result.BSSID);
-                                wiFiDetalhes.setSSID(result.SSID);
-                                wiFiDetalhes.setWiFiSignal(result.level);
-                                wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
-                                AppSetup.wiFiDetalhes.add(wiFiDetalhes);
-                            }
+                    for (ScanResult result : scanResults) {
+                        if (!result.BSSID.equals(AppSetup.pontoWiFi.getBSSID())) {
+                            WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
+                            wiFiDetalhes.setBSSID(result.BSSID);
+                            wiFiDetalhes.setSSID(result.SSID);
+                            wiFiDetalhes.setWiFiSignal(result.level);
+                            wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+                            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
                         }
+                    }
 //                        for (ScanResult result : scanResults) {
 //                            if (!result.BSSID.equals(AppSetup.pontoWiFi.getBSSID())) {
 //                                if (!AppSetup.pontoAnt.equals(null)) {
@@ -126,7 +136,7 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
 //
 //                            }
 //                        }
-                        publishProgress(AppSetup.wiFiDetalhes);
+                    publishProgress(AppSetup.wiFiDetalhes);
                     Log.d("listscan", scanResults.toString());
                     Thread.sleep(4000);
                 }
@@ -183,9 +193,20 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.checked, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                executa = 1;
+                AppSetup.wiFiDetalhesSelecionados.clear();
+                finish();
+                break;
+            case R.id.buttonOk:
                 executa = 1;
                 AppSetup.wiFiDetalhesSelecionados.clear();
                 finish();

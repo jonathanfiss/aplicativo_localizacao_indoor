@@ -43,7 +43,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
     private AutoCompleteTextView acLocalSala;
     private Button btSelecionaPonto, btCadastrarSala;
     private Sala sala;
-    private static int Activity_code = 0;
+    private static Integer Activity_code = 0;
 
 
     @Override
@@ -93,6 +93,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
                 Activity_code = 3;
+                intent.putExtra("Activity_code", Activity_code);
                 startActivityForResult(intent, Activity_code);
             }
         });

@@ -81,18 +81,22 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                 while (executa == 0) {
                     wifiManager.startScan();
                     List<ScanResult> scanResults = wifiManager.getScanResults();
+//                    if (scanResults.size() == 0){
+//                        showWait(AdminCadastraPontoActivity.this, R.string.builder_redes);
+//                    }
                         AppSetup.wiFiDetalhes.clear();
-                        for (ScanResult result : scanResults) {
-                            WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
-                            wiFiDetalhes.setBSSID(result.BSSID);
-                            wiFiDetalhes.setSSID(result.SSID);
-                            wiFiDetalhes.setWiFiSignal(result.level);
-                            wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
-                            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
-                        }
-                        publishProgress(AppSetup.wiFiDetalhes);
+                    for (ScanResult result : scanResults) {
+                        WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
+                        wiFiDetalhes.setBSSID(result.BSSID);
+                        wiFiDetalhes.setSSID(result.SSID);
+                        wiFiDetalhes.setWiFiSignal(result.level);
+                        wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+                        AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                    }
+                    publishProgress(AppSetup.wiFiDetalhes);
 
                     Log.d("listscan", scanResults.toString());
+                    Log.d("listscan", String.valueOf(scanResults.size()));
                     Thread.sleep(temponovabusca);
                     scanResults.clear();
                 }

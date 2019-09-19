@@ -79,6 +79,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
                 Activity_code = 1;
+                intent.putExtra("Activity_code", Activity_code);
                 startActivityForResult(intent, Activity_code);
             }
         });
@@ -87,6 +88,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
                 Activity_code = 2;
+                intent.putExtra("Activity_code", Activity_code);
                 startActivityForResult(intent, Activity_code);
             }
         });

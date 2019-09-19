@@ -91,7 +91,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         btSelecionaPonto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
+                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontosActivity.class);
                 Activity_code = 3;
                 intent.putExtra("Activity_code", Activity_code);
                 startActivityForResult(intent, Activity_code);

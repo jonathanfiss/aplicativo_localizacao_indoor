@@ -67,41 +67,8 @@ public class AdminListarPontoActivity extends AppCompatActivity {
 
             }
         });
-        listaPontoRef.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                dialogLongClink(position);
-                return true;
-            }
-        });
     }
 
-    //    AsyncTask <Params, Progress, Result>:
-
-    private void dialogLongClink(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //adiciona um título e uma mensagem
-        builder.setTitle(R.string.title_opcao);
-//        builder.setMessage(R.string.mensagem_exclui);
-        //adiciona os botões
-        builder.setPositiveButton(R.string.alertdialog_editar, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference myRef = database.getReference("dados").child("pontosref").child(AppSetup.pontosRef.get(position).getKey()).child("situacao");
-//                myRef.setValue("true");
-            }
-        });
-        builder.setNegativeButton(R.string.alertdialog_excluir, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference myRef = database.getReference("dados").child("pontosref").child(AppSetup.pontosRef.get(position).getKey()).child("situacao");
-//                myRef.setValue("false");
-            }
-        });
-        builder.show();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

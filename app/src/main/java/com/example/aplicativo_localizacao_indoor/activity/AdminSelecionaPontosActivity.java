@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
@@ -31,6 +32,7 @@ import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
 import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,16 +41,20 @@ import retrofit2.Response;
 
 import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetalhes;
 
-public class AdminSelecionaPontosActivity extends AppCompatActivity {
+public class AdminSelecionaPontosActivity extends BaseActivity {
     private static final int REQUEST_PERMISSIONS_CODE = 0;
     private ProgressDialog mProgressDialog;
     private ListView lv_select_pontos_ref;
-    private int executa = 0;
+    private TextView tvPontoRefSelecionados;
+    private int temponovabusca = 5000; //tempo em milisegundos
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_seleciona_pontos);
+
+        tvPontoRefSelecionados = findViewById(R.id.tvPontoRefSelecionados);
 
         Integer Activity_code = getIntent().getExtras().getInt("Activity_code");
 
@@ -56,36 +62,44 @@ public class AdminSelecionaPontosActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-        verificaPermissao();
+        verificaPermissao(AdminSelecionaPontosActivity.this);
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
 
         lv_select_pontos_ref = findViewById(R.id.lv_select_pontos_ref);
         AppSetup.pontosRef.clear();
+        AppSetup.wiFiDetalhesSelecionados.clear();
         new TaskPonto().execute();
-
-        if (Activity_code == 3) {
-            lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
+        final PontoRef pontoRef = new PontoRef();
+        final ArrayList<PontoRef> pontoRefSelecionados = new ArrayList();
+        final ArrayList<String> selections = new ArrayList();
+        lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (pontoRefSelecionados.isEmpty()) {
+                    pontoRef.setSsid(AppSetup.wiFiDetalhes.get(position).getSSID());
+                    pontoRef.setBssid(AppSetup.wiFiDetalhes.get(position).getBSSID());
+                    pontoRefSelecionados.add(pontoRef);
+                } else {
+                    for (PontoRef pontoRef1 : pontoRefSelecionados) {
+                        if (!pontoRef1.getBssid().equals(AppSetup.wiFiDetalhes.get(position).getBSSID())) {
+                            pontoRef.setSsid(AppSetup.wiFiDetalhes.get(position).getSSID());
+                            pontoRef.setBssid(AppSetup.wiFiDetalhes.get(position).getBSSID());
+                            pontoRefSelecionados.add(pontoRef);
+                        }
+                    }
                 }
-            });
-        } else {
-            lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent i = new Intent();
-                    i.putExtra("position", position);
-                    setResult(1, i);
-                    Toast.makeText(AdminSelecionaPontosActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                    executa = 1;
-                    finish();
+                if (!pontoRefSelecionados.isEmpty()) {
+                    for (PontoRef wifi : pontoRefSelecionados) {
+                        selections.add(wifi.getSsid().concat(" - ").concat(wifi.getBssid()));
+                    }
+                    tvPontoRefSelecionados.setText(selections.toString());
+                    selections.clear();
                 }
+            }
+        });
 
-            });
-        }
     }
 
     //    AsyncTask <Params, Progress, Result>:
@@ -94,66 +108,25 @@ public class AdminSelecionaPontosActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(AdminSelecionaPontosActivity.this);
-            mProgressDialog.setMessage("Buscando redes...");
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            mProgressDialog.show();
+            showWait(AdminSelecionaPontosActivity.this, R.string.builder_redes);
         }
 
         @Override
         protected List<WiFiDetalhe> doInBackground(Void... voids) {
             try {
-                Call<PontoRefList> call = new RetrofitSetup().getPontoRefService().getPonto();
-
-                call.enqueue(new Callback<PontoRefList>() {
-                    @Override
-                    public void onResponse(Call<PontoRefList> call, Response<PontoRefList> response) {
-                        if (response.isSuccessful()) {
-                            PontoRefList pontoRefList = response.body();
-                            AppSetup.pontosRef.clear();
-                            AppSetup.pontosRef.addAll(pontoRefList.getPontoref());
-                            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-                            while (executa == 0) {
-                                wifiManager.startScan();
-                                List<ScanResult> scanResults = wifiManager.getScanResults();
-                                AppSetup.wiFiDetalhes.clear();
-                                wiFiDetalhes.clear();
-                                for (ScanResult result : scanResults) {
-                                    for (PontoRef pontoRef : AppSetup.pontosRef) {
-                                        if (!result.BSSID.equals(pontoRef.getBssid())) {
-
-
-                                            WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
-                                            wiFiDetalhes.setBSSID(result.BSSID);
-                                            wiFiDetalhes.setSSID(result.SSID);
-                                            wiFiDetalhes.setWiFiSignal(result.level);
-                                            wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
-                                            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
-                                            lv_select_pontos_ref.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontosActivity.this, AppSetup.wiFiDetalhes));
-                                            Log.d("diferente", wiFiDetalhes.toString());
-                                        } else {
-                                            Log.d("igual", pontoRef.toString());
-                                        }
-                                    }
-                                }
-                                publishProgress(AppSetup.wiFiDetalhes);
-//                                Log.d("listscan", scanResults.toString());
-                                try {
-                                    Thread.sleep(10000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<PontoRefList> call, Throwable t) {
-                        Toast.makeText(AdminSelecionaPontosActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                wifiManager.startScan();
+                List<ScanResult> scanResults = wifiManager.getScanResults();
+                AppSetup.wiFiDetalhes.clear();
+                for (ScanResult result : scanResults) {
+                    WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
+                    wiFiDetalhes.setBSSID(result.BSSID);
+                    wiFiDetalhes.setSSID(result.SSID);
+                    wiFiDetalhes.setWiFiSignal(result.level);
+                    wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+                    AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                }
+                publishProgress(AppSetup.wiFiDetalhes);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -164,46 +137,16 @@ public class AdminSelecionaPontosActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(List<WiFiDetalhe>... values) {
             super.onProgressUpdate(values);
-            mProgressDialog.dismiss();
-            lv_select_pontos_ref.setAdapter(new SelecionaPontoReferenciaAdapter(AdminSelecionaPontosActivity.this, AppSetup.wiFiDetalhes));
+            dismissWait();
+            lv_select_pontos_ref.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontosActivity.this, AppSetup.wiFiDetalhes));
         }
 
         @Override
         protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
             super.onPostExecute(wiFiDetalhes);
-            mProgressDialog.dismiss();
+            dismissWait();
             lv_select_pontos_ref.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontosActivity.this, AppSetup.wiFiDetalhes));
         }
-    }
-
-    private boolean verificaPermissao() {
-        //verifica se o aplicativo tem permissão para utilizar a localização
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //verifica se permissão ja foi negada alguma vez para utilizar a localização
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                //adiciona um título e uma mensagem
-                builder.setTitle("Permissão");
-                builder.setMessage("Para você poder utilizar o sistema é necessario a permissão a localização");
-                //adiciona os botões
-                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions(AdminSelecionaPontosActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
-                    }
-                });
-                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                builder.show();
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
-            }
-        }//retorna true se tiver tudo certo
-        return true;
     }
 
     @Override
@@ -216,7 +159,6 @@ public class AdminSelecionaPontosActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                executa = 1;
                 AppSetup.wiFiDetalhesSelecionados.clear();
                 finish();
                 break;
@@ -224,7 +166,6 @@ public class AdminSelecionaPontosActivity extends AppCompatActivity {
                 Intent i = new Intent();
                 setResult(1, i);
                 Toast.makeText(AdminSelecionaPontosActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                executa = 1;
                 finish();
                 break;
             default:
@@ -235,7 +176,6 @@ public class AdminSelecionaPontosActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        executa = 1;
         AppSetup.wiFiDetalhesSelecionados.clear();
         finish();
     }

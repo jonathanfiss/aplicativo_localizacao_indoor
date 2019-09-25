@@ -11,8 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
@@ -41,8 +44,9 @@ public class AdminCadastraSalaActivity extends BaseActivity {
 
     private EditText etNomeSala, etNumeroSala;
     private AutoCompleteTextView acLocalSala;
-    private Button btSelecionaPonto, btCadastrarSala;
+    private Button btPontoRefProx1, btPontoRefProx2, btPontoRefProx3, btCadastrarSala;
     private Sala sala;
+    private Switch btPontoRefProxChecked1, btPontoRefProxChecked2, btPontoRefProxChecked3;
     private static Integer Activity_code = 0;
 
 
@@ -57,7 +61,13 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         etNomeSala = findViewById(R.id.etNomeSala);
         etNumeroSala = findViewById(R.id.etNumeroSala);
         acLocalSala = findViewById(R.id.acLocalSala);
-        btSelecionaPonto = findViewById(R.id.btSelecionaPonto);
+        btPontoRefProx1 = findViewById(R.id.btPontoRefProx1);
+        btPontoRefProx2 = findViewById(R.id.btPontoRefProx2);
+        btPontoRefProx3 = findViewById(R.id.btPontoRefProx3);
+        btPontoRefProxChecked1 = findViewById(R.id.btPontoRefProxChecked1);
+        btPontoRefProxChecked2 = findViewById(R.id.btPontoRefProxChecked2);
+        btPontoRefProxChecked3 = findViewById(R.id.btPontoRefProxChecked3);
+
         btCadastrarSala = findViewById(R.id.btCadastrarSala);
 
         final List<String> corredor = new ArrayList<>();
@@ -88,13 +98,66 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         acLocalSala = findViewById(R.id.acLocalSala);
         acLocalSala.setAdapter(adapter);
 
-        btSelecionaPonto.setOnClickListener(new View.OnClickListener() {
+        btPontoRefProx1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontosActivity.class);
+                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
+                Activity_code = 1;
+                intent.putExtra("Activity_code", Activity_code);
+                startActivityForResult(intent, Activity_code);
+            }
+        });
+        btPontoRefProxChecked1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+
+                } else {
+
+                }
+            }
+        });
+
+        btPontoRefProx2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
+                Activity_code = 2;
+                intent.putExtra("Activity_code", Activity_code);
+                startActivityForResult(intent, Activity_code);
+            }
+        });
+        btPontoRefProxChecked2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+
+                } else {
+
+                }
+            }
+        });
+
+        btPontoRefProx3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
                 Activity_code = 3;
                 intent.putExtra("Activity_code", Activity_code);
                 startActivityForResult(intent, Activity_code);
+            }
+        });
+        btPontoRefProxChecked3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+
+                } else {
+
+                }
             }
         });
 
@@ -170,17 +233,26 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         finish();
     }
     protected void onActivityResult(int codigo, int resultado, Intent i) {
-
         // se o resultado de uma Activity for Activity_UM_DOIS...
         if (codigo == Activity_code) {
             // se o "i" (Intent) estiver preenchido, pega os seus dados (getExtras())
             Bundle params = i != null ? i.getExtras() : null;
             if (params != null) {
-                ArrayList<Integer> positions= params.getIntegerArrayList("positions");
-                if (Activity_code == 3) {
-                    for (Integer position : positions){
-                        AppSetup.wiFiDetalhes.get(position);
-                    }
+                Integer position = params.getInt("position");
+                if (Activity_code == 1) {
+                    AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
+                    btPontoRefProx1.setText("Ponto referência selecionado");
+                    btPontoRefProxChecked1.setChecked(false);
+                    Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
+                } else if (Activity_code == 2) {
+                    AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
+                    btPontoRefProx2.setText("Ponto referência selecionado");
+                    btPontoRefProxChecked2.setChecked(false);
+                    Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
+                }else if (Activity_code == 3) {
+                    AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
+                    btPontoRefProx3.setText("Ponto referência selecionado");
+                    btPontoRefProxChecked3.setChecked(false);
                     Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
                 }
             }

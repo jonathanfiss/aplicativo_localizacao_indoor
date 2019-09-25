@@ -82,8 +82,8 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@color/colorButton"
-        android:paddingLeft="20px"
-        android:paddingRight="20px"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="@string/ponto_de_referencia_proximo"
         android:textColor="@color/colorTextButton"
         app:layout_constraintEnd_toEndOf="@+id/btCadPontoRefAnt"
@@ -111,8 +111,8 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@color/colorButton"
-        android:paddingLeft="20px"
-        android:paddingRight="20px"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="@string/ponto_de_referencia_proximo"
         android:textColor="@color/colorTextButton"
         app:layout_constraintEnd_toEndOf="@+id/btCadPontoRefAnt"
@@ -141,8 +141,8 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@color/colorButton"
-        android:paddingLeft="20px"
-        android:paddingRight="20px"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="@string/ponto_de_referencia_proximo"
         android:textColor="@color/colorTextButton"
         app:layout_constraintEnd_toEndOf="@+id/btCadPontoRefAnt"
@@ -150,29 +150,15 @@
         app:layout_constraintTop_toBottomOf="@+id/btPontoRefProx2" />
 
     <Button
-        android:id="@+id/btSelecionaPonto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/colorButton"
-        android:text="@string/bt_seleciona_ponto"
-        android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="490dp" />
-
-    <Button
         android:id="@+id/btCadastrarSala"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@color/colorButton"
         android:text="@string/bt_cadastrar_sala"
         android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="@+id/btSelecionaPonto"
-        app:layout_constraintStart_toStartOf="@+id/btSelecionaPonto"
-        app:layout_constraintTop_toBottomOf="@+id/btSelecionaPonto" />
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout7"
+        app:layout_constraintStart_toStartOf="@+id/btPontoRefProx3"
+        app:layout_constraintTop_toBottomOf="@+id/btPontoRefProx3" />
 
 </android.support.constraint.ConstraintLayout>

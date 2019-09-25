@@ -110,32 +110,21 @@ public class AdminSelecionaPontoActivity extends AppCompatActivity {
                             wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
                             AppSetup.wiFiDetalhes.add(wiFiDetalhes);
                         }
+                        if (AppSetup.pontoPost != null){
+                            for(WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes){
+                                if (wiFiDetalhe.getBSSID().equals(AppSetup.pontoPost.getBSSID())){
+                                    wiFiDetalhes.remove(wiFiDetalhe);
+                                }
+                            }
+                        }
+                        if (AppSetup.pontoAnt != null){
+                            for(WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes){
+                                if (wiFiDetalhe.getBSSID().equals(AppSetup.pontoAnt.getBSSID())){
+                                    wiFiDetalhes.remove(wiFiDetalhe);
+                                }
+                            }
+                        }
                     }
-//                        for (ScanResult result : scanResults) {
-//                            if (!result.BSSID.equals(AppSetup.pontoWiFi.getBSSID())) {
-//                                if (!AppSetup.pontoAnt.equals(null)) {
-//                                    if (!result.BSSID.equals(AppSetup.pontoAnt.getBSSID())) {
-//                                        WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
-//                                        wiFiDetalhes.setBSSID(result.BSSID);
-//                                        wiFiDetalhes.setSSID(result.SSID);
-//                                        wiFiDetalhes.setWiFiSignal(result.level);
-//                                        wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
-//                                        AppSetup.wiFiDetalhes.add(wiFiDetalhes);
-//                                    }
-//                                }
-//                                if (!AppSetup.pontoPost == null) {
-//                                    if (!result.BSSID.equals(AppSetup.pontoPost.getBSSID())) {
-//                                        WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
-//                                        wiFiDetalhes.setBSSID(result.BSSID);
-//                                        wiFiDetalhes.setSSID(result.SSID);
-//                                        wiFiDetalhes.setWiFiSignal(result.level);
-//                                        wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
-//                                        AppSetup.wiFiDetalhes.add(wiFiDetalhes);
-//                                    }
-//                                }
-//
-//                            }
-//                        }
                     publishProgress(AppSetup.wiFiDetalhes);
                     Log.d("listscan", scanResults.toString());
                     Thread.sleep(4000);

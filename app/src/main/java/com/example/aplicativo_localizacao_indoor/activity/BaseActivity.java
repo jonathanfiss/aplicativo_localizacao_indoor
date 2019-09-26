@@ -65,8 +65,8 @@ public class BaseActivity extends AppCompatActivity {
         mProgressDialog.show();
     }
 
-    public void buscaDeRedes(){
-
+    public String formataBSSID(String BSSID){
+      return BSSID.substring(0, 14);
     }
 
     //Faz Dismiss na ProgressDialog

@@ -77,14 +77,31 @@ public class RotaActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     LocalList localList = response.body();
                     AppSetup.locais.addAll(localList.getLocalLists());
-                    for (Local local : localList.getLocalLists()){
-//                        informacoes.add(local.getCorredor());
-                    }
+//                    for (Local local : localList.getLocalLists()){
+////                        informacoes.add(local.getCorredor());
+//                    }
                 }
             }
 
             @Override
             public void onFailure(Call<LocalList> call, Throwable t) {
+                Toast.makeText(RotaActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Call<PontoRefList> callPonto = new RetrofitSetup().getPontoRefService().getPonto();
+
+        callPonto.enqueue(new Callback<PontoRefList>() {
+            @Override
+            public void onResponse(Call<PontoRefList> call, Response<PontoRefList> response) {
+                if (response.isSuccessful()) {
+                    PontoRefList pontoRefList = response.body();
+                    AppSetup.pontosRef.addAll(pontoRefList.getPontoref());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PontoRefList> call, Throwable t) {
                 Toast.makeText(RotaActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
             }
         });
@@ -97,11 +114,14 @@ public class RotaActivity extends BaseActivity {
             public void onClick(View v) {
                 showWait(RotaActivity.this, R.string.builder_rota);
                 for (Sala sala : AppSetup.salas){
-                    if (sala.getNome().contains(acBuscaRota.getText())){
+                    if (sala.getNome().equalsIgnoreCase(String.valueOf(acBuscaRota.getText()))){
+                        for (PontoRef pontoRef: AppSetup.pontosRef){
+                            if (pontoRef.getBssid().equals(sala.getBssid_prox())){
+                                Log.d("aqui", "chegou eeeee");
+                            }
+                        }
                         dismissWait();
-                    }else{
-                        dismissWait();
-                        Toast.makeText(RotaActivity.this, "Local não encontrado", Toast.LENGTH_SHORT).show();
+                        break;
                     }
                 }
             }

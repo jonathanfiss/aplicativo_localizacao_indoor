@@ -23,6 +23,7 @@ import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.LocalList;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.Usuario;
+import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
 import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -174,6 +175,8 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                     }
                     sala.setSituacao(true);
 
+//                    sala.setBssid_prox();
+
                     showWait(AdminCadastraSalaActivity.this, R.string.builder_cadastro);
                     Call call = new RetrofitSetup().getSalaRefService().inserir(sala);
 
@@ -255,6 +258,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                     btPontoRefProxChecked3.setChecked(false);
                     Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
                 }
+
             }
         }
     }

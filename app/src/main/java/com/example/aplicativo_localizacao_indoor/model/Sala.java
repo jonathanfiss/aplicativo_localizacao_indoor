@@ -88,4 +88,19 @@ public class Sala {
     public void setLocal_id(String local_id) {
         this.local_id = local_id;
     }
+
+    @Override
+    public String toString() {
+        return "Sala{" +
+                "nome='" + nome + '\'' +
+                ", numero='" + numero + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", bssid_prox='" + bssid_prox + '\'' +
+                ", data_hora_modificado='" + data_hora_modificado + '\'' +
+                ", modificado_por='" + modificado_por + '\'' +
+                ", situacao=" + situacao +
+                ", local=" + local +
+                ", local_id='" + local_id + '\'' +
+                '}';
+    }
 }

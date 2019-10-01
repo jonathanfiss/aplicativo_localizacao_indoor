@@ -63,7 +63,7 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
         });
     }
 
-    private void singup(String email, String password) {
+    private void singup(final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -74,6 +74,17 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
                             cadastraUser(mAuth.getCurrentUser());
                             Toast.makeText(AdminCadastraUsuarioActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
                             limparForm();
+
+
+                            mAuth.sendPasswordResetEmail(email)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d("Email", "Enviado.");
+                                            }
+                                        }
+                                    });
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("user", "createUserWithEmail:failure", task.getException());

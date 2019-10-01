@@ -41,8 +41,8 @@ public class AdminListarUsuariosActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Usuario> usuarios = new ArrayList<>();
-
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Log.d("data", ds.getValue().toString());
                     Usuario usuario = ds.getValue(Usuario.class);
                     usuario.setKey(ds.getKey());
                     usuarios.add(usuario);

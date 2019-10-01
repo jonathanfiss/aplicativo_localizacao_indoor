@@ -9,11 +9,10 @@ public class Usuario {
     private String nome;
     private String sobrenome;
     private String matricula;
-    private String Funcao;
-    private String Email;
-    private String data_hora_modificado;
-    private String modificado_por;
+    private String funcao;
+    private String email;
     private boolean situacao;
+    @Exclude
     private String key;
 
     public Usuario() {
@@ -52,35 +51,19 @@ public class Usuario {
     }
 
     public String getFuncao() {
-        return Funcao;
+        return funcao;
     }
 
     public void setFuncao(String funcao) {
-        Funcao = funcao;
+        this.funcao = funcao;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getData_hora_modificado() {
-        return data_hora_modificado;
-    }
-
-    public void setData_hora_modificado(String data_hora_modificado) {
-        this.data_hora_modificado = data_hora_modificado;
-    }
-
-    public String getModificado_por() {
-        return modificado_por;
-    }
-
-    public void setModificado_por(String modificado_por) {
-        this.modificado_por = modificado_por;
+        this.email = email;
     }
 
     public boolean isSituacao() {
@@ -99,5 +82,19 @@ public class Usuario {
     @Exclude
     public void setKey(String key) {
         this.key = key;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "firebaseUser=" + firebaseUser +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", matricula='" + matricula + '\'' +
+                ", funcao='" + funcao + '\'' +
+                ", email='" + email + '\'' +
+                ", situacao=" + situacao +
+                ", key='" + key + '\'' +
+                '}';
     }
 }

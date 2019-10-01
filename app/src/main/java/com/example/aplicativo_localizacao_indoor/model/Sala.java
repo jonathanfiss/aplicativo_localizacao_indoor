@@ -4,6 +4,7 @@ import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.google.firebase.database.Exclude;
 
 public class Sala {
+    private Long id_sala;
     private String nome;
     private String numero;
     private String descricao;
@@ -15,6 +16,14 @@ public class Sala {
     private String local_id;
 
     public Sala() {
+    }
+
+    public Long getId_sala() {
+        return id_sala;
+    }
+
+    public void setId_sala(Long id_sala) {
+        this.id_sala = id_sala;
     }
 
     public Local getLocal() {
@@ -92,7 +101,8 @@ public class Sala {
     @Override
     public String toString() {
         return "Sala{" +
-                "nome='" + nome + '\'' +
+                "id_sala=" + id_sala +
+                ", nome='" + nome + '\'' +
                 ", numero='" + numero + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", bssid_prox='" + bssid_prox + '\'' +

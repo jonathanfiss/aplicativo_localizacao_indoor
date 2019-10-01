@@ -5,41 +5,33 @@ import java.util.List;
 
 public class Vertice {
 
-    String nome;
-    List<Aresta> adj;
+    private String mac;
+    public List<Aresta> arestas;
 
-    public Vertice(String nome) {
-        this.nome = nome;
-        this.adj = new ArrayList<Aresta>();
+    public Vertice() {
     }
 
-    public String getNome() {
-        return nome;
+    public String getMac() {
+        return mac;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setMac(String mac) {
+        this.mac = mac;
     }
 
-    public List<Aresta> getAdj() {
-        return adj;
+    public List<Aresta> getArestas() {
+        return arestas;
     }
 
-    public void setAdj(List<Aresta> adj) {
-        this.adj = adj;
+    public void setArestas(List<Aresta> arestas) {
+        this.arestas = arestas;
     }
 
     @Override
     public String toString() {
         return "Vertice{" +
-                "nome='" + nome + '\'' +
-                ", adj=" + adj +
+                "mac='" + mac + '\'' +
+                ", arestas=" + arestas +
                 '}';
     }
-
-    public void addAdj(Aresta e){
-        adj.add(e);
-    }
-
-
 }

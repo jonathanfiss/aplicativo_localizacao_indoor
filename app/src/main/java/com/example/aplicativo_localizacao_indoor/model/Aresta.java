@@ -1,12 +1,10 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
 public class Aresta {
-    Vertice origem;
-    Vertice destino;
+    private Vertice origem;
+    private Vertice destino;
 
-    public Aresta(Vertice origem, Vertice destino) {
-        this.origem = origem;
-        this.destino = destino;
+    public Aresta() {
     }
 
     public Vertice getOrigem() {
@@ -28,8 +26,8 @@ public class Aresta {
     @Override
     public String toString() {
         return "Aresta{" +
-                "origem='" + origem + '\'' +
-                ", destino='" + destino + '\'' +
+                "origem=" + origem +
+                ", destino=" + destino +
                 '}';
     }
 }

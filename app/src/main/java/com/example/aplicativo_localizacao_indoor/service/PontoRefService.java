@@ -5,8 +5,11 @@ import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface PontoRefService {
     @GET("pontoref/read.php/")
@@ -21,9 +24,9 @@ public interface PontoRefService {
     @POST("pontoref/create.php/")
     Call<Void> inserir(@Body PontoRef pontoRef);
 //
-//    @PUT ("carros")
-//    Call<Void> alterar(@Body Carro carro);
+//    @PUT("pontoref/update.php/")
+//    Call<Void> alterar(@Body PontoRef pontoRef);
 //
-//    @DELETE("carros/{id}")
-//    Call<Void> excluir(@Path("id") String id);
+    @DELETE("pontoref/delete.php/id={id}")
+    Call<Void> excluir(@Path("id") String id);
 }

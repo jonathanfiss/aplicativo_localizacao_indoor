@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminListarLocaisActivity extends AppCompatActivity {
+public class AdminListarLocaisActivity extends BaseActivity {
     private ListView listaLocais;
     private static String TAG = "Lista de locais";
 
@@ -43,8 +43,65 @@ public class AdminListarLocaisActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         listaLocais = findViewById(R.id.lv_lista_locais);
+        buscaDados();
 
+        listaLocais.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dialogLongClink(position);
+            }
+        });
+
+    }
+    private void dialogLongClink(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //adiciona um título e uma mensagem
+        builder.setTitle("Deseja excluir?");
+        //adiciona os botões
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showWait(AdminListarLocaisActivity.this, R.string.builder_excluindo);
+                Call call = new RetrofitSetup().getLocalService().excluir(String.valueOf(AppSetup.locais.get(position).getId()));
+
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onResponse(Call call, Response response) {
+                        if(response.isSuccessful()){
+                            dismissWait();
+                            switch (response.code()){
+                                case 200:
+                                    Toast.makeText(AdminListarLocaisActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
+                                    buscaDados();
+//                                        finish();
+                                    break;
+                                case 503:
+                                    Toast.makeText(AdminListarLocaisActivity.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call call, Throwable t) {
+                        dismissWait();
+                        Toast.makeText(AdminListarLocaisActivity.this, getString(R.string.toast_erro_requisicao), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Log.d("lala", call.toString());
+            }
+        });
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
+    }
+
+    public void buscaDados(){
         Call<LocalList> call = new RetrofitSetup().getLocalService().getLocal();
+        showWait(AdminListarLocaisActivity.this, R.string.builder_buscando_dados);
 
         call.enqueue(new Callback<LocalList>() {
             @Override
@@ -54,53 +111,19 @@ public class AdminListarLocaisActivity extends AppCompatActivity {
                     AppSetup.locais.clear();
                     AppSetup.locais.addAll(localList.getLocalLists());
                     listaLocais.setAdapter(new ListaLocaisAdapter(AdminListarLocaisActivity.this, AppSetup.locais));
+                    dismissWait();
                 }
             }
 
             @Override
             public void onFailure(Call<LocalList> call, Throwable t) {
                 Toast.makeText(AdminListarLocaisActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        listaLocais.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-        listaLocais.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                dialogLongClink(position);
-                return true;
+                dismissWait();
             }
         });
     }
-    private void dialogLongClink(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //adiciona um título e uma mensagem
-        builder.setTitle(R.string.title_opcao);
-//        builder.setMessage(R.string.mensagem_exclui);
-        //adiciona os botões
-        builder.setPositiveButton(R.string.alertdialog_editar, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference myRef = database.getReference("dados").child("locais").child(AppSetup.locais.get(position).getKey()).child("situacao");
-//                myRef.setValue(true);
-            }
-        });
-        builder.setNegativeButton(R.string.alertdialog_excluir, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference myRef = database.getReference("dados").child("locais").child(AppSetup.locais.get(position).getKey()).child("situacao");
-//                myRef.setValue(false);
-            }
-        });
-        builder.show();
-    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

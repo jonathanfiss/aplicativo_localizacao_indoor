@@ -30,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminListarSalasActivity extends AppCompatActivity {
+public class AdminListarSalasActivity extends BaseActivity {
     private ListView listaSalas;
     private static String TAG = "Lista de salas";
 
@@ -44,57 +44,12 @@ public class AdminListarSalasActivity extends AppCompatActivity {
 
         listaSalas = findViewById(R.id.lv_lista_salas);
 
-        Call<SalaList> call = new RetrofitSetup().getSalaRefService().getSala();
+        buscaDados();
 
-        call.enqueue(new Callback<SalaList>() {
-            @Override
-            public void onResponse(Call<SalaList> call, Response<SalaList> response) {
-                if (response.isSuccessful()) {
-                    SalaList salaList = response.body();
-                    AppSetup.salas.clear();
-                    AppSetup.salas.addAll(salaList.getSalasLists());
-                    listaSalas.setAdapter(new ListaSalasAdapter(AdminListarSalasActivity.this, AppSetup.salas));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SalaList> call, Throwable t) {
-                Toast.makeText(AdminListarSalasActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-//        // Write a message to the database
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("dados").child("salas");
-//
-//        // Read from the database
-//        myRef.orderByChild("situacao").equalTo(true).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                AppSetup.salas.clear();
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    Sala sala = ds.getValue(Sala.class);
-//                    sala.setKey(ds.getKey());
-//                    AppSetup.salas.add(sala);
-//                }
-//
-//                //carrega os dados na View
-//
-//                listaSalas.setAdapter(new ListaSalasAdapter(AdminListarSalasActivity.this, AppSetup.salas));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
         listaSalas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                dialogLongClink(position);
             }
         });
         listaSalas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -108,26 +63,74 @@ public class AdminListarSalasActivity extends AppCompatActivity {
     private void dialogLongClink(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //adiciona um título e uma mensagem
-        builder.setTitle(R.string.title_opcao);
+        builder.setTitle("Deseja excluir?");
         //adiciona os botões
-        builder.setPositiveButton(R.string.alertdialog_editar, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference myRef = database.getReference("dados").child("salas").child(AppSetup.salas.get(position).getKey()).child("situacao");
-//                myRef.setValue("true");
+                showWait(AdminListarSalasActivity.this, R.string.builder_excluindo);
+                Call call = new RetrofitSetup().getSalaRefService().excluir(String.valueOf(AppSetup.salas.get(position).getId_sala()));
+
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onResponse(Call call, Response response) {
+                        if(response.isSuccessful()){
+                            dismissWait();
+                            switch (response.code()){
+                                case 200:
+                                    Toast.makeText(AdminListarSalasActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
+
+                                    buscaDados();
+//                                        finish();
+                                    break;
+                                case 503:
+                                    Toast.makeText(AdminListarSalasActivity.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call call, Throwable t) {
+                        dismissWait();
+                        Toast.makeText(AdminListarSalasActivity.this, getString(R.string.toast_erro_requisicao), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Log.d("lala", call.toString());
             }
         });
-        builder.setNegativeButton(R.string.alertdialog_excluir, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference myRef = database.getReference("dados").child("salas").child(AppSetup.salas.get(position).getKey()).child("situacao");
-//                myRef.setValue("false");
+
             }
         });
         builder.show();
     }
+
+    public void buscaDados(){
+        showWait(AdminListarSalasActivity.this, R.string.builder_buscando_dados);
+        Call<SalaList> call = new RetrofitSetup().getSalaRefService().getSala();
+
+        call.enqueue(new Callback<SalaList>() {
+            @Override
+            public void onResponse(Call<SalaList> call, Response<SalaList> response) {
+                if (response.isSuccessful()) {
+                    SalaList salaList = response.body();
+                    AppSetup.salas.clear();
+                    AppSetup.salas.addAll(salaList.getSalasLists());
+                    listaSalas.setAdapter(new ListaSalasAdapter(AdminListarSalasActivity.this, AppSetup.salas));
+                    dismissWait();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SalaList> call, Throwable t) {
+                Toast.makeText(AdminListarSalasActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
+                dismissWait();
+            }
+        });
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

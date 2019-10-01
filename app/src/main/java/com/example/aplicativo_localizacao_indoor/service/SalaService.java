@@ -6,6 +6,7 @@ import com.example.aplicativo_localizacao_indoor.model.SalaList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -25,7 +26,7 @@ Call<Void> inserir(@Body Sala sala);
 //
 //    @PUT ("carros")
 //    Call<Void> alterar(@Body Carro carro);
-//
-//    @DELETE("carros/{id}")
-//    Call<Void> excluir(@Path("id") String id);
+
+@DELETE("sala/delete.php/id={id}")
+Call<Void> excluir(@Path("id") String id);
 }

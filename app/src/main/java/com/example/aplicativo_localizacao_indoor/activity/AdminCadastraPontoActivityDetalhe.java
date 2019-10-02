@@ -176,6 +176,9 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                             switch (response.code()) {
                                 case 201:
                                     Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
+                                    AppSetup.pontoAnt = null;
+                                    AppSetup.pontoPost = null;
+                                    AppSetup.wiFiDetalhes.clear();
                                     finish();
                                     break;
                                 case 503:

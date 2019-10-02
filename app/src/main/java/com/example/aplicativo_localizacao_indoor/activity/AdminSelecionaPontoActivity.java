@@ -37,11 +37,13 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
     private ProgressDialog mProgressDialog;
     private ListView lv_select_pontos_ref;
     private int executa = 0;
+    private int temponovabusca = 5000; //tempo em milisegundos
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Integer Activity_code = getIntent().getExtras().getInt("Activity_code");
+        Integer activity_code = getIntent().getExtras().getInt("Activity_code");
         setContentView(R.layout.activity_admin_seleciona_ponto);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -51,29 +53,25 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
 
         lv_select_pontos_ref = findViewById(R.id.lv_select_pontos_r);
         AppSetup.pontosRef.clear();
-        new TaskPonto().execute();
 
-        if (Activity_code == 3) {
-            lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
-                }
-            });
+        if (activity_code == 3 || activity_code == 4 || activity_code == 5) {
+            new TaskPontoSala().execute();
         } else {
-            lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent i = new Intent();
-                    i.putExtra("position", position);
-                    setResult(1, i);
-                    Toast.makeText(AdminSelecionaPontoActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                    executa = 1;
-                    finish();
-                }
-
-            });
+            new TaskPonto().execute();
         }
+
+        lv_select_pontos_ref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent();
+                i.putExtra("position", position);
+                setResult(1, i);
+                Toast.makeText(AdminSelecionaPontoActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
+                executa = 1;
+                finish();
+            }
+
+        });
     }
 
     //    AsyncTask <Params, Progress, Result>:
@@ -93,7 +91,13 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
                     wifiManager.startScan();
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     AppSetup.wiFiDetalhes.clear();
+//                    Log.d("teste", String.valueOf(scanResults.size()));
+                    if (scanResults.size() == 0) {
+                        showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
+                    }
+                    Log.d("listscan", scanResults.toString());
                     for (ScanResult result : scanResults) {
+
                         if (!formataBSSID(result.BSSID).equals(formataBSSID(AppSetup.pontoWiFi.getBSSID()))) {
                             WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
                             wiFiDetalhes.setBSSID(result.BSSID);
@@ -102,30 +106,90 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
                             wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
                             AppSetup.wiFiDetalhes.add(wiFiDetalhes);
                         }
-                        if (AppSetup.pontoPost != null){
-                            for(WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes){
-                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoPost.getBSSID()))){
+                        if (AppSetup.pontoPost != null) {
+                            for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
+                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoPost.getBSSID()))) {
                                     AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
                                 }
                             }
                         }
-                        if (AppSetup.pontoAnt != null){
-                            for(WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes){
-                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoAnt.getBSSID()))){
+                        if (AppSetup.pontoAnt != null) {
+                            for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
+                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoAnt.getBSSID()))) {
                                     AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
                                 }
                             }
                         }
                     }
-                    Log.d("teste", String.valueOf(AppSetup.wiFiDetalhes.size()));
 
-                    if (AppSetup.wiFiDetalhes.size() == 0){
-                        dismissWait();
-                        finish();
-                    }
+
                     publishProgress(AppSetup.wiFiDetalhes);
+                    Thread.sleep(temponovabusca);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return wiFiDetalhes;
+        }
+
+        @Override
+        protected void onProgressUpdate(List<WiFiDetalhe>... values) {
+            super.onProgressUpdate(values);
+            dismissWait();
+            lv_select_pontos_ref.setAdapter(new SelecionaPontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
+        }
+
+        @Override
+        protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
+            super.onPostExecute(wiFiDetalhes);
+            dismissWait();
+            lv_select_pontos_ref.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
+        }
+    }
+
+    //    AsyncTask <Params, Progress, Result>:
+    class TaskPontoSala extends AsyncTask<Void, List<WiFiDetalhe>, List<WiFiDetalhe>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
+        }
+
+        @Override
+        protected List<WiFiDetalhe> doInBackground(Void... voids) {
+            try {
+                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                while (executa == 0) {
+                    wifiManager.startScan();
+                    List<ScanResult> scanResults = wifiManager.getScanResults();
+                    AppSetup.wiFiDetalhes.clear();
+//                    Log.d("teste", String.valueOf(scanResults.size()));
+                    if (scanResults.size() == 0) {
+                        showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
+                    }
                     Log.d("listscan", scanResults.toString());
-                    Thread.sleep(60000);
+                    for (ScanResult result : scanResults) {
+                        WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
+                        wiFiDetalhes.setBSSID(result.BSSID);
+                        wiFiDetalhes.setSSID(result.SSID);
+                        wiFiDetalhes.setWiFiSignal(result.level);
+                        wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+                        AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+
+                        if (!AppSetup.wiFiDetalhesSelecionados.isEmpty()) {
+                            for (WiFiDetalhe selecionados : AppSetup.wiFiDetalhesSelecionados) {
+                                if (formataBSSID(wiFiDetalhes.getBSSID()).equals(formataBSSID(selecionados.getBSSID()))){
+                                    AppSetup.wiFiDetalhes.remove(wiFiDetalhes);
+                                }
+                            }
+                        }
+                    }
+
+
+                    publishProgress(AppSetup.wiFiDetalhes);
+                    Thread.sleep(temponovabusca);
                 }
 
             } catch (Exception e) {
@@ -156,6 +220,8 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
                 executa = 1;
                 AppSetup.pontoAnt = null;
                 AppSetup.pontoPost = null;
+                AppSetup.wiFiDetalhes.clear();
+                wiFiDetalhes = null;
                 finish();
                 break;
             default:
@@ -169,6 +235,8 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
         executa = 1;
         AppSetup.pontoAnt = null;
         AppSetup.pontoPost = null;
+        AppSetup.wiFiDetalhes.clear();
+        wiFiDetalhes = null;
         finish();
     }
 }

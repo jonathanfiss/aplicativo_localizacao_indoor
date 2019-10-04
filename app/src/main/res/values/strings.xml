@@ -116,12 +116,12 @@
     <string name="alertdialog_excluir">Excluir</string>
     <string name="title_opcao">Qual opção você deseja realizar?</string>
 
-    <string name="frase_voce">Você esta</string>
+    <string name="frase_voce">Você está</string>
     <string name="frase_predio">no predio </string>
     <string name="frase_andar">no andar</string>
     <string name="frase_corredor">no corredor</string>
-    <string name="frase_salas">proximo das salas</string>
-    <string name="frase_sala">proximo da sala</string>
+    <string name="frase_salas">próximo das salas</string>
+    <string name="frase_sala">próximo da sala</string>
 
     <!--builder -->
     <string name="builder_titulo">Permissão</string>
@@ -136,8 +136,8 @@
 
     <string name="builder_redes">Buscando redes Wi-Fi...</string>
     <string name="builder_cadastro">Realizando Cadastro...</string>
-    <string name="builder_localizar">Um momento, estamos localizando você</string>
-    <string name="builder_rota">Um momento, estamos buscando uma rota para o local desejado</string>
+    <string name="builder_localizar">Um momento, estou localizando você</string>
+    <string name="builder_rota">Um momento, estou buscando uma rota para o local desejado</string>
     <string name="para_onde_voc_deseja_ir">Para onde você deseja ir?</string>
     <string name="buscar">Buscar</string>
     <string name="ponto_de_referencia_proximo">ponto de referencia proximo</string>

@@ -102,7 +102,7 @@ public class LocalizarActivity extends BaseActivity {
                 if (!scanResults.isEmpty() && !AppSetup.pontosRef.isEmpty())
                 for (ScanResult result : scanResults) {
                     for (final PontoRef ponto : AppSetup.pontosRef) {
-                        if (result.BSSID.equals(ponto.getBssid())) {
+                        if (formataBSSID(result.BSSID).equals(formataBSSID(ponto.getBssid()))) {
                             AppSetup.pontoRef = ponto;
                             Log.d("PontoRef busca", result.toString());
                             Call<LocalList> call = new RetrofitSetup().getLocalService().getLocalById(ponto.getLocal_id().toString());
@@ -123,6 +123,7 @@ public class LocalizarActivity extends BaseActivity {
                                                 ""+AppSetup.pontoRef.getLocal().getAndar()+" " +
                                                 ""+getResources().getText(R.string.frase_corredor)+" " +
                                                 ""+AppSetup.pontoRef.getLocal().getCorredor());
+                                        AppSetup.salas.clear();
                                         Call<SalaList> call2 = new RetrofitSetup().getSalaRefService().getSalaById(ponto.getLocal_id().toString());
 
                                         call2.enqueue(new Callback<SalaList>() {
@@ -131,26 +132,52 @@ public class LocalizarActivity extends BaseActivity {
                                                 if (response.isSuccessful()) {
                                                     Log.d("sala", "ok");
                                                     SalaList salaList = response.body();
-                                                    AppSetup.salas.clear();
+                                                    String txtsalas = "";
                                                     for (Sala sala : salaList.getSalasLists()) {
                                                         sala.setLocal(AppSetup.local);
                                                         AppSetup.salas.add(sala);
                                                         Log.d("sala", sala.toString());
                                                     }
+                                                    int cont = 0;
+                                                    int tamanho = AppSetup.salas.size();
+                                                    for (Sala sala:AppSetup.salas){
+                                                        if (txtsalas.isEmpty()){
+                                                            txtsalas = sala.getNome();
+                                                        }else{
+                                                            txtsalas = txtsalas.concat(sala.getNome());
+                                                        }
+                                                        cont++;
+                                                        if(tamanho>cont){
+                                                            txtsalas = txtsalas.concat(", ");
+                                                        }
+
+
+                                                    }
                                                     dismissWait();
 
-                                                    tvLocaliza.setText(getResources().getText(R.string.frase_voce) + " " +
-                                                            "" + getResources().getText(R.string.frase_predio) + " " +
-                                                            "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
-                                                            "" + getResources().getText(R.string.frase_andar) + " " +
-                                                            "" + AppSetup.pontoRef.getLocal().getAndar() + " " +
-                                                            "" + getResources().getText(R.string.frase_corredor) + " " +
-                                                            "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
-                                                            "" + getResources().getText(R.string.frase_sala) + " " +
-                                                            "" + AppSetup.salas.get(0).getNumero());
-                                                }
-                                                Log.d("sala", "fora if");
+                                                    if (tamanho>1){
+                                                        tvLocaliza.setText(getResources().getText(R.string.frase_voce) + " " +
+                                                                "" + getResources().getText(R.string.frase_predio) + " " +
+                                                                "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
+                                                                "" + getResources().getText(R.string.frase_andar) + " " +
+                                                                "" + AppSetup.pontoRef.getLocal().getAndar() + " " +
+                                                                "" + getResources().getText(R.string.frase_corredor) + " " +
+                                                                "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
+                                                                "" + getResources().getText(R.string.frase_salas) + " " +
+                                                                "" + txtsalas);
+                                                    }else{
+                                                        tvLocaliza.setText(getResources().getText(R.string.frase_voce) + " " +
+                                                                "" + getResources().getText(R.string.frase_predio) + " " +
+                                                                "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
+                                                                "" + getResources().getText(R.string.frase_andar) + " " +
+                                                                "" + AppSetup.pontoRef.getLocal().getAndar() + " " +
+                                                                "" + getResources().getText(R.string.frase_corredor) + " " +
+                                                                "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
+                                                                "" + getResources().getText(R.string.frase_sala) + " " +
+                                                                "" + txtsalas);
+                                                    }
 
+                                                }
                                             }
 
                                             @Override

@@ -5,6 +5,7 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -150,8 +151,6 @@ public class LocalizarActivity extends BaseActivity {
                                                         if(tamanho>cont){
                                                             txtsalas = txtsalas.concat(", ");
                                                         }
-
-
                                                     }
                                                     dismissWait();
 
@@ -165,6 +164,7 @@ public class LocalizarActivity extends BaseActivity {
                                                                 "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
                                                                 "" + getResources().getText(R.string.frase_salas) + " " +
                                                                 "" + txtsalas);
+                                                        ViewCompat.setAccessibilityLiveRegion(tvLocaliza, ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
                                                     }else{
                                                         tvLocaliza.setText(getResources().getText(R.string.frase_voce) + " " +
                                                                 "" + getResources().getText(R.string.frase_predio) + " " +
@@ -175,6 +175,8 @@ public class LocalizarActivity extends BaseActivity {
                                                                 "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
                                                                 "" + getResources().getText(R.string.frase_sala) + " " +
                                                                 "" + txtsalas);
+                                                        ViewCompat.setAccessibilityLiveRegion(tvLocaliza, ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
+
                                                     }
 
                                                 }

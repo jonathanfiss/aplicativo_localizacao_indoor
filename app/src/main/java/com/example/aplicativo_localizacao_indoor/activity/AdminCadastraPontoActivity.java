@@ -34,6 +34,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
     private ListView lvPontosRef;
     private int executa = 0;
     private int temponovabusca = 5000; //tempo em milisegundos
+    private boolean flag;
 
 
     @Override
@@ -71,6 +72,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            flag = true;
             showWait(AdminCadastraPontoActivity.this, R.string.builder_redes);
         }
 
@@ -81,10 +83,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                 while (executa == 0) {
                     wifiManager.startScan();
                     List<ScanResult> scanResults = wifiManager.getScanResults();
-//                    if (scanResults.size() == 0){
-//                        showWait(AdminCadastraPontoActivity.this, R.string.builder_redes);
-//                    }
-                        AppSetup.wiFiDetalhes.clear();
+                    AppSetup.wiFiDetalhes.clear();
                     for (ScanResult result : scanResults) {
                         WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
                         wiFiDetalhes.setBSSID(result.BSSID);
@@ -110,14 +109,22 @@ public class AdminCadastraPontoActivity extends BaseActivity {
         @Override
         protected void onProgressUpdate(List<WiFiDetalhe>... values) {
             super.onProgressUpdate(values);
-            dismissWait();
-            lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
+            if(flag){
+                dismissWait();
+                flag = false;
+            }
+            if (!AppSetup.wiFiDetalhes.isEmpty()) {
+                lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
+            }
         }
 
         @Override
         protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
             super.onPostExecute(wiFiDetalhes);
+
             dismissWait();
+
+
             lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
         }
     }

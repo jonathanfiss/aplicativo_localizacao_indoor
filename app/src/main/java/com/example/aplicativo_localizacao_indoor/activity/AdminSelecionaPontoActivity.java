@@ -92,9 +92,9 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     AppSetup.wiFiDetalhes.clear();
 //                    Log.d("teste", String.valueOf(scanResults.size()));
-                    if (scanResults.size() == 0) {
-                        showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
-                    }
+//                    if (scanResults.size() == 0) {
+//                        showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
+//                    }
                     Log.d("listscan", scanResults.toString());
                     for (ScanResult result : scanResults) {
 
@@ -166,9 +166,9 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     AppSetup.wiFiDetalhes.clear();
 //                    Log.d("teste", String.valueOf(scanResults.size()));
-                    if (scanResults.size() == 0) {
-                        showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
-                    }
+//                    if (scanResults.size() == 0) {
+//                        showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
+//                    }
                     Log.d("listscan", scanResults.toString());
                     for (ScanResult result : scanResults) {
                         WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();

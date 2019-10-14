@@ -13,6 +13,7 @@ import retrofit2.http.Path;
 public interface LocalService {
     @GET("local/read.php/")
     Call<LocalList> getLocal();
+
     //    @GET("resto endereço")
 //    Call<classe> getmetodo();
 //

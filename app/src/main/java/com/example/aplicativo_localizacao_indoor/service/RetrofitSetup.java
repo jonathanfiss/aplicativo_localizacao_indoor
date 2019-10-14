@@ -20,13 +20,15 @@ public class RetrofitSetup {
     }
 
     //cria o serviço
-    public PontoRefService getPontoRefService(){
+    public PontoRefService getPontoRefService() {
         return retrofit.create(PontoRefService.class);
     }
-    public LocalService getLocalService(){
+
+    public LocalService getLocalService() {
         return retrofit.create(LocalService.class);
     }
-    public SalaService getSalaRefService(){
+
+    public SalaService getSalaRefService() {
         return retrofit.create(SalaService.class);
     }
 }

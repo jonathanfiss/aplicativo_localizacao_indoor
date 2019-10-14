@@ -15,7 +15,7 @@ public interface PontoRefService {
     @GET("pontoref/read.php/")
     Call<PontoRefList> getPonto();
 
-//    @GET("resto endereço")
+    //    @GET("resto endereço")
 //    Call<classe> getmetodo();
 //
 //    @GET("carros/tipo/{tipo}")
@@ -23,7 +23,8 @@ public interface PontoRefService {
 //
     @POST("pontoref/create.php/")
     Call<Void> inserir(@Body PontoRef pontoRef);
-//
+
+    //
 //    @PUT("pontoref/update.php/")
 //    Call<Void> alterar(@Body PontoRef pontoRef);
 //

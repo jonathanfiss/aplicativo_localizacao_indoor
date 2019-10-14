@@ -15,18 +15,18 @@ public interface SalaService {
     @GET("sala/read.php/")
     Call<SalaList> getSala();
 
-//    @GET("resto endereço")
+    //    @GET("resto endereço")
 //    Call<classe> getmetodo();
 //
-@GET("sala/read_one.php/id={id}")
-Call<SalaList> getSalaById(@Path("id") String id);
+    @GET("sala/read_one.php/id={id}")
+    Call<SalaList> getSalaById(@Path("id") String id);
 
-@POST("sala/create.php/")
-Call<Void> inserir(@Body Sala sala);
+    @POST("sala/create.php/")
+    Call<Void> inserir(@Body Sala sala);
 //
 //    @PUT ("carros")
 //    Call<Void> alterar(@Body Carro carro);
 
-@DELETE("sala/delete.php/id={id}")
-Call<Void> excluir(@Path("id") String id);
+    @DELETE("sala/delete.php/id={id}")
+    Call<Void> excluir(@Path("id") String id);
 }

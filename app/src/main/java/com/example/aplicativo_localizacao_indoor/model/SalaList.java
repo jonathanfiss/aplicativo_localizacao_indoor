@@ -5,6 +5,8 @@ import java.util.List;
 public class SalaList {
     public List<Sala> salas;
 
-    public List<Sala> getSalasLists(){ return salas;}
+    public List<Sala> getSalasLists() {
+        return salas;
+    }
 
 }

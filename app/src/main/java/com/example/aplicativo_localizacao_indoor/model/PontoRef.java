@@ -10,7 +10,7 @@ public class PontoRef {
     private String bssid;
     private String ssid;
     private Integer patrimonio;
-   @SerializedName("bssid_ant")
+    @SerializedName("bssid_ant")
     private String bssidAnt;
     @SerializedName("bssid_post")
     private String bssidPost;

@@ -5,5 +5,7 @@ import java.util.List;
 public class LocalList {
     public List<Local> locais;
 
-    public List<Local> getLocalLists(){ return locais;}
+    public List<Local> getLocalLists() {
+        return locais;
+    }
 }

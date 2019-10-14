@@ -34,9 +34,13 @@ public class WiFiDetalhe {
         this.wiFiSignal = wiFiSignal;
     }
 
-    public Double getDistacia() { return distacia; }
+    public Double getDistacia() {
+        return distacia;
+    }
 
-    public void setDistacia(Double distacia) { this.distacia = distacia; }
+    public void setDistacia(Double distacia) {
+        this.distacia = distacia;
+    }
 
     public Integer getFrequencia() {
         return frequencia;
@@ -46,7 +50,7 @@ public class WiFiDetalhe {
         this.frequencia = frequencia;
     }
 
-    public double calculaDistancia(int frequency, int level){
+    public double calculaDistancia(int frequency, int level) {
         double DISTANCE_MHZ_M = 27.55;
         return Math.pow(10.0, (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
     }

@@ -35,7 +35,6 @@ public class RotaActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rota);
 
@@ -53,7 +52,7 @@ public class RotaActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     SalaList salaList = response.body();
                     AppSetup.salas.addAll(salaList.getSalasLists());
-                    for (Sala sala : salaList.getSalasLists()){
+                    for (Sala sala : salaList.getSalasLists()) {
                         informacoes.add(sala.getNome());
                         informacoes.add(sala.getNumero());
                     }
@@ -110,10 +109,10 @@ public class RotaActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 showWait(RotaActivity.this, R.string.builder_rota);
-                for (Sala sala : AppSetup.salas){
-                    if (sala.getNome().equalsIgnoreCase(String.valueOf(acBuscaRota.getText()))){
-                        for (PontoRef pontoRef: AppSetup.pontosRef){
-                            if (pontoRef.getBssid().equals(sala.getBssid_prox())){
+                for (Sala sala : AppSetup.salas) {
+                    if (sala.getNome().equalsIgnoreCase(String.valueOf(acBuscaRota.getText()))) {
+                        for (PontoRef pontoRef : AppSetup.pontosRef) {
+                            if (pontoRef.getBssid().equals(sala.getBssid_prox())) {
                                 Log.d("aqui", "chegou eeeee");
                             }
                         }
@@ -127,13 +126,15 @@ public class RotaActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
-            default:break;
+            default:
+                break;
         }
         return true;
     }

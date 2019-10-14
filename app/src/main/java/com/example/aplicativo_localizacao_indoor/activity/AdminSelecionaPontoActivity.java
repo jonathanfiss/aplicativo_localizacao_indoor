@@ -169,7 +169,7 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
 
                         if (!AppSetup.wiFiDetalhesSelecionados.isEmpty()) {
                             for (WiFiDetalhe selecionados : AppSetup.wiFiDetalhesSelecionados) {
-                                if (formataBSSID(wiFiDetalhes.getBSSID()).equals(formataBSSID(selecionados.getBSSID()))){
+                                if (formataBSSID(wiFiDetalhes.getBSSID()).equals(formataBSSID(selecionados.getBSSID()))) {
                                     AppSetup.wiFiDetalhes.remove(wiFiDetalhes);
                                 }
                             }

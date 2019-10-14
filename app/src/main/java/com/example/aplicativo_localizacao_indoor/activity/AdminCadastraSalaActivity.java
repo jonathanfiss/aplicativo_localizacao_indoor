@@ -68,7 +68,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
             public void onResponse(Call<LocalList> call, Response<LocalList> response) {
                 if (response.isSuccessful()) {
                     LocalList localList = response.body();
-                    for (Local local : localList.getLocalLists()){
+                    for (Local local : localList.getLocalLists()) {
                         corredor.add(local.getCorredor());
                     }
                     AppSetup.locais.addAll(localList.getLocalLists());
@@ -160,26 +160,26 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                         }
                     }
                     sala.setSituacao(true);
-                    if (!AppSetup.wiFiDetalhesSelecionados.isEmpty()){
+                    if (!AppSetup.wiFiDetalhesSelecionados.isEmpty()) {
                         String bssidProx = "";
                         int tamanho = 0;
                         tamanho = AppSetup.wiFiDetalhesSelecionados.size();
                         int cont = 0;
-                        for(WiFiDetalhe wifi2 : AppSetup.wiFiDetalhesSelecionados){
-                            if (bssidProx.isEmpty()){
+                        for (WiFiDetalhe wifi2 : AppSetup.wiFiDetalhesSelecionados) {
+                            if (bssidProx.isEmpty()) {
                                 bssidProx = wifi2.getBSSID();
-                            }else{
+                            } else {
                                 bssidProx = bssidProx.concat(wifi2.getBSSID());
                             }
                             cont++;
 
-                            if(tamanho>cont){
+                            if (tamanho > cont) {
                                 bssidProx = bssidProx.concat(";");
                             }
                         }
 
                         sala.setBssid_prox(bssidProx);
-                    }else {
+                    } else {
                         sala.setBssid_prox("00");
                     }
 
@@ -190,9 +190,9 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                     call.enqueue(new Callback() {
                         @Override
                         public void onResponse(Call call, Response response) {
-                            if(response.isSuccessful()){
+                            if (response.isSuccessful()) {
                                 dismissWait();
-                                switch (response.code()){
+                                switch (response.code()) {
                                     case 201:
                                         Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
                                         limparForm();
@@ -207,6 +207,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                                 }
                             }
                         }
+
                         @Override
                         public void onFailure(Call call, Throwable t) {
                             dismissWait();
@@ -219,7 +220,6 @@ public class AdminCadastraSalaActivity extends BaseActivity {
             }
         });
     }
-
 
 
     private void limparForm() {
@@ -244,6 +244,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
     public void onBackPressed() {
         finish();
     }
+
     protected void onActivityResult(int codigo, int resultado, Intent i) {
         // se o resultado de uma Activity for Activity_UM_DOIS...
         if (codigo == Activity_code) {
@@ -261,7 +262,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                     btPontoRefProx2.setText("Ponto referência selecionado");
                     btPontoRefProxChecked2.setChecked(false);
                     Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                }else if (Activity_code == 5) {
+                } else if (Activity_code == 5) {
                     AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
                     btPontoRefProx3.setText("Ponto referência selecionado");
                     btPontoRefProxChecked3.setChecked(false);

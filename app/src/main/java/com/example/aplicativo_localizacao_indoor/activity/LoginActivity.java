@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        findViewById(R.id.btLogin).setOnClickListener(new View.OnClickListener(){
+        findViewById(R.id.btLogin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = ((EditText) findViewById(R.id.etEmail)).getText().toString();
@@ -79,13 +79,15 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
-            default:break;
+            default:
+                break;
         }
         return true;
     }

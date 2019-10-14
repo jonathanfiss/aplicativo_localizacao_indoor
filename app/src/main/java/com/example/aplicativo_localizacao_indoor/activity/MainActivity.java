@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_activity_admin, menu);
         return true;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menuitem_adm:
 //                startActivity(new Intent(MainActivity.this, LoginActivity.class ));
-                startActivity(new Intent(MainActivity.this, AdminMainActivity.class ));
+                startActivity(new Intent(MainActivity.this, AdminMainActivity.class));
                 break;
         }
         return true;

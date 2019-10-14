@@ -50,14 +50,14 @@ public class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    public void verificaWifi(){
+    public void verificaWifi() {
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
     }
 
-    public void  showWait(final Context context, int message){
+    public void showWait(final Context context, int message) {
         //cria e configura a caixa de diálogo e progressão
         mProgressDialog = new ProgressDialog(context);
         mProgressDialog.setMessage(context.getResources().getString(message));
@@ -66,12 +66,12 @@ public class BaseActivity extends AppCompatActivity {
         mProgressDialog.show();
     }
 
-    public String formataBSSID(String BSSID){
-      return BSSID.substring(0, 14);
+    public String formataBSSID(String BSSID) {
+        return BSSID.substring(0, 14);
     }
 
     //Faz Dismiss na ProgressDialog
-    public void dismissWait(){
+    public void dismissWait() {
         mProgressDialog.dismiss();
     }
 }

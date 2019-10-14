@@ -99,7 +99,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
         @Override
         protected void onProgressUpdate(List<WiFiDetalhe>... values) {
             super.onProgressUpdate(values);
-            if(flag){
+            if (flag) {
                 dismissWait();
                 flag = false;
             }

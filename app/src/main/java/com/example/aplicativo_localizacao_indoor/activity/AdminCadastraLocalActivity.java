@@ -78,9 +78,9 @@ public class AdminCadastraLocalActivity extends BaseActivity {
                     call.enqueue(new Callback() {
                         @Override
                         public void onResponse(Call call, Response response) {
-                            if(response.isSuccessful()){
+                            if (response.isSuccessful()) {
                                 dismissWait();
-                                switch (response.code()){
+                                switch (response.code()) {
                                     case 201:
                                         Toast.makeText(AdminCadastraLocalActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
                                         limparForm();
@@ -95,6 +95,7 @@ public class AdminCadastraLocalActivity extends BaseActivity {
                                 }
                             }
                         }
+
                         @Override
                         public void onFailure(Call call, Throwable t) {
                             dismissWait();

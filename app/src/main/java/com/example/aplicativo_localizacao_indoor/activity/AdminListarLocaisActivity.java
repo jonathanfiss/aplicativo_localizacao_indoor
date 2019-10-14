@@ -44,6 +44,7 @@ public class AdminListarLocaisActivity extends BaseActivity {
         });
 
     }
+
     private void dialogLongClink(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //adiciona um título e uma mensagem
@@ -58,9 +59,9 @@ public class AdminListarLocaisActivity extends BaseActivity {
                 call.enqueue(new Callback() {
                     @Override
                     public void onResponse(Call call, Response response) {
-                        if(response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             dismissWait();
-                            switch (response.code()){
+                            switch (response.code()) {
                                 case 200:
                                     Toast.makeText(AdminListarLocaisActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
                                     buscaDados();
@@ -72,6 +73,7 @@ public class AdminListarLocaisActivity extends BaseActivity {
                             }
                         }
                     }
+
                     @Override
                     public void onFailure(Call call, Throwable t) {
                         dismissWait();
@@ -90,7 +92,7 @@ public class AdminListarLocaisActivity extends BaseActivity {
         builder.show();
     }
 
-    public void buscaDados(){
+    public void buscaDados() {
         Call<LocalList> call = new RetrofitSetup().getLocalService().getLocal();
         showWait(AdminListarLocaisActivity.this, R.string.builder_buscando_dados);
 

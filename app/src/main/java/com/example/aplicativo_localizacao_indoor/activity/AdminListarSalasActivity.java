@@ -50,6 +50,7 @@ public class AdminListarSalasActivity extends BaseActivity {
             }
         });
     }
+
     private void dialogLongClink(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //adiciona um título e uma mensagem
@@ -64,9 +65,9 @@ public class AdminListarSalasActivity extends BaseActivity {
                 call.enqueue(new Callback() {
                     @Override
                     public void onResponse(Call call, Response response) {
-                        if(response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             dismissWait();
-                            switch (response.code()){
+                            switch (response.code()) {
                                 case 200:
                                     Toast.makeText(AdminListarSalasActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
 
@@ -79,6 +80,7 @@ public class AdminListarSalasActivity extends BaseActivity {
                             }
                         }
                     }
+
                     @Override
                     public void onFailure(Call call, Throwable t) {
                         dismissWait();
@@ -97,7 +99,7 @@ public class AdminListarSalasActivity extends BaseActivity {
         builder.show();
     }
 
-    public void buscaDados(){
+    public void buscaDados() {
         showWait(AdminListarSalasActivity.this, R.string.builder_buscando_dados);
         Call<SalaList> call = new RetrofitSetup().getSalaRefService().getSala();
 

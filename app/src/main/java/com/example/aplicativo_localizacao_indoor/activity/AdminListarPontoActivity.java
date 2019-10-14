@@ -43,7 +43,7 @@ public class AdminListarPontoActivity extends BaseActivity {
         });
     }
 
-    private void buscaDados(){
+    private void buscaDados() {
         showWait(AdminListarPontoActivity.this, R.string.builder_buscando_dados);
         Call<PontoRefList> call = new RetrofitSetup().getPontoRefService().getPonto();
 
@@ -81,9 +81,9 @@ public class AdminListarPontoActivity extends BaseActivity {
                 call.enqueue(new Callback() {
                     @Override
                     public void onResponse(Call call, Response response) {
-                        if(response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             dismissWait();
-                            switch (response.code()){
+                            switch (response.code()) {
                                 case 200:
                                     Toast.makeText(AdminListarPontoActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
 
@@ -96,6 +96,7 @@ public class AdminListarPontoActivity extends BaseActivity {
                             }
                         }
                     }
+
                     @Override
                     public void onFailure(Call call, Throwable t) {
                         dismissWait();

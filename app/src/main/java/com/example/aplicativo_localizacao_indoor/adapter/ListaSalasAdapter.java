@@ -33,9 +33,9 @@ public class ListaSalasAdapter extends ArrayAdapter<Sala> {
         //infla a view
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_sala, parent, false);
-         holder = new ViewHolder(convertView);
+            holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -47,6 +47,7 @@ public class ListaSalasAdapter extends ArrayAdapter<Sala> {
 
         return convertView;
     }
+
     private class ViewHolder {
         TextView tvNomeSalaAdapter;
         TextView tvLocalSalaAdapter;

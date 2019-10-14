@@ -37,7 +37,7 @@ public class ListaUsuariosAdapter extends ArrayAdapter<Usuario> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_usuario, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -55,6 +55,7 @@ public class ListaUsuariosAdapter extends ArrayAdapter<Usuario> {
 
         return convertView;
     }
+
     private class ViewHolder {
         TextView tvNomeCompleto;
         TextView tvEmailAdapter;

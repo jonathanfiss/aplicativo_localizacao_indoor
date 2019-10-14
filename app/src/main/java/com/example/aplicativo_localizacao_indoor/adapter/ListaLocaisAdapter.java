@@ -37,7 +37,7 @@ public class ListaLocaisAdapter extends ArrayAdapter<Local> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_lista_locais, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -49,6 +49,7 @@ public class ListaLocaisAdapter extends ArrayAdapter<Local> {
 //        holder.tvData.setText(local.getData_hora_modificado().toString());
         return convertView;
     }
+
     private class ViewHolder {
         TextView tvPredio;
         TextView tvCorredor;

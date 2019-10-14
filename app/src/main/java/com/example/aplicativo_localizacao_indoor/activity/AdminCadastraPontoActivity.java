@@ -1,18 +1,10 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
-import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,8 +21,6 @@ import java.util.List;
 import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetalhes;
 
 public class AdminCadastraPontoActivity extends BaseActivity {
-    private static final int REQUEST_PERMISSIONS_CODE = 0;
-    private ProgressDialog mProgressDialog;
     private ListView lvPontosRef;
     private int executa = 0;
     private int temponovabusca = 5000; //tempo em milisegundos

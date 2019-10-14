@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.aplicativo_localizacao_indoor.R;
-import com.example.aplicativo_localizacao_indoor.model.Aresta;
-import com.example.aplicativo_localizacao_indoor.model.Vertice;
 
 
 public class testeActivity extends AppCompatActivity {

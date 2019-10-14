@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.widget.Button;
 
 import com.example.aplicativo_localizacao_indoor.R;
-import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
 public class AdminMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

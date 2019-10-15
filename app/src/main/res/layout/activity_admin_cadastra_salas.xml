@@ -86,7 +86,7 @@
         android:paddingRight="10dp"
         android:text="@string/ponto_de_referencia_proximo"
         android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="@+id/btCadPontoRefAnt"
+        app:layout_constraintEnd_toEndOf="@+id/btCadPontoProx1"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout7"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
 
@@ -115,7 +115,7 @@
         android:paddingRight="10dp"
         android:text="@string/ponto_de_referencia_proximo"
         android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="@+id/btCadPontoRefAnt"
+        app:layout_constraintEnd_toEndOf="@+id/btCadPontoProx1"
         app:layout_constraintStart_toStartOf="@+id/btPontoRefProx1"
         app:layout_constraintTop_toBottomOf="@+id/btPontoRefProx1" />
 
@@ -145,7 +145,7 @@
         android:paddingRight="10dp"
         android:text="@string/ponto_de_referencia_proximo"
         android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="@+id/btCadPontoRefAnt"
+        app:layout_constraintEnd_toEndOf="@+id/btCadPontoProx1"
         app:layout_constraintStart_toStartOf="@+id/btPontoRefProx2"
         app:layout_constraintTop_toBottomOf="@+id/btPontoRefProx2" />
 

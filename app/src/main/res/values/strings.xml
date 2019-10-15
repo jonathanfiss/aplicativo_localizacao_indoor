@@ -83,7 +83,8 @@
     <string name="bt_cadastrar_ponto">Cadastrar ponto de referência</string>
     <string name="bt_listar">Listar</string>
     <string name="bt_cad_ponto_ref_ant">Ponto de referência Anterior</string>
-    <string name="bt_cad_ponto_ref_post">Ponto de referênciat Posterior</string>
+    <string name="bt_cad_ponto_ref_post">Ponto de referência Posterior</string>
+    <string name="bt_cad_ponto_ref_prox">Ponto de referência Próximo</string>
     <string name="bt_localizar">Onde você está?</string>
     <string name="bt_rota">Onde você deseja ir?</string>
     <string name="btAdicionar">btAdicionar</string>

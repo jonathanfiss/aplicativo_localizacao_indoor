@@ -29,11 +29,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
-    private Button btPontoAnt, btPontoPost, btCadPontoRef;
+    private Button btPontoAnt, btPontoPost, btCadPontoRef, btCadPontoProx1, btCadPontoProx2, btCadPontoProx3, btCadPontoProx4;
     private TextView tvSSID, tvBSSID;
     private EditText etPatrimonio;
     private AutoCompleteTextView acLocalPonto;
-    private Switch Anterior, Posterior;
+    private Switch btCadPontoRefProx1Checked, btCadPontoRefProx2Checked, btCadPontoRefProx3Checked, btCadPontoRefProx4Checked;
     private static int Activity_code = 0;
     private PontoRef pontoRef = new PontoRef();
 
@@ -57,13 +57,24 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
         tvSSID.setText(AppSetup.wiFiDetalhes.get(position).getSSID());
         tvBSSID.setText(AppSetup.wiFiDetalhes.get(position).getBSSID());
 
-        btPontoAnt = findViewById(R.id.btCadPontoRefAnt);
-        btPontoPost = findViewById(R.id.btCadPontoRefPost);
-        btCadPontoRef = findViewById(R.id.btCadPontoRef);
-        Anterior = findViewById(R.id.btCadPontoRefAntChecked);
-        Posterior = findViewById(R.id.btCadPontoRefPostChecked);
+        btPontoAnt = findViewById(R.id.btCadPontoProx1);
+        btPontoPost = findViewById(R.id.btCadPontoProx2);
 
-        btPontoAnt.setOnClickListener(new View.OnClickListener() {
+        btCadPontoProx1 = findViewById(R.id.btCadPontoProx1);
+        btCadPontoProx2 = findViewById(R.id.btCadPontoProx2);
+        btCadPontoProx3 = findViewById(R.id.btCadPontoProx3);
+        btCadPontoProx4 = findViewById(R.id.btCadPontoProx4);
+
+        btCadPontoRefProx1Checked = findViewById(R.id.btCadPontoRefProx1Checked);
+        btCadPontoRefProx2Checked = findViewById(R.id.btCadPontoRefProx2Checked);
+        btCadPontoRefProx3Checked = findViewById(R.id.btCadPontoRefProx3Checked);
+        btCadPontoRefProx4Checked = findViewById(R.id.btCadPontoRefProx4Checked);
+
+        btCadPontoRef = findViewById(R.id.btCadPontoRef);
+
+
+
+        btCadPontoProx1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
@@ -72,7 +83,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 startActivityForResult(intent, Activity_code);
             }
         });
-        btPontoPost.setOnClickListener(new View.OnClickListener() {
+        btCadPontoProx2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
@@ -81,12 +92,31 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 startActivityForResult(intent, Activity_code);
             }
         });
-        Anterior.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btCadPontoProx3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
+                Activity_code = 3;
+                intent.putExtra("Activity_code", Activity_code);
+                startActivityForResult(intent, Activity_code);
+            }
+        });
+        btCadPontoProx3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
+                Activity_code = 4;
+                intent.putExtra("Activity_code", Activity_code);
+                startActivityForResult(intent, Activity_code);
+            }
+        });
+
+        btCadPontoRefProx1Checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+                if (!isChecked) {
                     pontoRef.setBssidAnt("00");
-                    btPontoAnt.setText(R.string.bt_cad_ponto_ref_ant);
+                    btCadPontoProx1.setText(R.string.bt_cad_ponto_ref_ant);
                     AppSetup.pontoAnt = null;
 
 
@@ -97,12 +127,42 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 }
             }
         });
-        Posterior.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btCadPontoRefProx2Checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+                if (!isChecked) {
                     pontoRef.setBssidPost("00");
-                    btPontoPost.setText(R.string.bt_cad_ponto_ref_post);
+                    btCadPontoProx2.setText(R.string.bt_cad_ponto_ref_post);
+                    AppSetup.pontoPost = null;
+
+                } else {
+                    if (AppSetup.pontoPost != null) {
+                        pontoRef.setBssidPost(AppSetup.pontoPost.getBSSID());
+                    }
+                }
+            }
+        });
+        btCadPontoRefProx3Checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isChecked) {
+                    pontoRef.setBssidPost("00");
+                    btCadPontoProx3.setText(R.string.bt_cad_ponto_ref_post);
+                    AppSetup.pontoPost = null;
+
+                } else {
+                    if (AppSetup.pontoPost != null) {
+                        pontoRef.setBssidPost(AppSetup.pontoPost.getBSSID());
+                    }
+                }
+            }
+        });
+        btCadPontoRefProx4Checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isChecked) {
+                    pontoRef.setBssidPost("00");
+                    btCadPontoProx4.setText(R.string.bt_cad_ponto_ref_post);
                     AppSetup.pontoPost = null;
 
                 } else {
@@ -192,8 +252,10 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
     }
 
     protected void onActivityResult(int codigo, int resultado, Intent i) {
-        Anterior = findViewById(R.id.btCadPontoRefAntChecked);
-        Posterior = findViewById(R.id.btCadPontoRefPostChecked);
+        btCadPontoRefProx1Checked = findViewById(R.id.btCadPontoRefProx1Checked);
+        btCadPontoRefProx2Checked = findViewById(R.id.btCadPontoRefProx2Checked);
+        btCadPontoRefProx3Checked = findViewById(R.id.btCadPontoRefProx3Checked);
+        btCadPontoRefProx4Checked = findViewById(R.id.btCadPontoRefProx4Checked);
         // se o resultado de uma Activity for Activity_UM_DOIS...
         if (codigo == Activity_code) {
             // se o "i" (Intent) estiver preenchido, pega os seus dados (getExtras())
@@ -202,15 +264,23 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 Integer position = params.getInt("position");
                 if (Activity_code == 1) {
                     AppSetup.pontoAnt = AppSetup.wiFiDetalhes.get(position);
-                    btPontoAnt.setText("Ponto anterior selecionado");
-                    Anterior.setChecked(false);
-//                    btPontoPost.setBackgroundColor(R.color.colorVerdeEscuro);
+                    btCadPontoProx1.setText("Ponto anterior selecionado");
+                    btCadPontoRefProx1Checked.setChecked(false);
                     Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
                 } else if (Activity_code == 2) {
                     AppSetup.pontoPost = AppSetup.wiFiDetalhes.get(position);
-//                    btPontoPost.setBackgroundColor(R.color.colorVerdeEscuro);
-                    btPontoPost.setText("Ponto posterior selecionado");
-                    Posterior.setChecked(false);
+                    btCadPontoProx2.setText("Ponto posterior selecionado");
+                    btCadPontoRefProx2Checked.setChecked(false);
+                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
+                }else if (Activity_code == 3) {
+                    AppSetup.pontoPost = AppSetup.wiFiDetalhes.get(position);
+                    btCadPontoProx3.setText("Ponto posterior selecionado");
+                    btCadPontoRefProx2Checked.setChecked(false);
+                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
+                }else if (Activity_code == 4) {
+                    AppSetup.pontoPost = AppSetup.wiFiDetalhes.get(position);
+                    btCadPontoProx4.setText("Ponto posterior selecionado");
+                    btCadPontoRefProx2Checked.setChecked(false);
                     Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
                 }
             }

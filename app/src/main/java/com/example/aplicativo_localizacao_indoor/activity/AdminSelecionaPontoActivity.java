@@ -43,7 +43,7 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
         lv_select_pontos_ref = findViewById(R.id.lv_select_pontos_r);
         AppSetup.pontosRef.clear();
 
-        if (activity_code == 3 || activity_code == 4 || activity_code == 5) {
+        if (activity_code == 5 || activity_code == 6 || activity_code == 7) {
             new TaskPontoSala().execute();
         } else {
             new TaskPonto().execute();

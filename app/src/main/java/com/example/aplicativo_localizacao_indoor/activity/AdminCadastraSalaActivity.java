@@ -89,7 +89,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
-                Activity_code = 3;
+                Activity_code = 5;
                 intent.putExtra("Activity_code", Activity_code);
                 startActivityForResult(intent, Activity_code);
             }
@@ -110,7 +110,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
-                Activity_code = 4;
+                Activity_code = 6;
                 intent.putExtra("Activity_code", Activity_code);
                 startActivityForResult(intent, Activity_code);
             }
@@ -131,7 +131,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
-                Activity_code = 5;
+                Activity_code = 7;
                 intent.putExtra("Activity_code", Activity_code);
                 startActivityForResult(intent, Activity_code);
             }

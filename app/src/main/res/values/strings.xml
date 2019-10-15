@@ -50,9 +50,9 @@
     <string name="tv_nome_usuario">Nome:</string>
     <string name="tv_sobrenome_usuario">Sobrenome:</string>
     <string name="tv_email_usuario">Email:</string>
-    <string name="tv_matricula_usuario">Matricula:</string>
+    <string name="tv_matricula_usuario">Matrícula:</string>
     <string name="tv_senha_usuario">Senha:</string>
-    <string name="tv_local_sala">local da sala</string>
+    <string name="tv_local_sala">Local da sala</string>
 
     <!--EditText-->
 
@@ -64,12 +64,12 @@
     <string name="hint_senha">Senha</string>
     <string name="hint_BSSID">Ex:04:0d:ca:2d:cb:a0</string>
     <string name="hint_SSID">Ex:Administrativa</string>
-    <string name="hint_patrimonio">Patrimonio</string>
+    <string name="hint_patrimonio">Patrimônio</string>
     <string name="hint_descricao_local">Descrição</string>
     <string name="hint_local">Corredor</string>
     <string name="hint_nome">Nome</string>
     <string name="hint_nome_sala">Nome da sala</string>
-    <string name="hint_numero_sala">Numero da sala</string>
+    <string name="hint_numero_sala">Número da sala</string>
     <string name="hint_data">00/00/0000</string>
     <string name="hint_corredor">Corredor</string>
     <string name="hint_andar">1</string>
@@ -86,6 +86,9 @@
     <string name="bt_cad_ponto_ref_post">Ponto de referênciat Posterior</string>
     <string name="bt_localizar">Onde você está?</string>
     <string name="bt_rota">Onde você deseja ir?</string>
+    <string name="btAdicionar">btAdicionar</string>
+    <string name="btEditar">btEditar</string>
+    <string name="btremover">btremover</string>
 
     <!--radiobutton-->
     <string name="andar_select_1">1º Andar</string>
@@ -126,23 +129,19 @@
     <!--builder -->
     <string name="builder_titulo">Permissão</string>
     <string name="builder_mensagem">Para você poder utilizar o sistema é necessario a permissão a localização</string>
-
-    <string name="btAdicionar">btAdicionar</string>
-    <string name="btEditar">btEditar</string>
-    <string name="btremover">btremover</string>
-    <string name="mn_login">mn_login</string>
-    <string name="tvdata">Data</string>
-    <string name="tv_frase_inicial">Olá! Bem vindo ao sistema de localização indoor do campus Pelotas.</string>
-
+    <string name="builder_excluindo">Excluindo cadastro.</string>
+    <string name="builder_buscando_dados">Buscando dados.</string>
     <string name="builder_redes">Buscando redes Wi-Fi...</string>
     <string name="builder_cadastro">Realizando Cadastro...</string>
     <string name="builder_localizar">Um momento, estou localizando você</string>
     <string name="builder_rota">Um momento, estou buscando uma rota para o local desejado</string>
+
+
+    <string name="mn_login">mn_login</string>
+    <string name="tvdata">Data</string>
+    <string name="tv_frase_inicial">Olá! Bem vindo ao sistema de localização indoor do campus Pelotas.</string>
     <string name="para_onde_voc_deseja_ir">Para onde você deseja ir?</string>
     <string name="buscar">Buscar</string>
     <string name="ponto_de_referencia_proximo">ponto de referencia proximo</string>
-    <string name="builder_excluindo">Excluindo cadastro</string>
-    <string name="builder_buscando_dados">Buscando dados...</string>
-
 
 </resources>

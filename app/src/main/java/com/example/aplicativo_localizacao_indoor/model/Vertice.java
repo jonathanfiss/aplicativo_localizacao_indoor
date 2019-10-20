@@ -1,37 +1,54 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Vertice {
-
-    private String mac;
-    public List<Aresta> arestas;
+    private int posicao;
+    private String chave;
+    private String nome;
+    private String pai;
+    private ArrayList sucessores = new ArrayList<Vertice>();
 
     public Vertice() {
     }
 
-    public String getMac() {
-        return mac;
+    public int getPosicao() {
+        return posicao;
     }
 
-    public void setMac(String mac) {
-        this.mac = mac;
+    public void setPosicao(int posicao) {
+        this.posicao = posicao;
     }
 
-    public List<Aresta> getArestas() {
-        return arestas;
+    public String getChave() {
+        return chave;
     }
 
-    public void setArestas(List<Aresta> arestas) {
-        this.arestas = arestas;
+    public void setChave(String chave) {
+        this.chave = chave;
     }
 
-    @Override
-    public String toString() {
-        return "Vertice{" +
-                "mac='" + mac + '\'' +
-                ", arestas=" + arestas +
-                '}';
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getPai() {
+        return pai;
+    }
+
+    public void setPai(String pai) {
+        this.pai = pai;
+    }
+
+    public ArrayList getSucessores() {
+        return sucessores;
+    }
+
+    public void setSucessores(ArrayList sucessores) {
+        this.sucessores = sucessores;
     }
 }

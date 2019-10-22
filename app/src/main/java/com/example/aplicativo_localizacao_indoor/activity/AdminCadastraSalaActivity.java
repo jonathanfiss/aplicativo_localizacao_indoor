@@ -2,6 +2,7 @@ package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,10 @@ import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
 import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -185,6 +190,24 @@ public class AdminCadastraSalaActivity extends BaseActivity {
 
 
                     showWait(AdminCadastraSalaActivity.this, R.string.builder_cadastro);
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("dados").child("salas");
+                    myRef.push().setValue(sala)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(AdminCadastraSalaActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
+                                    limparForm();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AdminCadastraSalaActivity.this, "Falha ao realizar o cadastro", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                     Call call = new RetrofitSetup().getSalaRefService().inserir(sala);
 
                     call.enqueue(new Callback() {

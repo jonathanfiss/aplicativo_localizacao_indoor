@@ -80,10 +80,7 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
                     wifiManager.startScan();
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     AppSetup.wiFiDetalhes.clear();
-//                    Log.d("teste", String.valueOf(scanResults.size()));
-//                    if (scanResults.size() == 0) {
-//                        showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
-//                    }
+
                     Log.d("listscan", scanResults.toString());
                     for (ScanResult result : scanResults) {
 
@@ -125,14 +122,14 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
         @Override
         protected void onProgressUpdate(List<WiFiDetalhe>... values) {
             super.onProgressUpdate(values);
-            dismissWait();
+//            dismissWait();
             lv_select_pontos_ref.setAdapter(new SelecionaPontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
         }
 
         @Override
         protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
             super.onPostExecute(wiFiDetalhes);
-            dismissWait();
+//            dismissWait();
             lv_select_pontos_ref.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
         }
     }
@@ -154,10 +151,6 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
                     wifiManager.startScan();
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     AppSetup.wiFiDetalhes.clear();
-//                    Log.d("teste", String.valueOf(scanResults.size()));
-//                    if (scanResults.size() == 0) {
-//                        showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
-//                    }
                     Log.d("listscan", scanResults.toString());
                     for (ScanResult result : scanResults) {
                         WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
@@ -207,10 +200,10 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 executa = 1;
-                AppSetup.pontoAnt = null;
-                AppSetup.pontoPost = null;
-                AppSetup.wiFiDetalhes.clear();
-                wiFiDetalhes = null;
+//                AppSetup.pontoAnt = null;
+//                AppSetup.pontoPost = null;
+//                AppSetup.wiFiDetalhes.clear();
+//                wiFiDetalhes = null;
                 finish();
                 break;
             default:
@@ -222,10 +215,10 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         executa = 1;
-        AppSetup.pontoAnt = null;
-        AppSetup.pontoPost = null;
-        AppSetup.wiFiDetalhes.clear();
-        wiFiDetalhes = null;
+//        AppSetup.pontoAnt = null;
+//        AppSetup.pontoPost = null;
+//        AppSetup.wiFiDetalhes.clear();
+//        wiFiDetalhes = null;
         finish();
     }
 }

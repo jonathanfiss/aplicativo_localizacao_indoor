@@ -1,6 +1,7 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,10 @@ import android.widget.Toast;
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,6 +78,21 @@ public class AdminCadastraLocalActivity extends BaseActivity {
                     local.setSituacao(true);
 
                     showWait(AdminCadastraLocalActivity.this, R.string.builder_cadastro);
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("dados/locais");
+                    myRef.push().setValue(local)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(AdminCadastraLocalActivity.this, "Local salvo com sucesso", Toast.LENGTH_SHORT).show();
+                                    limparForm();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(AdminCadastraLocalActivity.this, "Fallha ao salvar local", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     Call call = new RetrofitSetup().getLocalService().inserir(local);
 
                     call.enqueue(new Callback() {

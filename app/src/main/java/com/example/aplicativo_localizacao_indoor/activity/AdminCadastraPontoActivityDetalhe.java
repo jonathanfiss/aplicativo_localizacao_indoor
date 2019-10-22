@@ -2,6 +2,7 @@ package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,13 @@ import com.example.aplicativo_localizacao_indoor.model.LocalList;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -172,6 +180,31 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 }
             }
         });
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("dados").child("locais");
+// Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Local local = ds.getValue(Local.class);
+                    corredor.add(local.getCorredor());
+                    Log.d("aqui", "Value is: " + local);
+                }
+                Log.d("aqui", "Value is: " + corredor);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(this.toString(), "Failed to read value.", error.toException());
+            }
+        });
+
+
         Call<LocalList> call = new RetrofitSetup().getLocalService().getLocal();
 
         call.enqueue(new Callback<LocalList>() {
@@ -180,7 +213,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 if (response.isSuccessful()) {
                     LocalList localList = response.body();
                     for (Local local : localList.getLocalLists()) {
-                        corredor.add(local.getCorredor());
+//                        corredor.add(local.getCorredor());
                     }
                     AppSetup.locais.addAll(localList.getLocalLists());
                 }
@@ -210,11 +243,28 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                         pontoRef.setLocal(lc);
                     }
                 }
-
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("dados").child("pontosref");
+                myRef.push().setValue(pontoRef)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                 pontoRef.setSituacao(true);
                 Log.d("resultado", pontoRef.toString());
                 showWait(AdminCadastraPontoActivityDetalhe.this, R.string.builder_cadastro);
+
+
                 Call call = new RetrofitSetup().getPontoRefService().inserir(pontoRef);
 
                 call.enqueue(new Callback() {

@@ -111,9 +111,10 @@ public class AdminCadastraPontoActivity extends BaseActivity {
         @Override
         protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
             super.onPostExecute(wiFiDetalhes);
-
-            dismissWait();
-
+            if (flag) {
+                dismissWait();
+                flag = false;
+            }
 
             lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
         }

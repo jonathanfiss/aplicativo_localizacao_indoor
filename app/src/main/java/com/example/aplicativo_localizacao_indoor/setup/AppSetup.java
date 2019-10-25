@@ -18,7 +18,9 @@ public class AppSetup {
     public static Local local = null;
     public static WiFiDetalhe pontoWiFi = null;
     public static WiFiDetalhe pontoAnt = null;
+    public static WiFiDetalhe pontoAnt2 = null;
     public static WiFiDetalhe pontoPost = null;
+    public static WiFiDetalhe pontoPost2 = null;
     public static List<Sala> salas = new ArrayList<>();
     public static List<PontoRef> pontosRef = new ArrayList<>();
     public static List<Local> locais = new ArrayList<>();

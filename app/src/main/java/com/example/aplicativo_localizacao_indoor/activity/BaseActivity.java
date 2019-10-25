@@ -67,6 +67,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public String formataBSSID(String BSSID) {
+//        return BSSID.substring(2, 14);
         return BSSID.substring(0, 14);
     }
 

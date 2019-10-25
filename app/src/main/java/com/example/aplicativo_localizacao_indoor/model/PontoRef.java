@@ -12,25 +12,17 @@ public class PontoRef {
     private Integer patrimonio;
     @SerializedName("bssid_ant")
     private String bssidAnt;
+    @SerializedName("bssid_ant")
+    private String bssidAnt2;
     @SerializedName("bssid_post")
     private String bssidPost;
+    @SerializedName("bssid_post")
+    private String bssidPost2;
     private Boolean Situacao;
     private Integer local_id;
     private Local local;
 
     public PontoRef() {
-    }
-
-    public PontoRef(Long id_ponto, String bssid, String ssid, Integer patrimonio, String bssidAnt, String bssidPost, Boolean situacao, Integer local_id, Local local) {
-        this.id_ponto = id_ponto;
-        this.bssid = bssid;
-        this.ssid = ssid;
-        this.patrimonio = patrimonio;
-        this.bssidAnt = bssidAnt;
-        this.bssidPost = bssidPost;
-        Situacao = situacao;
-        this.local_id = local_id;
-        this.local = local;
     }
 
     public Long getId_ponto() {
@@ -73,12 +65,28 @@ public class PontoRef {
         this.bssidAnt = bssidAnt;
     }
 
+    public String getBssidAnt2() {
+        return bssidAnt2;
+    }
+
+    public void setBssidAnt2(String bssidAnt2) {
+        this.bssidAnt2 = bssidAnt2;
+    }
+
     public String getBssidPost() {
         return bssidPost;
     }
 
     public void setBssidPost(String bssidPost) {
         this.bssidPost = bssidPost;
+    }
+
+    public String getBssidPost2() {
+        return bssidPost2;
+    }
+
+    public void setBssidPost2(String bssidPost2) {
+        this.bssidPost2 = bssidPost2;
     }
 
     public Boolean getSituacao() {
@@ -89,20 +97,20 @@ public class PontoRef {
         Situacao = situacao;
     }
 
-    public Local getLocal() {
-        return local;
-    }
-
-    public void setLocal(Local local) {
-        this.local = local;
-    }
-
     public Integer getLocal_id() {
         return local_id;
     }
 
     public void setLocal_id(Integer local_id) {
         this.local_id = local_id;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
     }
 
     @Override
@@ -113,7 +121,9 @@ public class PontoRef {
                 ", ssid='" + ssid + '\'' +
                 ", patrimonio=" + patrimonio +
                 ", bssidAnt='" + bssidAnt + '\'' +
+                ", bssidAnt2='" + bssidAnt2 + '\'' +
                 ", bssidPost='" + bssidPost + '\'' +
+                ", bssidPost2='" + bssidPost2 + '\'' +
                 ", Situacao=" + Situacao +
                 ", local_id=" + local_id +
                 ", local=" + local +

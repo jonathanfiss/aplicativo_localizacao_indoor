@@ -27,6 +27,7 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
     private ListView lv_select_pontos_ref;
     private int executa = 0;
     private int temponovabusca = 5000; //tempo em milisegundos
+    private boolean flag;
 
 
     @Override
@@ -69,6 +70,7 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            flag = true;
             showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
         }
 
@@ -106,6 +108,20 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
                                 }
                             }
                         }
+                        if (AppSetup.pontoPost2 != null) {
+                            for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
+                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoPost2.getBSSID()))) {
+                                    AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
+                                }
+                            }
+                        }
+                        if (AppSetup.pontoAnt2 != null) {
+                            for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
+                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoAnt2.getBSSID()))) {
+                                    AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
+                                }
+                            }
+                        }
                     }
 
 
@@ -123,13 +139,23 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
         protected void onProgressUpdate(List<WiFiDetalhe>... values) {
             super.onProgressUpdate(values);
 //            dismissWait();
-            lv_select_pontos_ref.setAdapter(new SelecionaPontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
+            if (flag) {
+                dismissWait();
+                flag = false;
+            }
+            if (!AppSetup.wiFiDetalhes.isEmpty()) {
+                lv_select_pontos_ref.setAdapter(new SelecionaPontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
+
+            }
         }
 
         @Override
         protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
             super.onPostExecute(wiFiDetalhes);
-//            dismissWait();
+            if (flag) {
+                dismissWait();
+                flag = false;
+            }
             lv_select_pontos_ref.setAdapter(new PontoReferenciaAdapter(AdminSelecionaPontoActivity.this, AppSetup.wiFiDetalhes));
         }
     }
@@ -140,6 +166,7 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            flag = true;
             showWait(AdminSelecionaPontoActivity.this, R.string.builder_redes);
         }
 

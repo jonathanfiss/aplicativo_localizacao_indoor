@@ -141,7 +141,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                     AppSetup.pontoAnt2 = null;
 
                 } else {
-                    if (AppSetup.pontoPost != null) {
+                    if (AppSetup.pontoAnt2 != null) {
                         pontoRef.setBssidAnt2(AppSetup.pontoAnt2.getBSSID());
                         Log.d("ponto2", pontoRef.getBssidAnt2());
                     }
@@ -172,7 +172,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                     AppSetup.pontoPost2 = null;
 
                 } else {
-                    if (AppSetup.pontoPost != null) {
+                    if (AppSetup.pontoPost2 != null) {
                         pontoRef.setBssidPost2(AppSetup.pontoPost2.getBSSID());
                     }
                 }

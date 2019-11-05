@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.model.BuscaProfundidade;
 import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.LocalList;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
@@ -39,7 +40,6 @@ public class RotaActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DatabaseReference myRef = database.getReference("dados/locais");
 
 
         super.onCreate(savedInstanceState);
@@ -50,15 +50,55 @@ public class RotaActivity extends BaseActivity {
 
         final List<String> informacoes = new ArrayList<>();
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        DatabaseReference myLocais = database.getReference("dados/locais");
+        myLocais.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Local local = ds.getValue(Local.class);
                     AppSetup.locais.add(local);
-                    informacoes.add(local.getCorredor());
+//                    informacoes.add(local.getCorredor());
                 }
-                Log.d("rota", "Value is: " +  AppSetup.locais.toString());
+                Log.d("locais", "Value is: " + AppSetup.locais.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("rota", "Failed to read value.", error.toException());
+            }
+        });
+
+        DatabaseReference mySala = database.getReference("dados/salas");
+        mySala.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Sala sala = ds.getValue(Sala.class);
+                    AppSetup.salas.add(sala);
+                    informacoes.add(sala.getNome());
+                    informacoes.add(sala.getNumero());
+                }
+                Log.d("salas", "Value is: " + AppSetup.salas.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("rota", "Failed to read value.", error.toException());
+            }
+        });
+        final BuscaProfundidade buscaProfundidade = new BuscaProfundidade(6);
+        DatabaseReference myPonto = database.getReference("dados/pontosref");
+        myPonto.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    PontoRef pontoRef = ds.getValue(PontoRef.class);
+                    AppSetup.pontosRef.add(pontoRef);
+                    buscaProfundidade.adicionaAresta(pontoRef.getBssid());
+                }
+                Log.d("pontosRef", "Value is: " + AppSetup.pontosRef.toString());
             }
 
             @Override

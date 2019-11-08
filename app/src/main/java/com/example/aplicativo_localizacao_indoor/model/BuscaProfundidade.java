@@ -1,13 +1,20 @@
 package com.example.aplicativo_localizacao_indoor.model;
 
+import android.util.Log;
+
+import com.example.aplicativo_localizacao_indoor.activity.BaseActivity;
+import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
-public class BuscaProfundidade{
+public class BuscaProfundidade extends BaseActivity {
     private final int V;
     private int A;
     private boolean adj[][];
+
 
     public BuscaProfundidade(int V) {
         this.V = V;
@@ -46,6 +53,21 @@ public class BuscaProfundidade{
         return stringBuilder.toString();
     }
 
+    public String toString2() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Numero de vértices: " + V + "\n");
+        stringBuilder.append("Numero de arestas: " + A + "\n");
+        for(int u = 0; u < V; u++) {
+            stringBuilder.append(mapMacs.get(u) + ":");
+            for(int v = 0; v < V; v++) {
+                if(adj[u][v]) {
+                    stringBuilder.append(" " + mapMacs.get(v));
+                }
+            }
+            stringBuilder.append('\n');
+        }
+        return stringBuilder.toString();
+    }
     /**
      * Primeira tentativa de decidir se existe um caminho entre dois vértices.
      * Só funciona se u == v ou se u é adjacente a v.
@@ -177,4 +199,5 @@ public class BuscaProfundidade{
 //
 //        System.out.println(G.getCaminho(0, 4)); //Veja que nesse caso o caminho é válido mas não mínimo
 //    }
+
 }

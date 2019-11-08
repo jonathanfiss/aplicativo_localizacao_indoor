@@ -263,37 +263,37 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                             }
                         });
 
-                Call call = new RetrofitSetup().getPontoRefService().inserir(pontoRef);
+//                Call call = new RetrofitSetup().getPontoRefService().inserir(pontoRef);
 
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        if (response.isSuccessful()) {
-                            dismissWait();
-                            switch (response.code()) {
-                                case 201:
-                                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
-                                    AppSetup.pontoAnt = null;
-                                    AppSetup.pontoPost = null;
-                                    AppSetup.wiFiDetalhes.clear();
-                                    finish();
-                                    break;
-                                case 503:
-                                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
-                                    break;
-                                case 400:
-                                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_falta_dados_cadastra), Toast.LENGTH_SHORT).show();
-                                    break;
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call call, Throwable t) {
-                        dismissWait();
-                        Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_requisicao), Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                call.enqueue(new Callback() {
+//                    @Override
+//                    public void onResponse(Call call, Response response) {
+//                        if (response.isSuccessful()) {
+//                            dismissWait();
+//                            switch (response.code()) {
+//                                case 201:
+//                                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
+//                                    AppSetup.pontoAnt = null;
+//                                    AppSetup.pontoPost = null;
+//                                    AppSetup.wiFiDetalhes.clear();
+//                                    finish();
+//                                    break;
+//                                case 503:
+//                                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
+//                                    break;
+//                                case 400:
+//                                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_falta_dados_cadastra), Toast.LENGTH_SHORT).show();
+//                                    break;
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call call, Throwable t) {
+//                        dismissWait();
+//                        Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_requisicao), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
             }
         });

@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,6 +38,7 @@ public class RotaActivity extends BaseActivity {
     private Button btBuscaRota;
     private AutoCompleteTextView acBuscaRota;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private String macs[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,7 @@ public class RotaActivity extends BaseActivity {
                 Log.w("rota", "Failed to read value.", error.toException());
             }
         });
-        final BuscaProfundidade buscaProfundidade = new BuscaProfundidade(6);
+
         DatabaseReference myPonto = database.getReference("dados/pontosref");
         myPonto.addValueEventListener(new ValueEventListener() {
             @Override
@@ -96,9 +98,9 @@ public class RotaActivity extends BaseActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     PontoRef pontoRef = ds.getValue(PontoRef.class);
                     AppSetup.pontosRef.add(pontoRef);
-                    buscaProfundidade.adicionaAresta(pontoRef.getBssid());
                 }
                 Log.d("pontosRef", "Value is: " + AppSetup.pontosRef.toString());
+                criaMatriz();
             }
 
             @Override
@@ -206,4 +208,6 @@ public class RotaActivity extends BaseActivity {
     public void onBackPressed() {
         finish();
     }
+
+
 }

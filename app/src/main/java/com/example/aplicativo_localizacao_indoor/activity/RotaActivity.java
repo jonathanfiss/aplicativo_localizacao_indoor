@@ -251,17 +251,17 @@ public class RotaActivity extends BaseActivity {
         }
         for (PontoRef pontoRef1 : AppSetup.pontosRef) {
             /////defini o vertice principal
-            if (mapMacs.containsValue(pontoRef1.getBssid())) {
+            if (mapMacs.containsValue(formataBSSID(pontoRef1.getBssid()))) {
                 for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
-                    if (map.getValue().equals(pontoRef1.getBssid())) {
-                        mapMacs.put(map.getKey(), pontoRef1.getBssid());
+                    if (map.getValue().equals(formataBSSID(pontoRef1.getBssid()))) {
+                        mapMacs.put(map.getKey(), formataBSSID(pontoRef1.getBssid()));
                         principal = map.getKey();
                         break;
                     }
                 }
             } else {
                 i++;
-                mapMacs.put(i, pontoRef1.getBssid());
+                mapMacs.put(i, formataBSSID(pontoRef1.getBssid()));
                 principal = i;
             }
 //            Log.d("A ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
@@ -279,7 +279,7 @@ public class RotaActivity extends BaseActivity {
 //                        }
 //                    } else {
                         i++;
-                        mapMacs.put(i, pontoRef1.getBssidPost());
+                        mapMacs.put(i, formataBSSID(pontoRef1.getBssidPost()));
                         buscaProfundidade.adicionaAresta(principal, i);
 //                    }
                 }
@@ -299,7 +299,7 @@ public class RotaActivity extends BaseActivity {
 //                        }
 //                    } else {
                         i++;
-                        mapMacs.put(i, pontoRef1.getBssidPost2());
+                        mapMacs.put(i, formataBSSID(pontoRef1.getBssidPost2()));
                         buscaProfundidade.adicionaAresta(principal, i);
 //                    }
                 }

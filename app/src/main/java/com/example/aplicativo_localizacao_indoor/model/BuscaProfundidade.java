@@ -53,7 +53,7 @@ public class BuscaProfundidade extends BaseActivity {
         return stringBuilder.toString();
     }
 
-    public String toString2() {
+    public String toString2(HashMap mapMacs) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Numero de vértices: " + V + "\n");
         stringBuilder.append("Numero de arestas: " + A + "\n");

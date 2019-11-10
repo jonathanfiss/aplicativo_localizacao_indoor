@@ -22,7 +22,6 @@ import java.util.HashMap;
 
 public class BaseActivity extends AppCompatActivity {
     protected ProgressDialog mProgressDialog;
-    protected  HashMap<Integer, String> mapMacs;
 
 
     public boolean verificaPermissao(final Context context) {
@@ -83,74 +82,5 @@ public class BaseActivity extends AppCompatActivity {
         mProgressDialog.dismiss();
     }
 
-    public int contaMacs() {
-        int cont = 0;
-        for (PontoRef pontoRef1 : AppSetup.pontosRef) {
-            cont++;
 
-            if (pontoRef1.getBssidAnt() != null) {
-                if (!pontoRef1.getBssidAnt().isEmpty()) {
-                    cont++;
-                }
-            }
-            if (pontoRef1.getBssidAnt2() != null) {
-                if (!pontoRef1.getBssidAnt2().isEmpty()) {
-                    cont++;
-                }
-            }
-            if (pontoRef1.getBssidPost() != null) {
-                if (!pontoRef1.getBssidPost().isEmpty()) {
-                    cont++;
-                }
-            }
-            if (pontoRef1.getBssidPost2() != null) {
-                if (!pontoRef1.getBssidPost2().isEmpty()) {
-                    cont++;
-                }
-            }
-        }
-        return cont;
-    }
-
-    public void criaMatriz() {
-        mapMacs = new HashMap<Integer, String>();
-        int principal = 0;
-        BuscaProfundidade buscaProfundidade = new BuscaProfundidade(contaMacs());
-        int i = 0;
-        for (PontoRef pontoRef1 : AppSetup.pontosRef) {
-            mapMacs.put(i, pontoRef1.getBssid());
-            principal = i;
-            i++;
-            if (pontoRef1.getBssidAnt() != null) {
-                if (!pontoRef1.getBssidAnt().isEmpty()) {
-                    mapMacs.put(i, pontoRef1.getBssidAnt());
-                    buscaProfundidade.adicionaAresta(principal,i);
-                    i++;
-                }
-            }
-            if (pontoRef1.getBssidAnt2() != null) {
-                if (!pontoRef1.getBssidAnt2().isEmpty()) {
-                    mapMacs.put(i, pontoRef1.getBssidAnt2());
-                    buscaProfundidade.adicionaAresta(principal,i);
-                    i++;
-                }
-            }
-            if (pontoRef1.getBssidPost() != null) {
-                if (!pontoRef1.getBssidPost().isEmpty()) {
-                    mapMacs.put(i, pontoRef1.getBssidPost());
-                    buscaProfundidade.adicionaAresta(principal,i);
-                    i++;
-                }
-            }
-            if (pontoRef1.getBssidPost2() != null) {
-                if (!pontoRef1.getBssidPost2().isEmpty()) {
-                    mapMacs.put(i, pontoRef1.getBssidPost2());
-                    buscaProfundidade.adicionaAresta(principal,i);
-                    i++;
-                }
-            }
-        }
-
-        Log.d("matriz", buscaProfundidade.toString2());
-    }
 }

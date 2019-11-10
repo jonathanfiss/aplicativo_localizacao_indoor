@@ -253,8 +253,8 @@ public class RotaActivity extends BaseActivity {
             /////defini o vertice principal
             if (mapMacs.containsValue(pontoRef1.getBssid())) {
                 for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
-                    if (map.getValue().equals(pontoRef1.getBssidPost())) {
-                        mapMacs.put(map.getKey(), pontoRef1.getBssidPost());
+                    if (map.getValue().equals(pontoRef1.getBssid())) {
+                        mapMacs.put(map.getKey(), pontoRef1.getBssid());
                         principal = map.getKey();
                         break;
                     }
@@ -264,92 +264,51 @@ public class RotaActivity extends BaseActivity {
                 mapMacs.put(i, pontoRef1.getBssid());
                 principal = i;
             }
-            Log.d("A ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
-
-            if (pontoRef1.getBssidAnt() != null) {
-                if (!pontoRef1.getBssidAnt().isEmpty()) {
-                    if (mapMacs.containsValue(pontoRef1.getBssidAnt())) {
-                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
-                            if (map.getValue().equals(pontoRef1.getBssidAnt())) {
-                                if (!map.getValue().equals(mapMacs.get(principal))) {
-                                    mapMacs.put(map.getKey(), pontoRef1.getBssidAnt());
-                                    buscaProfundidade.adicionaAresta(principal, map.getKey());
-                                    break;
-                                }
-                            }
-                        }
-                    } else {
-                        i++;
-                        mapMacs.put(i, pontoRef1.getBssidAnt());
-                        buscaProfundidade.adicionaAresta(principal, i);
-                    }
-                }
-                Log.d("B ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
-            }
-            if (pontoRef1.getBssidAnt2() != null) {
-                if (!pontoRef1.getBssidAnt2().isEmpty()) {
-                    if (mapMacs.containsValue(pontoRef1.getBssidAnt2())) {
-                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
-                            if (map.getValue().equals(pontoRef1.getBssidAnt2())) {
-                                if (!map.getValue().equals(principal)) {
-                                    mapMacs.put(map.getKey(), pontoRef1.getBssidAnt2());
-                                    buscaProfundidade.adicionaAresta(principal, map.getKey());
-                                    break;
-                                }
-                            }
-                        }
-                    } else {
-                        i++;
-                        mapMacs.put(i, pontoRef1.getBssidAnt2());
-                        buscaProfundidade.adicionaAresta(principal, i);
-                    }
-
-                }
-                Log.d("C ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
-            }
+//            Log.d("A ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
             if (pontoRef1.getBssidPost() != null) {
                 if (!pontoRef1.getBssidPost().isEmpty()) {
-                    if (mapMacs.containsValue(pontoRef1.getBssidPost())) {
-                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
-                            if (map.getValue().equals(pontoRef1.getBssidPost())) {
-                                if (!map.getValue().equals(principal)) {
-                                    mapMacs.put(map.getKey(), pontoRef1.getBssidPost());
-                                    buscaProfundidade.adicionaAresta(principal, map.getKey());
-                                    break;
-                                }
-                            }
-                        }
-                    } else {
+//                    if (mapMacs.containsValue(pontoRef1.getBssidPost())) {
+//                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
+//                            if (map.getValue().equals(pontoRef1.getBssidPost())) {
+//                                if (!map.getValue().equals(principal)) {
+//                                    mapMacs.put(map.getKey(), pontoRef1.getBssidPost());
+//                                    buscaProfundidade.adicionaAresta(principal, map.getKey());
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    } else {
                         i++;
                         mapMacs.put(i, pontoRef1.getBssidPost());
                         buscaProfundidade.adicionaAresta(principal, i);
-                    }
+//                    }
                 }
-                Log.d("D ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
+//                Log.d("D ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
             }
             if (pontoRef1.getBssidPost2() != null) {
                 if (!pontoRef1.getBssidPost2().isEmpty()) {
-                    if (mapMacs.containsValue(pontoRef1.getBssidPost2())) {
-                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
-                            if (map.getValue().equals(pontoRef1.getBssidPost2())) {
-                                if (!map.getValue().equals(principal)) {
-                                    mapMacs.put(map.getKey(), pontoRef1.getBssidPost2());
-                                    buscaProfundidade.adicionaAresta(principal, map.getKey());
-                                    break;
-                                }
-                            }
-                        }
-                    } else {
+//                    if (mapMacs.containsValue(pontoRef1.getBssidPost2())) {
+//                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
+//                            if (map.getValue().equals(pontoRef1.getBssidPost2())) {
+//                                if (!map.getValue().equals(principal)) {
+//                                    mapMacs.put(map.getKey(), pontoRef1.getBssidPost2());
+//                                    buscaProfundidade.adicionaAresta(principal, map.getKey());
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    } else {
                         i++;
                         mapMacs.put(i, pontoRef1.getBssidPost2());
                         buscaProfundidade.adicionaAresta(principal, i);
-                    }
+//                    }
                 }
-                Log.d("E ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
+//                Log.d("E ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
             }
         }
 
         Log.d("matriz", buscaProfundidade.toString());
+        Log.d("matriz", buscaProfundidade.toString2(mapMacs));
         buscaProfundidade.getCaminho(1, 4);
     }
 

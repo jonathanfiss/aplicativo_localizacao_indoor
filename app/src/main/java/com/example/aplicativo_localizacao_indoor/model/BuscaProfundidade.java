@@ -182,6 +182,13 @@ public class BuscaProfundidade extends BaseActivity {
             }
         }
     }
+//    private void containsVertice(int u) {
+//        for(int v = 0; v < V; v++) {
+//            if(adj[u][v] && ant[v] == -1) {
+//
+//            }
+//        }
+//    }
 
 
 //    public static void main(String[] args) {

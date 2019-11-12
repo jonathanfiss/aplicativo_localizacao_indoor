@@ -6,17 +6,14 @@ import com.google.firebase.database.Exclude;
 import com.google.gson.annotations.SerializedName;
 
 public class PontoRef {
-    private Long id_ponto;
+    @Exclude
+    private String key;
     private String bssid;
     private String ssid;
     private Integer patrimonio;
-    @SerializedName("bssid_ant")
     private String bssidAnt;
-    @SerializedName("bssid_ant")
     private String bssidAnt2;
-    @SerializedName("bssid_post")
     private String bssidPost;
-    @SerializedName("bssid_post")
     private String bssidPost2;
     private Boolean Situacao;
     private Integer local_id;
@@ -25,12 +22,12 @@ public class PontoRef {
     public PontoRef() {
     }
 
-    public Long getId_ponto() {
-        return id_ponto;
+    public String getKey() {
+        return key;
     }
 
-    public void setId_ponto(Long id_ponto) {
-        this.id_ponto = id_ponto;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getBssid() {
@@ -116,7 +113,7 @@ public class PontoRef {
     @Override
     public String toString() {
         return "PontoRef{" +
-                "id_ponto=" + id_ponto +
+                "key='" + key + '\'' +
                 ", bssid='" + bssid + '\'' +
                 ", ssid='" + ssid + '\'' +
                 ", patrimonio=" + patrimonio +

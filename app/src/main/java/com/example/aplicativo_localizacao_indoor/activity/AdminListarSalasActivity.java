@@ -3,7 +3,6 @@ package com.example.aplicativo_localizacao_indoor.activity;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaSalasAdapter;
-import com.example.aplicativo_localizacao_indoor.model.SalaList;
-import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
 import retrofit2.Call;
@@ -34,7 +31,11 @@ public class AdminListarSalasActivity extends BaseActivity {
 
         listaSalas = findViewById(R.id.lv_lista_salas);
 
-        buscaDados();
+        if (AppSetup.salas.isEmpty()) {
+            buscaSalas();
+        }
+        listaSalas.setAdapter(new ListaSalasAdapter(AdminListarSalasActivity.this, AppSetup.salas));
+
 
         listaSalas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,34 +61,7 @@ public class AdminListarSalasActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showWait(AdminListarSalasActivity.this, R.string.builder_excluindo);
-                Call call = new RetrofitSetup().getSalaRefService().excluir(String.valueOf(AppSetup.salas.get(position).getId_sala()));
-
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        if (response.isSuccessful()) {
-                            dismissWait();
-                            switch (response.code()) {
-                                case 200:
-                                    Toast.makeText(AdminListarSalasActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
-
-                                    buscaDados();
-//                                        finish();
-                                    break;
-                                case 503:
-                                    Toast.makeText(AdminListarSalasActivity.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
-                                    break;
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call call, Throwable t) {
-                        dismissWait();
-                        Toast.makeText(AdminListarSalasActivity.this, getString(R.string.toast_erro_requisicao), Toast.LENGTH_SHORT).show();
-                    }
-                });
-                Log.d("lala", call.toString());
+//excluir
             }
         });
         builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
@@ -97,30 +71,6 @@ public class AdminListarSalasActivity extends BaseActivity {
             }
         });
         builder.show();
-    }
-
-    public void buscaDados() {
-        showWait(AdminListarSalasActivity.this, R.string.builder_buscando_dados);
-        Call<SalaList> call = new RetrofitSetup().getSalaRefService().getSala();
-
-        call.enqueue(new Callback<SalaList>() {
-            @Override
-            public void onResponse(Call<SalaList> call, Response<SalaList> response) {
-                if (response.isSuccessful()) {
-                    SalaList salaList = response.body();
-                    AppSetup.salas.clear();
-                    AppSetup.salas.addAll(salaList.getSalasLists());
-                    listaSalas.setAdapter(new ListaSalasAdapter(AdminListarSalasActivity.this, AppSetup.salas));
-                    dismissWait();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SalaList> call, Throwable t) {
-                Toast.makeText(AdminListarSalasActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-                dismissWait();
-            }
-        });
     }
 
     @Override

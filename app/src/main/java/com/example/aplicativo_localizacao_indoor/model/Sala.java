@@ -4,11 +4,13 @@ import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.google.firebase.database.Exclude;
 
 public class Sala {
-    private Long id_sala;
+    private String key;
     private String nome;
     private String numero;
     private String descricao;
-    private String bssid_prox;
+    private String bssid_prox1;
+    private String bssid_prox2;
+    private String bssid_prox3;
     private String data_hora_modificado;
     private String modificado_por;
     private boolean situacao;
@@ -18,12 +20,12 @@ public class Sala {
     public Sala() {
     }
 
-    public Long getId_sala() {
-        return id_sala;
+    public String getKey() {
+        return key;
     }
 
-    public void setId_sala(Long id_sala) {
-        this.id_sala = id_sala;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Local getLocal() {
@@ -66,12 +68,28 @@ public class Sala {
         this.data_hora_modificado = data_hora_modificado;
     }
 
-    public String getBssid_prox() {
-        return bssid_prox;
+    public String getBssid_prox1() {
+        return bssid_prox1;
     }
 
-    public void setBssid_prox(String bssid_prox) {
-        this.bssid_prox = bssid_prox;
+    public void setBssid_prox1(String bssid_prox1) {
+        this.bssid_prox1 = bssid_prox1;
+    }
+
+    public String getBssid_prox2() {
+        return bssid_prox2;
+    }
+
+    public void setBssid_prox2(String bssid_prox2) {
+        this.bssid_prox2 = bssid_prox2;
+    }
+
+    public String getBssid_prox3() {
+        return bssid_prox3;
+    }
+
+    public void setBssid_prox3(String bssid_prox3) {
+        this.bssid_prox3 = bssid_prox3;
     }
 
     public String getModificado_por() {
@@ -101,11 +119,13 @@ public class Sala {
     @Override
     public String toString() {
         return "Sala{" +
-                "id_sala=" + id_sala +
+                "key='" + key + '\'' +
                 ", nome='" + nome + '\'' +
                 ", numero='" + numero + '\'' +
                 ", descricao='" + descricao + '\'' +
-                ", bssid_prox='" + bssid_prox + '\'' +
+                ", bssid_prox1='" + bssid_prox1 + '\'' +
+                ", bssid_prox2='" + bssid_prox2 + '\'' +
+                ", bssid_prox3='" + bssid_prox3 + '\'' +
                 ", data_hora_modificado='" + data_hora_modificado + '\'' +
                 ", modificado_por='" + modificado_por + '\'' +
                 ", situacao=" + situacao +

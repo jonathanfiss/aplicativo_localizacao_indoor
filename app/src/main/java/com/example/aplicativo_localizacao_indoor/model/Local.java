@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Local {
     @SerializedName("id_local")
-    private Integer id;
+    private String key;
     private Integer andar;
     private String descricao;
     private String corredor;
@@ -16,12 +16,12 @@ public class Local {
     public Local() {
     }
 
-    public Integer getId() {
-        return id;
+    public String getKey() {
+        return key;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Integer getAndar() {
@@ -83,7 +83,7 @@ public class Local {
     @Override
     public String toString() {
         return "Local{" +
-                "id=" + id +
+                "key='" + key + '\'' +
                 ", andar=" + andar +
                 ", descricao='" + descricao + '\'' +
                 ", corredor='" + corredor + '\'' +

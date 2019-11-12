@@ -15,13 +15,21 @@ import android.util.Log;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.BuscaProfundidade;
+import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
+import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
 public class BaseActivity extends AppCompatActivity {
     protected ProgressDialog mProgressDialog;
+    protected FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
     public boolean verificaPermissao(final Context context) {
@@ -53,6 +61,7 @@ public class BaseActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
             }
         }//retorna true se tiver tudo certo
+        Log.d("Funcionalidades", "Permissão para utilizar a localização aceita");
         return true;
     }
 
@@ -60,6 +69,7 @@ public class BaseActivity extends AppCompatActivity {
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
+            Log.d("Funcionalidades", "Wi-Fi Habilitado");
         }
     }
 
@@ -82,5 +92,82 @@ public class BaseActivity extends AppCompatActivity {
         mProgressDialog.dismiss();
     }
 
+    public void habilitarVoltar() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
 
+    public void buscaSalas() {
+        DatabaseReference mySala = database.getReference("dados/salas");
+        mySala.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Sala sala = ds.getValue(Sala.class);
+                    AppSetup.salas.add(sala);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Salas", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    public void buscaPontosRef() {
+        DatabaseReference myPonto = database.getReference("dados/pontosref");
+        myPonto.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    PontoRef pontoRef = ds.getValue(PontoRef.class);
+                    pontoRef.setKey(ds.getKey());
+                    AppSetup.pontosRef.add(pontoRef);
+                }
+                hashMapMacs();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Pontos de referencia", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    public void buscaLocais() {
+        DatabaseReference myLocais = database.getReference("dados/locais");
+        myLocais.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Local local = ds.getValue(Local.class);
+                    AppSetup.locais.add(local);
+                }
+                hashMapCorredores();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Locais", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    public void hashMapMacs() {
+        AppSetup.listaMacs.clear();
+        for (PontoRef pontoRef : AppSetup.pontosRef) {
+            AppSetup.listaMacs.put(pontoRef.getKey(), pontoRef.getBssid());
+        }
+    }
+
+    public void hashMapCorredores() {
+        AppSetup.listaCorredores.clear();
+        for (Local local : AppSetup.locais) {
+            AppSetup.listaCorredores.put(local.getKey(), local.getCorredor());
+        }
+    }
 }

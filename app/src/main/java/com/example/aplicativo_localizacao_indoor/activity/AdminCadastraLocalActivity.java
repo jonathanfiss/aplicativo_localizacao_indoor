@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Local;
-import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -91,35 +90,6 @@ public class AdminCadastraLocalActivity extends BaseActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(AdminCadastraLocalActivity.this, "Fallha ao salvar local", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    Call call = new RetrofitSetup().getLocalService().inserir(local);
-
-                    call.enqueue(new Callback() {
-                        @Override
-                        public void onResponse(Call call, Response response) {
-                            if (response.isSuccessful()) {
-                                dismissWait();
-                                switch (response.code()) {
-                                    case 201:
-                                        Toast.makeText(AdminCadastraLocalActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
-                                        limparForm();
-//                                        finish();
-                                        break;
-                                    case 503:
-                                        Toast.makeText(AdminCadastraLocalActivity.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case 400:
-                                        Toast.makeText(AdminCadastraLocalActivity.this, getString(R.string.toast_falta_dados_cadastra), Toast.LENGTH_SHORT).show();
-                                        break;
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call call, Throwable t) {
-                            dismissWait();
-                            Toast.makeText(AdminCadastraLocalActivity.this, getString(R.string.toast_erro_requisicao), Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {

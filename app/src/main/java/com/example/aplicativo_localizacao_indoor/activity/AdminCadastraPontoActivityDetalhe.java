@@ -17,9 +17,7 @@ import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Local;
-import com.example.aplicativo_localizacao_indoor.model.LocalList;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
-import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -76,7 +74,6 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
         btCadPontoRefProx4Checked = findViewById(R.id.btCadPontoRefProx4Checked);
 
         btCadPontoRef = findViewById(R.id.btCadPontoRef);
-
 
 
         btCadPontoProx1.setOnClickListener(new View.OnClickListener() {
@@ -178,50 +175,12 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                 }
             }
         });
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("dados").child("locais");
-// Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Local local = ds.getValue(Local.class);
-                    corredor.add(local.getCorredor());
-                    Log.d("aqui", "Value is: " + local);
-                }
-                Log.d("aqui", "Value is: " + corredor);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(this.toString(), "Failed to read value.", error.toException());
-            }
-        });
-
-
-        Call<LocalList> call = new RetrofitSetup().getLocalService().getLocal();
-
-        call.enqueue(new Callback<LocalList>() {
-            @Override
-            public void onResponse(Call<LocalList> call, Response<LocalList> response) {
-                if (response.isSuccessful()) {
-                    LocalList localList = response.body();
-                    for (Local local : localList.getLocalLists()) {
-//                        corredor.add(local.getCorredor());
-                    }
-                    AppSetup.locais.addAll(localList.getLocalLists());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LocalList> call, Throwable t) {
-                Toast.makeText(AdminCadastraPontoActivityDetalhe.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (AppSetup.salas.isEmpty()) {
+            buscaSalas();
+        }
+        for (Local local : AppSetup.locais) {
+            corredor.add(local.getCorredor());
+        }
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, corredor);
@@ -262,39 +221,6 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                                 Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
                             }
                         });
-
-//                Call call = new RetrofitSetup().getPontoRefService().inserir(pontoRef);
-
-//                call.enqueue(new Callback() {
-//                    @Override
-//                    public void onResponse(Call call, Response response) {
-//                        if (response.isSuccessful()) {
-//                            dismissWait();
-//                            switch (response.code()) {
-//                                case 201:
-//                                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
-//                                    AppSetup.pontoAnt = null;
-//                                    AppSetup.pontoPost = null;
-//                                    AppSetup.wiFiDetalhes.clear();
-//                                    finish();
-//                                    break;
-//                                case 503:
-//                                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
-//                                    break;
-//                                case 400:
-//                                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_falta_dados_cadastra), Toast.LENGTH_SHORT).show();
-//                                    break;
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call call, Throwable t) {
-//                        dismissWait();
-//                        Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_requisicao), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
             }
         });
     }
@@ -320,12 +246,12 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                     btCadPontoProx2.setText("Ponto anterior selecionado");
                     btCadPontoRefProx2Checked.setChecked(true);
                     Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                }else if (Activity_code == 3) {
+                } else if (Activity_code == 3) {
                     AppSetup.pontoPost = AppSetup.wiFiDetalhes.get(position);
                     btCadPontoProx3.setText("Ponto posterior selecionado");
                     btCadPontoRefProx3Checked.setChecked(true);
                     Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                }else if (Activity_code == 4) {
+                } else if (Activity_code == 4) {
                     AppSetup.pontoPost2 = AppSetup.wiFiDetalhes.get(position);
                     btCadPontoProx4.setText("Ponto posterior selecionado");
                     btCadPontoRefProx4Checked.setChecked(true);

@@ -145,6 +145,6 @@
     <string name="tv_frase_inicial">Olá! Bem vindo ao sistema de localização indoor do campus Pelotas.</string>
     <string name="para_onde_voc_deseja_ir">Para onde você deseja ir?</string>
     <string name="buscar">Buscar</string>
-    <string name="ponto_de_referencia_proximo">ponto de referencia proximo</string>
+    <string name="ponto_de_referencia_proximo">Selecionar pontos de referência</string>
 
 </resources>

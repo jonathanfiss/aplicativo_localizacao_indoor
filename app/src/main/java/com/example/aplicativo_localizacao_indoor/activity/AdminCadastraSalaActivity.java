@@ -1,6 +1,9 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.content.Intent;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
@@ -8,17 +11,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Local;
-import com.example.aplicativo_localizacao_indoor.model.LocalList;
+import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
-import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,9 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetalhes;
 
 public class AdminCadastraSalaActivity extends BaseActivity {
 
@@ -40,6 +39,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
     private Sala sala;
     private Switch btPontoRefProxChecked1, btPontoRefProxChecked2, btPontoRefProxChecked3;
     private static Integer Activity_code = 0;
+    private boolean flag;
 
 
     @Override
@@ -54,11 +54,6 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         etNumeroSala = findViewById(R.id.etNumeroSala);
         acLocalSala = findViewById(R.id.acLocalSala);
         btPontoRefProx1 = findViewById(R.id.btPontoRefProx1);
-        btPontoRefProx2 = findViewById(R.id.btPontoRefProx2);
-        btPontoRefProx3 = findViewById(R.id.btPontoRefProx3);
-        btPontoRefProxChecked1 = findViewById(R.id.btPontoRefProxChecked1);
-        btPontoRefProxChecked2 = findViewById(R.id.btPontoRefProxChecked2);
-        btPontoRefProxChecked3 = findViewById(R.id.btPontoRefProxChecked3);
 
         btCadastrarSala = findViewById(R.id.btCadastrarSala);
 
@@ -66,25 +61,13 @@ public class AdminCadastraSalaActivity extends BaseActivity {
 
         sala = new Sala();
 
-        Call<LocalList> call = new RetrofitSetup().getLocalService().getLocal();
+        if (AppSetup.salas.isEmpty()) {
+            buscaSalas();
+        }
 
-        call.enqueue(new Callback<LocalList>() {
-            @Override
-            public void onResponse(Call<LocalList> call, Response<LocalList> response) {
-                if (response.isSuccessful()) {
-                    LocalList localList = response.body();
-                    for (Local local : localList.getLocalLists()) {
-                        corredor.add(local.getCorredor());
-                    }
-                    AppSetup.locais.addAll(localList.getLocalLists());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LocalList> call, Throwable t) {
-                Toast.makeText(AdminCadastraSalaActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-            }
-        });
+        for (Local local : AppSetup.locais) {
+            corredor.add(local.getCorredor());
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, corredor);
         acLocalSala = findViewById(R.id.acLocalSala);
@@ -93,63 +76,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         btPontoRefProx1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
-                Activity_code = 5;
-                intent.putExtra("Activity_code", Activity_code);
-                startActivityForResult(intent, Activity_code);
-            }
-        });
-        btPontoRefProxChecked1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-
-
-                } else {
-
-                }
-            }
-        });
-
-        btPontoRefProx2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
-                Activity_code = 6;
-                intent.putExtra("Activity_code", Activity_code);
-                startActivityForResult(intent, Activity_code);
-            }
-        });
-        btPontoRefProxChecked2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-
-
-                } else {
-
-                }
-            }
-        });
-
-        btPontoRefProx3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraSalaActivity.this, AdminSelecionaPontoActivity.class);
-                Activity_code = 7;
-                intent.putExtra("Activity_code", Activity_code);
-                startActivityForResult(intent, Activity_code);
-            }
-        });
-        btPontoRefProxChecked3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-
-
-                } else {
-
-                }
+                new TaskPonto().execute();
             }
         });
 
@@ -165,29 +92,18 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                         }
                     }
                     sala.setSituacao(true);
-                    if (!AppSetup.wiFiDetalhesSelecionados.isEmpty()) {
-                        String bssidProx = "";
-                        int tamanho = 0;
-                        tamanho = AppSetup.wiFiDetalhesSelecionados.size();
-                        int cont = 0;
-                        for (WiFiDetalhe wifi2 : AppSetup.wiFiDetalhesSelecionados) {
-                            if (bssidProx.isEmpty()) {
-                                bssidProx = wifi2.getBSSID();
-                            } else {
-                                bssidProx = bssidProx.concat(wifi2.getBSSID());
-                            }
-                            cont++;
-
-                            if (tamanho > cont) {
-                                bssidProx = bssidProx.concat(";");
-                            }
+                    int i = 1;
+                    for (PontoRef pontoRef : AppSetup.pontosProx){
+                        if (i == 1){
+                            sala.setBssid_prox1(pontoRef.getBssid());
+                            i++;
+                        }else if (i == 2){
+                            sala.setBssid_prox2(pontoRef.getBssid());
+                            i++;
+                        }else if (i == 3){
+                            sala.setBssid_prox3(pontoRef.getBssid());
                         }
-
-                        sala.setBssid_prox(bssidProx);
-                    } else {
-                        sala.setBssid_prox("00");
                     }
-
 
                     showWait(AdminCadastraSalaActivity.this, R.string.builder_cadastro);
 
@@ -197,6 +113,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    dismissWait();
                                     Toast.makeText(AdminCadastraSalaActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
                                     limparForm();
                                 }
@@ -204,39 +121,10 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
+                                    dismissWait();
                                     Toast.makeText(AdminCadastraSalaActivity.this, "Falha ao realizar o cadastro", Toast.LENGTH_SHORT).show();
                                 }
                             });
-
-                    Call call = new RetrofitSetup().getSalaRefService().inserir(sala);
-
-                    call.enqueue(new Callback() {
-                        @Override
-                        public void onResponse(Call call, Response response) {
-                            if (response.isSuccessful()) {
-                                dismissWait();
-                                switch (response.code()) {
-                                    case 201:
-                                        Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
-                                        limparForm();
-//                                        finish();
-                                        break;
-                                    case 503:
-                                        Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case 400:
-                                        Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_falta_dados_cadastra), Toast.LENGTH_SHORT).show();
-                                        break;
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call call, Throwable t) {
-                            dismissWait();
-                            Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_erro_requisicao), Toast.LENGTH_SHORT).show();
-                        }
-                    });
                 } else {
                     Toast.makeText(AdminCadastraSalaActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
                 }
@@ -244,6 +132,54 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         });
     }
 
+    //    AsyncTask <Params, Progress, Result>:
+    class TaskPonto extends AsyncTask<Void, List<WiFiDetalhe>, List<WiFiDetalhe>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            flag = true;
+            showWait(AdminCadastraSalaActivity.this, R.string.builder_localizar);
+        }
+
+        @Override
+        protected List<WiFiDetalhe> doInBackground(Void... voids) {
+            try {
+                int qtd = 0;
+                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                wifiManager.startScan();
+                List<ScanResult> scanResults = wifiManager.getScanResults();
+                AppSetup.wiFiDetalhes.clear();
+                first:
+                for (ScanResult result : scanResults) {
+                    if (AppSetup.listaMacs.containsValue(result.BSSID)) {
+                        for (PontoRef pontoRef : AppSetup.pontosRef) {
+                            if (formataBSSID(result.BSSID).equals(formataBSSID(pontoRef.getBssid()))) {
+                                AppSetup.pontosProx.add(pontoRef);
+                                qtd++;
+                            }
+                            if (qtd == 3) {
+                                break first;
+                            }
+                        }
+                    }//else seria se o local não foi localizado
+                    //txSelecionados
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return wiFiDetalhes;
+        }
+
+        @Override
+        protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
+            super.onPostExecute(wiFiDetalhes);
+            if (flag) {
+                dismissWait();
+                flag = false;
+            }
+        }
+    }
 
     private void limparForm() {
         sala = new Sala();

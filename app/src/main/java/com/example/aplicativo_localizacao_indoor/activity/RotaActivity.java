@@ -7,17 +7,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.BuscaProfundidade;
 import com.example.aplicativo_localizacao_indoor.model.Local;
-import com.example.aplicativo_localizacao_indoor.model.LocalList;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
-import com.example.aplicativo_localizacao_indoor.model.SalaList;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
-import com.example.aplicativo_localizacao_indoor.model.PontoRefList;
-import com.example.aplicativo_localizacao_indoor.service.RetrofitSetup;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,10 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RotaActivity extends BaseActivity {
 
@@ -46,6 +37,7 @@ public class RotaActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        habilitarVoltar();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rota);
@@ -112,63 +104,6 @@ public class RotaActivity extends BaseActivity {
                 Log.w("rota", "Failed to read value.", error.toException());
             }
         });
-//        Call<SalaList> callSalas = new RetrofitSetup().getSalaRefService().getSala();
-//
-//        callSalas.enqueue(new Callback<SalaList>() {
-//            @Override
-//            public void onResponse(Call<SalaList> call, Response<SalaList> response) {
-//                if (response.isSuccessful()) {
-//                    SalaList salaList = response.body();
-//                    AppSetup.salas.addAll(salaList.getSalasLists());
-//                    for (Sala sala : salaList.getSalasLists()) {
-//                        informacoes.add(sala.getNome());
-//                        informacoes.add(sala.getNumero());
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<SalaList> call, Throwable t) {
-//                Toast.makeText(RotaActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-//        Call<LocalList> callLocais = new RetrofitSetup().getLocalService().getLocal();
-//
-//        callLocais.enqueue(new Callback<LocalList>() {
-//            @Override
-//            public void onResponse(Call<LocalList> call, Response<LocalList> response) {
-//                if (response.isSuccessful()) {
-//                    LocalList localList = response.body();
-//                    AppSetup.locais.addAll(localList.getLocalLists());
-////                    for (Local local : localList.getLocalLists()){
-//////                        informacoes.add(local.getCorredor());
-////                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<LocalList> call, Throwable t) {
-//                Toast.makeText(RotaActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-//        Call<PontoRefList> callPonto = new RetrofitSetup().getPontoRefService().getPonto();
-
-//        callPonto.enqueue(new Callback<PontoRefList>() {
-//            @Override
-//            public void onResponse(Call<PontoRefList> call, Response<PontoRefList> response) {
-//                if (response.isSuccessful()) {
-//                    PontoRefList pontoRefList = response.body();
-//                    AppSetup.pontosRef.addAll(pontoRefList.getPontoref());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<PontoRefList> call, Throwable t) {
-//                Toast.makeText(RotaActivity.this, "Não foi possível realizar a requisição", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, informacoes);
         acBuscaRota.setAdapter(adapter);
@@ -180,7 +115,7 @@ public class RotaActivity extends BaseActivity {
                 for (Sala sala : AppSetup.salas) {
                     if (sala.getNome().equalsIgnoreCase(String.valueOf(acBuscaRota.getText()))) {
                         for (PontoRef pontoRef : AppSetup.pontosRef) {
-                            if (pontoRef.getBssid().equals(sala.getBssid_prox())) {
+                            if (pontoRef.getBssid().equals(sala.getBssid_prox1())) {
                                 Log.d("aqui", "chegou eeeee");
                             }
                         }
@@ -190,9 +125,6 @@ public class RotaActivity extends BaseActivity {
                 }
             }
         });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override

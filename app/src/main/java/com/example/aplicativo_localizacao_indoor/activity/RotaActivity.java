@@ -1,5 +1,8 @@
 package com.example.aplicativo_localizacao_indoor.activity;
 
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -7,12 +10,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.BuscaProfundidade;
 import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
+import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,13 +30,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetalhes;
+
 public class RotaActivity extends BaseActivity {
 
     private Button btBuscaRota;
     private AutoCompleteTextView acBuscaRota;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private String macs[];
     private HashMap<Integer, String> mapMacs;
+    private int origem, destino, codErro;
+    private boolean flag;
 
 
     @Override
@@ -47,63 +55,18 @@ public class RotaActivity extends BaseActivity {
 
         final List<String> informacoes = new ArrayList<>();
 
-        DatabaseReference myLocais = database.getReference("dados/locais");
-        myLocais.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Local local = ds.getValue(Local.class);
-                    AppSetup.locais.add(local);
-//                    informacoes.add(local.getCorredor());
-                }
-                Log.d("locais", "Value is: " + AppSetup.locais.toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("rota", "Failed to read value.", error.toException());
-            }
-        });
-
-        DatabaseReference mySala = database.getReference("dados/salas");
-        mySala.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Sala sala = ds.getValue(Sala.class);
-                    AppSetup.salas.add(sala);
-                    informacoes.add(sala.getNome());
-                    informacoes.add(sala.getNumero());
-                }
-                Log.d("salas", "Value is: " + AppSetup.salas.toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("rota", "Failed to read value.", error.toException());
-            }
-        });
-
-        DatabaseReference myPonto = database.getReference("dados/pontosref");
-        myPonto.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    PontoRef pontoRef = ds.getValue(PontoRef.class);
-                    AppSetup.pontosRef.add(pontoRef);
-                }
-                Log.d("pontosRef", "Value is: " + AppSetup.pontosRef.toString());
-                criaMatriz();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("rota", "Failed to read value.", error.toException());
-            }
-        });
+        if (AppSetup.locais.isEmpty()) {
+            buscaLocais();
+        }
+        if (AppSetup.pontosRef.isEmpty()) {
+            buscaPontosRef();
+        }
+        if (AppSetup.salas.isEmpty()) {
+            buscaSalas();
+        }
+        for (Sala sala : AppSetup.salas) {
+            informacoes.add(sala.getNome());
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, informacoes);
         acBuscaRota.setAdapter(adapter);
@@ -111,20 +74,164 @@ public class RotaActivity extends BaseActivity {
         btBuscaRota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showWait(RotaActivity.this, R.string.builder_rota);
-                for (Sala sala : AppSetup.salas) {
-                    if (sala.getNome().equalsIgnoreCase(String.valueOf(acBuscaRota.getText()))) {
-                        for (PontoRef pontoRef : AppSetup.pontosRef) {
-                            if (pontoRef.getBssid().equals(sala.getBssid_prox1())) {
-                                Log.d("aqui", "chegou eeeee");
-                            }
-                        }
-                        dismissWait();
-                        break;
-                    }
-                }
+                new TaskRota().execute();
             }
         });
+    }
+
+    //    AsyncTask <Params, Progress, Result>:
+    class TaskRota extends AsyncTask<Void, List<WiFiDetalhe>, List<WiFiDetalhe>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            flag = true;
+//            showWait(RotaActivity.this, R.string.builder_rota);
+        }
+
+        @Override
+        protected List<WiFiDetalhe> doInBackground(Void... voids) {
+            List<ScanResult> scanResults;
+            mapMacs = new HashMap<Integer, String>();
+            int principal = 0;
+            int i = -1;
+            if (!mapMacs.isEmpty()) {
+                mapMacs.clear();
+            }
+            try {
+                BuscaProfundidade buscaProfundidade = new BuscaProfundidade(contaMacs());
+
+                for (PontoRef pontoRef1 : AppSetup.pontosRef) {
+                    /////defini o vertice principal
+                    if (mapMacs.containsValue(formataBSSID(pontoRef1.getBssid()))) {
+                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
+                            if (map.getValue().equals(formataBSSID(pontoRef1.getBssid()))) {
+                                mapMacs.put(map.getKey(), formataBSSID(pontoRef1.getBssid()));
+                                principal = map.getKey();
+                                break;
+                            }
+                        }
+                    } else {
+                        i++;
+                        mapMacs.put(i, formataBSSID(pontoRef1.getBssid()));
+                        principal = i;
+                    }
+//            Log.d("A ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
+                    if (pontoRef1.getBssidPost() != null) {
+                        if (!pontoRef1.getBssidPost().isEmpty()) {
+//                    if (mapMacs.containsValue(pontoRef1.getBssidPost())) {
+//                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
+//                            if (map.getValue().equals(pontoRef1.getBssidPost())) {
+//                                if (!map.getValue().equals(principal)) {
+//                                    mapMacs.put(map.getKey(), pontoRef1.getBssidPost());
+//                                    buscaProfundidade.adicionaAresta(principal, map.getKey());
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    } else {
+                            i++;
+                            mapMacs.put(i, formataBSSID(pontoRef1.getBssidPost()));
+                            buscaProfundidade.adicionaAresta(principal, i);
+//                    }
+                        }
+//                Log.d("D ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
+                    }
+                    if (pontoRef1.getBssidPost2() != null) {
+                        if (!pontoRef1.getBssidPost2().isEmpty()) {
+//                    if (mapMacs.containsValue(pontoRef1.getBssidPost2())) {
+//                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
+//                            if (map.getValue().equals(pontoRef1.getBssidPost2())) {
+//                                if (!map.getValue().equals(principal)) {
+//                                    mapMacs.put(map.getKey(), pontoRef1.getBssidPost2());
+//                                    buscaProfundidade.adicionaAresta(principal, map.getKey());
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    } else {
+                            i++;
+                            mapMacs.put(i, formataBSSID(pontoRef1.getBssidPost2()));
+                            buscaProfundidade.adicionaAresta(principal, i);
+//                    }
+                        }
+//                Log.d("E ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
+                    }
+                }
+
+                AppSetup.pontosProx.clear();
+                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                wifiManager.startScan();
+                do {
+                    scanResults = wifiManager.getScanResults();
+                } while (scanResults.isEmpty());
+                AppSetup.wiFiDetalhes.clear();
+                first:
+                for (ScanResult result : scanResults) {
+                    if (AppSetup.listaMacs.containsValue(result.BSSID)) {
+                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
+                            if (map.getValue().equals(formataBSSID(result.BSSID))) {
+                                origem = map.getKey();
+                                break first;
+                            }
+                        }
+                    }
+                }
+                if (AppSetup.listaSalas.containsValue(acBuscaRota.getText().toString().toLowerCase())) {
+                    second:
+                    for (Sala sala : AppSetup.salas) {
+                        if (sala.getNome().equalsIgnoreCase(String.valueOf(acBuscaRota.getText()))) {
+                            for (PontoRef pontoRef : AppSetup.pontosRef) {
+                                if (pontoRef.getBssid().equals(sala.getBssid_prox1()) || pontoRef.getBssid().equals(sala.getBssid_prox2()) || pontoRef.getBssid().equals(sala.getBssid_prox3())) {
+                                    Log.d("aqui", "chegou eeeee");
+                                    for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
+                                        if (map.getValue().equals(formataBSSID(pontoRef.getBssid()))) {
+                                            destino = map.getKey();
+                                            break second;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    codErro = 1;
+                    publishProgress(AppSetup.wiFiDetalhes);
+                }
+
+                Log.d("matriz", buscaProfundidade.toString());
+                Log.d("matriz", buscaProfundidade.toString2(mapMacs));
+                Log.d("matriz", buscaProfundidade.getCaminho(origem, destino).toString());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return wiFiDetalhes;
+        }
+
+        @Override
+        protected void onProgressUpdate(List<WiFiDetalhe>... values) {
+            super.onProgressUpdate(values);
+            if (flag) {
+//                dismissWait();
+                flag = false;
+            }
+            switch (codErro) {
+                case 1:
+                    Toast.makeText(RotaActivity.this, "Local não encontrado", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
+            super.onPostExecute(wiFiDetalhes);
+            if (flag) {
+//                dismissWait();
+                flag = false;
+            }
+        }
     }
 
     @Override
@@ -173,7 +280,7 @@ public class RotaActivity extends BaseActivity {
         return cont;
     }
 
-    public void criaMatriz() {
+    public void buscaCaminho(int origem, int destino) {
         mapMacs = new HashMap<Integer, String>();
         int principal = 0;
         BuscaProfundidade buscaProfundidade = new BuscaProfundidade(contaMacs());
@@ -210,9 +317,9 @@ public class RotaActivity extends BaseActivity {
 //                            }
 //                        }
 //                    } else {
-                        i++;
-                        mapMacs.put(i, formataBSSID(pontoRef1.getBssidPost()));
-                        buscaProfundidade.adicionaAresta(principal, i);
+                    i++;
+                    mapMacs.put(i, formataBSSID(pontoRef1.getBssidPost()));
+                    buscaProfundidade.adicionaAresta(principal, i);
 //                    }
                 }
 //                Log.d("D ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
@@ -230,9 +337,9 @@ public class RotaActivity extends BaseActivity {
 //                            }
 //                        }
 //                    } else {
-                        i++;
-                        mapMacs.put(i, formataBSSID(pontoRef1.getBssidPost2()));
-                        buscaProfundidade.adicionaAresta(principal, i);
+                    i++;
+                    mapMacs.put(i, formataBSSID(pontoRef1.getBssidPost2()));
+                    buscaProfundidade.adicionaAresta(principal, i);
 //                    }
                 }
 //                Log.d("E ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
@@ -241,7 +348,7 @@ public class RotaActivity extends BaseActivity {
 
         Log.d("matriz", buscaProfundidade.toString());
         Log.d("matriz", buscaProfundidade.toString2(mapMacs));
-        buscaProfundidade.getCaminho(1, 4);
+        Log.d("matriz", buscaProfundidade.getCaminho(origem, destino).toString());
     }
 
 

@@ -18,6 +18,7 @@ public class AppSetup {
 
     public static HashMap<String, String> listaMacs = new HashMap<String, String>();
     public static HashMap<String, String> listaCorredores = new HashMap<String, String>();
+    public static HashMap<String, String> listaSalas = new HashMap<String, String>();
 
     //unico objeto
     public static PontoRef pontoRef = null;

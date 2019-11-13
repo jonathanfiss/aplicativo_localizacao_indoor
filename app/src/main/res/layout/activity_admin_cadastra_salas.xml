@@ -62,39 +62,15 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/btPontoRefProx1"
+        android:id="@+id/btCadastrarSala"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
+        android:layout_marginTop="16dp"
         android:background="@color/colorButton"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="@string/ponto_de_referencia_proximo"
+        android:text="@string/bt_cadastrar_sala"
         android:textColor="@color/colorTextButton"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout7"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout7"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
-
-    <Button
-        android:id="@+id/btCadastrarSala"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorButton"
-        android:text="@string/bt_cadastrar_sala"
-        android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="@+id/btPontoRefProx1"
-        app:layout_constraintStart_toStartOf="@+id/btPontoRefProx1"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelecionados" />
-
-    <TextView
-        android:id="@+id/tvSelecionados"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/btPontoRefProx1"
-        app:layout_constraintStart_toStartOf="@+id/btPontoRefProx1"
-        app:layout_constraintTop_toBottomOf="@+id/btPontoRefProx1" />
 
 </android.support.constraint.ConstraintLayout>

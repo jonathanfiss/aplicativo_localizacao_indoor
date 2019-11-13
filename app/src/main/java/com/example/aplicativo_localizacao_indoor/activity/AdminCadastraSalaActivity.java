@@ -6,6 +6,9 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -35,9 +38,8 @@ public class AdminCadastraSalaActivity extends BaseActivity {
 
     private EditText etNomeSala, etNumeroSala;
     private AutoCompleteTextView acLocalSala;
-    private Button btPontoRefProx1, btPontoRefProx2, btPontoRefProx3, btCadastrarSala;
+    private Button btPontoRefProx, btCadastrarSala;
     private Sala sala;
-    private Switch btPontoRefProxChecked1, btPontoRefProxChecked2, btPontoRefProxChecked3;
     private static Integer Activity_code = 0;
     private boolean flag;
 
@@ -53,13 +55,30 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         etNomeSala = findViewById(R.id.etNomeSala);
         etNumeroSala = findViewById(R.id.etNumeroSala);
         acLocalSala = findViewById(R.id.acLocalSala);
-        btPontoRefProx1 = findViewById(R.id.btPontoRefProx1);
 
         btCadastrarSala = findViewById(R.id.btCadastrarSala);
 
         final List<String> corredor = new ArrayList<>();
 
         sala = new Sala();
+
+        InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (source.charAt(i) != ' ' && !Character.isLetterOrDigit(source.charAt(i))) { // Accept only letter & digits ; otherwise just return
+                        Toast.makeText(AdminCadastraSalaActivity.this,"Não é possivel inserir esse carácter",Toast.LENGTH_SHORT).show();
+                        return "";
+                    }
+                }
+                return null;
+            }
+
+        };
+
+        etNomeSala.setFilters(new InputFilter[]{filter});
+        etNumeroSala.setFilters(new InputFilter[]{filter});
+        acLocalSala.setFilters(new InputFilter[]{filter});
 
         if (AppSetup.salas.isEmpty()) {
             buscaSalas();
@@ -73,16 +92,11 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         acLocalSala = findViewById(R.id.acLocalSala);
         acLocalSala.setAdapter(adapter);
 
-        btPontoRefProx1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new TaskPonto().execute();
-            }
-        });
-
         btCadastrarSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new TaskPonto().execute();
+
                 if (!etNomeSala.getText().toString().isEmpty() && !etNumeroSala.getText().toString().isEmpty() && !acLocalSala.getText().toString().isEmpty()) {
                     sala.setNome(etNomeSala.getText().toString());
                     sala.setNumero(etNumeroSala.getText().toString());
@@ -144,11 +158,15 @@ public class AdminCadastraSalaActivity extends BaseActivity {
 
         @Override
         protected List<WiFiDetalhe> doInBackground(Void... voids) {
+            List<ScanResult> scanResults;
             try {
                 int qtd = 0;
+                AppSetup.pontosProx.clear();
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 wifiManager.startScan();
-                List<ScanResult> scanResults = wifiManager.getScanResults();
+                do{
+                    scanResults = wifiManager.getScanResults();
+                }while (scanResults.isEmpty());
                 AppSetup.wiFiDetalhes.clear();
                 first:
                 for (ScanResult result : scanResults) {
@@ -174,6 +192,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         @Override
         protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
             super.onPostExecute(wiFiDetalhes);
+            Log.d("Cad salas", "pontos proximos selecionados");
             if (flag) {
                 dismissWait();
                 flag = false;
@@ -185,6 +204,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         sala = new Sala();
         etNomeSala.setText(null);
         etNumeroSala.setText(null);
+        acLocalSala.setText(null);
     }
 
     @Override
@@ -202,34 +222,6 @@ public class AdminCadastraSalaActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         finish();
-    }
-
-    protected void onActivityResult(int codigo, int resultado, Intent i) {
-        // se o resultado de uma Activity for Activity_UM_DOIS...
-        if (codigo == Activity_code) {
-            // se o "i" (Intent) estiver preenchido, pega os seus dados (getExtras())
-            Bundle params = i != null ? i.getExtras() : null;
-            if (params != null) {
-                Integer position = params.getInt("position");
-                if (Activity_code == 3) {
-                    AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
-                    btPontoRefProx1.setText("Ponto referência selecionado");
-                    btPontoRefProxChecked1.setChecked(false);
-                    Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                } else if (Activity_code == 4) {
-                    AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
-                    btPontoRefProx2.setText("Ponto referência selecionado");
-                    btPontoRefProxChecked2.setChecked(false);
-                    Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                } else if (Activity_code == 5) {
-                    AppSetup.wiFiDetalhesSelecionados.add(AppSetup.wiFiDetalhes.get(position));
-                    btPontoRefProx3.setText("Ponto referência selecionado");
-                    btPontoRefProxChecked3.setChecked(false);
-                    Toast.makeText(AdminCadastraSalaActivity.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }
     }
 
 }

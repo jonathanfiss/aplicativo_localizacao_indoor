@@ -2,6 +2,8 @@ package com.example.aplicativo_localizacao_indoor.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,14 +14,11 @@ import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Local;
+import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AdminCadastraLocalActivity extends BaseActivity {
 
@@ -43,6 +42,42 @@ public class AdminCadastraLocalActivity extends BaseActivity {
         etDescricaoLocal = findViewById(R.id.etDescricaoLocal);
         etPredio = findViewById(R.id.etPredio);
         etCorredor = findViewById(R.id.etCorredor);
+
+        InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (source.charAt(i) != ' ' && !Character.isLetterOrDigit(source.charAt(i))) { // Accept only letter & digits ; otherwise just return
+                        Toast.makeText(AdminCadastraLocalActivity.this,"Não é possivel inserir esse carácter",Toast.LENGTH_SHORT).show();
+                        return "";
+                    }
+                }
+                return null;
+            }
+
+        };
+
+        InputFilter filterCorredor = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (source.charAt(i) != ' ' && !Character.isLetterOrDigit(source.charAt(i))) { // Accept only letter & digits ; otherwise just return
+                        Toast.makeText(AdminCadastraLocalActivity.this,"Não é possivel inserir esse carácter",Toast.LENGTH_SHORT).show();
+                        return "";
+                    }
+                }
+                if (AppSetup.listaCorredores.containsValue(source.toString().toLowerCase())) {
+                    Toast.makeText(AdminCadastraLocalActivity.this,"Esse corredor já foi cadastrado.",Toast.LENGTH_SHORT).show();
+                    return source;
+                }
+                return null;
+            }
+
+        };
+
+        etDescricaoLocal.setFilters(new InputFilter[]{filter});
+        etPredio.setFilters(new InputFilter[]{filter});
+        etCorredor.setFilters(new InputFilter[]{filterCorredor});
 
         radioGroupAndar = findViewById(R.id.radioGroupAndar);
         radioGroupAndar.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

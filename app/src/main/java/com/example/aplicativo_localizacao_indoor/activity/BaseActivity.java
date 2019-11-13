@@ -106,6 +106,7 @@ public class BaseActivity extends AppCompatActivity {
                     Sala sala = ds.getValue(Sala.class);
                     AppSetup.salas.add(sala);
                 }
+                hashMapSalas();
             }
 
             @Override
@@ -167,7 +168,14 @@ public class BaseActivity extends AppCompatActivity {
     public void hashMapCorredores() {
         AppSetup.listaCorredores.clear();
         for (Local local : AppSetup.locais) {
-            AppSetup.listaCorredores.put(local.getKey(), local.getCorredor());
+            AppSetup.listaCorredores.put(local.getKey(), local.getCorredor().toLowerCase());
+        }
+    }
+
+    public void hashMapSalas() {
+        AppSetup.listaSalas.clear();
+        for (Sala sala : AppSetup.salas) {
+            AppSetup.listaSalas.put(sala.getKey(), sala.getNome().toLowerCase());
         }
     }
 }

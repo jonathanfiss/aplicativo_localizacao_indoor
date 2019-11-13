@@ -3,6 +3,8 @@ package com.example.aplicativo_localizacao_indoor.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -182,15 +184,15 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
             corredor.add(local.getCorredor());
         }
 
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, corredor);
         acLocalPonto = findViewById(R.id.acLocalPonto);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, corredor);
+
+
         acLocalPonto.setAdapter(adapter);
         btCadPontoRef.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 etPatrimonio = findViewById(R.id.etPatrimonio);
-
                 Integer patrimonio = Integer.valueOf(etPatrimonio.getText().toString());
                 pontoRef.setBssid(AppSetup.pontoWiFi.getBSSID());
                 pontoRef.setSsid(AppSetup.pontoWiFi.getSSID());
@@ -200,7 +202,6 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                         pontoRef.setLocal(lc);
                     }
                 }
-
 
                 pontoRef.setSituacao(true);
                 Log.d("resultado", pontoRef.toString());

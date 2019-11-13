@@ -3,6 +3,8 @@ package com.example.aplicativo_localizacao_indoor.activity;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +35,29 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_cadastra_usuario);
+
+        etNomeUser = findViewById(R.id.etNomeUser);
+        etSobrenomeUser = findViewById(R.id.etSobrenomeUser);
+        etMatriculaUser = findViewById(R.id.etMatriculaUser);
+        spFuncaoUser = findViewById(R.id.spFuncaoUser);
+
+        InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (source.charAt(i) != ' ' && !Character.isLetterOrDigit(source.charAt(i))) { // Accept only letter & digits ; otherwise just return
+                        Toast.makeText(AdminCadastraUsuarioActivity.this,"Não é possivel inserir esse carácter",Toast.LENGTH_SHORT).show();
+                        return "";
+                    }
+                }
+                return null;
+            }
+
+        };
+
+        etNomeUser.setFilters(new InputFilter[]{filter});
+        etSobrenomeUser.setFilters(new InputFilter[]{filter});
+        etMatriculaUser.setFilters(new InputFilter[]{filter});
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -101,6 +126,24 @@ public class AdminCadastraUsuarioActivity extends AppCompatActivity {
         etSobrenomeUser = findViewById(R.id.etSobrenomeUser);
         etMatriculaUser = findViewById(R.id.etMatriculaUser);
         spFuncaoUser = findViewById(R.id.spFuncaoUser);
+
+        InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (source.charAt(i) != ' ' && !Character.isLetterOrDigit(source.charAt(i))) { // Accept only letter & digits ; otherwise just return
+                        Toast.makeText(AdminCadastraUsuarioActivity.this,"Não é possivel inserir esse carácter",Toast.LENGTH_SHORT).show();
+                        return "";
+                    }
+                }
+                return null;
+            }
+
+        };
+
+        etNomeUser.setFilters(new InputFilter[]{filter});
+        etSobrenomeUser.setFilters(new InputFilter[]{filter});
+        etMatriculaUser.setFilters(new InputFilter[]{filter});
 
         Usuario usuario = new Usuario();
         usuario.setFirebaseUser(firebaseUser);

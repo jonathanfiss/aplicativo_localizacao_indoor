@@ -103,7 +103,7 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                 dismissWait();
                 flag = false;
             }
-            if (!AppSetup.wiFiDetalhes.isEmpty()) {
+            if (AppSetup.wiFiDetalhes.size()>0 ) {
                 lvPontosRef.setAdapter(new PontoReferenciaAdapter(AdminCadastraPontoActivity.this, AppSetup.wiFiDetalhes));
             }
         }

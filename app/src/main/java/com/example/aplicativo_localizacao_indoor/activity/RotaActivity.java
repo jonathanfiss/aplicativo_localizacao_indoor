@@ -19,6 +19,7 @@ import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +41,7 @@ public class RotaActivity extends BaseActivity {
     private HashMap<Integer, String> mapMacs;
     private int origem, destino, codErro;
     private boolean flag;
+    private BuscaProfundidade buscaProfundidade;
 
 
     @Override
@@ -74,13 +76,13 @@ public class RotaActivity extends BaseActivity {
         btBuscaRota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buscaProfundidade = new BuscaProfundidade(contaMacs());
                 new TaskRota().execute();
             }
         });
     }
 
-    //    AsyncTask <Params, Progress, Result>:
-    class TaskRota extends AsyncTask<Void, List<WiFiDetalhe>, List<WiFiDetalhe>> {
+    class TaskRota extends AsyncTask<BuscaProfundidade, Void, Void>{
 
         @Override
         protected void onPreExecute() {
@@ -90,7 +92,7 @@ public class RotaActivity extends BaseActivity {
         }
 
         @Override
-        protected List<WiFiDetalhe> doInBackground(Void... voids) {
+        protected Void doInBackground(BuscaProfundidade... buscaProfundidades) {
             List<ScanResult> scanResults;
             mapMacs = new HashMap<Integer, String>();
             int principal = 0;
@@ -99,7 +101,6 @@ public class RotaActivity extends BaseActivity {
                 mapMacs.clear();
             }
             try {
-                BuscaProfundidade buscaProfundidade = new BuscaProfundidade(contaMacs());
 
                 for (PontoRef pontoRef1 : AppSetup.pontosRef) {
                     /////defini o vertice principal
@@ -196,7 +197,7 @@ public class RotaActivity extends BaseActivity {
                     }
                 } else {
                     codErro = 1;
-                    publishProgress(AppSetup.wiFiDetalhes);
+                    publishProgress();
                 }
 
                 Log.d("matriz", buscaProfundidade.toString());
@@ -206,27 +207,12 @@ public class RotaActivity extends BaseActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return wiFiDetalhes;
+            return null;
         }
 
         @Override
-        protected void onProgressUpdate(List<WiFiDetalhe>... values) {
-            super.onProgressUpdate(values);
-            if (flag) {
-//                dismissWait();
-                flag = false;
-            }
-            switch (codErro) {
-                case 1:
-                    Toast.makeText(RotaActivity.this, "Local não encontrado", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-
-        }
-
-        @Override
-        protected void onPostExecute(List<WiFiDetalhe> wiFiDetalhes) {
-            super.onPostExecute(wiFiDetalhes);
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
             if (flag) {
 //                dismissWait();
                 flag = false;

@@ -26,6 +26,7 @@ public class AppSetup {
     public static Local local = null;
     public static Usuario usuario = null;
 
+    public static List<String> caminho = new ArrayList<>();
     public static List<Sala> salasProx = new ArrayList<>();
     public static List<PontoRef> pontosProx = new ArrayList<>();
 

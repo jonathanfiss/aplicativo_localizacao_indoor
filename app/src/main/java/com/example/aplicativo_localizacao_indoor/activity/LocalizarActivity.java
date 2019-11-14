@@ -118,11 +118,11 @@ public class LocalizarActivity extends BaseActivity {
             if (txtsalas.isEmpty()){
                 txtsalas = sala.getNome();
             } else {
-                txtsalas = txtsalas.concat(sala.getNome());
+                txtsalas.concat(sala.getNome());
             }
             cont++;
             if (tamanho > cont) {
-                txtsalas = txtsalas.concat(", ");
+                txtsalas.concat(", ");
             }
         }
         if (tamanho !=0){

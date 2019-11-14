@@ -95,7 +95,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         btCadastrarSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TaskPonto().execute();
+
 
                 if (!etNomeSala.getText().toString().isEmpty() && !etNumeroSala.getText().toString().isEmpty() && !acLocalSala.getText().toString().isEmpty()) {
                     sala.setNome(etNomeSala.getText().toString());
@@ -106,39 +106,9 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                         }
                     }
                     sala.setSituacao(true);
-                    int i = 1;
-                    for (PontoRef pontoRef : AppSetup.pontosProx){
-                        if (i == 1){
-                            sala.setBssid_prox1(pontoRef.getBssid());
-                            i++;
-                        }else if (i == 2){
-                            sala.setBssid_prox2(pontoRef.getBssid());
-                            i++;
-                        }else if (i == 3){
-                            sala.setBssid_prox3(pontoRef.getBssid());
-                        }
-                    }
 
-                    showWait(AdminCadastraSalaActivity.this, R.string.builder_cadastro);
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("dados").child("salas");
-                    myRef.push().setValue(sala)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    dismissWait();
-                                    Toast.makeText(AdminCadastraSalaActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
-                                    limparForm();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    dismissWait();
-                                    Toast.makeText(AdminCadastraSalaActivity.this, "Falha ao realizar o cadastro", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                    new TaskPonto().execute();
                 } else {
                     Toast.makeText(AdminCadastraSalaActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
                 }
@@ -153,7 +123,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             flag = true;
-            showWait(AdminCadastraSalaActivity.this, R.string.builder_localizar);
+            showWait(AdminCadastraSalaActivity.this, R.string.builder_cadastro);
         }
 
         @Override
@@ -197,6 +167,36 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                 dismissWait();
                 flag = false;
             }
+            int i = 1;
+            for (PontoRef pontoRef : AppSetup.pontosProx){
+                if (i == 1){
+                    sala.setBssid_prox1(pontoRef.getBssid());
+                    i++;
+                }else if (i == 2){
+                    sala.setBssid_prox2(pontoRef.getBssid());
+                    i++;
+                }else if (i == 3){
+                    sala.setBssid_prox3(pontoRef.getBssid());
+                }
+            }
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("dados").child("salas");
+            myRef.push().setValue(sala)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            dismissWait();
+                            Toast.makeText(AdminCadastraSalaActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
+                            limparForm();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            dismissWait();
+                            Toast.makeText(AdminCadastraSalaActivity.this, "Falha ao realizar o cadastro", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 

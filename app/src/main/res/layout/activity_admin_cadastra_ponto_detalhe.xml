@@ -8,31 +8,6 @@
     tools:context=".activity.AdminCadastraPontoActivityDetalhe">
 
     <Button
-        android:id="@+id/btCadPontoProx1"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorButton"
-        android:padding="8dp"
-        android:text="@string/bt_cad_ponto_ref_ant"
-        android:textColor="@color/colorTextButton"
-        app:layout_constraintStart_toStartOf="@+id/tvSSID"
-        app:layout_constraintTop_toBottomOf="@+id/tvSSID" />
-
-    <Button
-        android:id="@+id/btCadPontoProx2"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorButton"
-        android:padding="8dp"
-        android:text="@string/bt_cad_ponto_ref_ant_2"
-        android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="@+id/btCadPontoProx1"
-        app:layout_constraintStart_toStartOf="@+id/btCadPontoProx1"
-        app:layout_constraintTop_toBottomOf="@+id/btCadPontoProx1" />
-
-    <Button
         android:id="@+id/btCadPontoRef"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,14 +25,13 @@
         android:id="@+id/btCadPontoProx3"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@color/colorButton"
         android:padding="8dp"
         android:text="@string/bt_cad_ponto_ref_prox"
         android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="@+id/btCadPontoProx2"
-        app:layout_constraintStart_toStartOf="@+id/btCadPontoProx2"
-        app:layout_constraintTop_toBottomOf="@+id/btCadPontoProx2" />
+        app:layout_constraintStart_toStartOf="@+id/tvSSID"
+        app:layout_constraintTop_toBottomOf="@+id/tvSSID" />
 
     <Button
         android:id="@+id/btCadPontoProx4"
@@ -68,34 +42,8 @@
         android:padding="8dp"
         android:text="@string/bt_cad_ponto_ref_post_2"
         android:textColor="@color/colorTextButton"
-        app:layout_constraintEnd_toEndOf="@+id/btCadPontoProx2"
-        app:layout_constraintStart_toStartOf="@+id/btCadPontoProx2"
+        app:layout_constraintStart_toStartOf="@+id/btCadPontoProx3"
         app:layout_constraintTop_toBottomOf="@+id/btCadPontoProx3" />
-
-    <Switch
-        android:id="@+id/btCadPontoRefProx1Checked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:checked="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btCadPontoProx1"
-        app:layout_constraintTop_toTopOf="@+id/btCadPontoProx1" />
-
-    <Switch
-        android:id="@+id/btCadPontoRefProx2Checked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:checked="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btCadPontoProx2"
-        app:layout_constraintTop_toTopOf="@+id/btCadPontoProx2" />
 
     <Switch
         android:id="@+id/btCadPontoRefProx3Checked"
@@ -153,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/tvBSSID"
-        app:layout_constraintStart_toStartOf="@+id/btCadPontoProx2"
+        app:layout_constraintStart_toStartOf="@+id/btCadPontoProx4"
         app:layout_constraintTop_toBottomOf="@+id/btCadPontoProx4">
 
         <EditText

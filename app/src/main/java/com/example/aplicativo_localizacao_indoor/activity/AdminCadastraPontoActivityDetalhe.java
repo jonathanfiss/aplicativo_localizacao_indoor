@@ -37,11 +37,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
-    private Button btPontoAnt, btPontoPost, btCadPontoRef, btCadPontoProx1, btCadPontoProx2, btCadPontoProx3, btCadPontoProx4;
+    private Button btCadPontoRef, btCadPontoProx3, btCadPontoProx4;
     private TextView tvSSID, tvBSSID;
     private EditText etPatrimonio;
     private AutoCompleteTextView acLocalPonto;
-    private Switch btCadPontoRefProx1Checked, btCadPontoRefProx2Checked, btCadPontoRefProx3Checked, btCadPontoRefProx4Checked;
+    private Switch btCadPontoRefProx3Checked, btCadPontoRefProx4Checked;
     private static int Activity_code = 0;
     private PontoRef pontoRef = new PontoRef();
 
@@ -65,37 +65,15 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
         tvSSID.setText(AppSetup.wiFiDetalhes.get(position).getSSID());
         tvBSSID.setText(AppSetup.wiFiDetalhes.get(position).getBSSID());
 
-        btCadPontoProx1 = findViewById(R.id.btCadPontoProx1);
-        btCadPontoProx2 = findViewById(R.id.btCadPontoProx2);
         btCadPontoProx3 = findViewById(R.id.btCadPontoProx3);
         btCadPontoProx4 = findViewById(R.id.btCadPontoProx4);
 
-        btCadPontoRefProx1Checked = findViewById(R.id.btCadPontoRefProx1Checked);
-        btCadPontoRefProx2Checked = findViewById(R.id.btCadPontoRefProx2Checked);
         btCadPontoRefProx3Checked = findViewById(R.id.btCadPontoRefProx3Checked);
         btCadPontoRefProx4Checked = findViewById(R.id.btCadPontoRefProx4Checked);
 
         btCadPontoRef = findViewById(R.id.btCadPontoRef);
 
 
-        btCadPontoProx1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
-                Activity_code = 1;
-                intent.putExtra("Activity_code", Activity_code);
-                startActivityForResult(intent, Activity_code);
-            }
-        });
-        btCadPontoProx2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminCadastraPontoActivityDetalhe.this, AdminSelecionaPontoActivity.class);
-                Activity_code = 2;
-                intent.putExtra("Activity_code", Activity_code);
-                startActivityForResult(intent, Activity_code);
-            }
-        });
         btCadPontoProx3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,38 +93,6 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
             }
         });
 
-        btCadPontoRefProx1Checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isChecked) {
-                    pontoRef.setBssidAnt("00");
-                    btCadPontoProx1.setText(R.string.bt_cad_ponto_ref_ant);
-                    AppSetup.pontoAnt = null;
-
-
-                } else {
-                    if (AppSetup.pontoAnt != null) {
-                        pontoRef.setBssidAnt(AppSetup.pontoAnt.getBSSID());
-                    }
-                }
-            }
-        });
-        btCadPontoRefProx2Checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isChecked) {
-                    pontoRef.setBssidAnt2("00");
-                    btCadPontoProx2.setText(R.string.bt_cad_ponto_ref_ant);
-                    AppSetup.pontoAnt2 = null;
-
-                } else {
-                    if (AppSetup.pontoAnt2 != null) {
-                        pontoRef.setBssidAnt2(AppSetup.pontoAnt2.getBSSID());
-                        Log.d("ponto2", pontoRef.getBssidAnt2());
-                    }
-                }
-            }
-        });
         btCadPontoRefProx3Checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -227,8 +173,6 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
     }
 
     protected void onActivityResult(int codigo, int resultado, Intent i) {
-        btCadPontoRefProx1Checked = findViewById(R.id.btCadPontoRefProx1Checked);
-        btCadPontoRefProx2Checked = findViewById(R.id.btCadPontoRefProx2Checked);
         btCadPontoRefProx3Checked = findViewById(R.id.btCadPontoRefProx3Checked);
         btCadPontoRefProx4Checked = findViewById(R.id.btCadPontoRefProx4Checked);
         // se o resultado de uma Activity for Activity_UM_DOIS...
@@ -237,17 +181,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
             Bundle params = i != null ? i.getExtras() : null;
             if (params != null) {
                 Integer position = params.getInt("position");
-                if (Activity_code == 1) {
-                    AppSetup.pontoAnt = AppSetup.wiFiDetalhes.get(position);
-                    btCadPontoProx1.setText("Ponto anterior selecionado");
-                    btCadPontoRefProx1Checked.setChecked(true);
-                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                } else if (Activity_code == 2) {
-                    AppSetup.pontoAnt2 = AppSetup.wiFiDetalhes.get(position);
-                    btCadPontoProx2.setText("Ponto anterior selecionado");
-                    btCadPontoRefProx2Checked.setChecked(true);
-                    Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_ponto_selecionado), Toast.LENGTH_SHORT).show();
-                } else if (Activity_code == 3) {
+                if (Activity_code == 3) {
                     AppSetup.pontoPost = AppSetup.wiFiDetalhes.get(position);
                     btCadPontoProx3.setText("Ponto posterior selecionado");
                     btCadPontoRefProx3Checked.setChecked(true);

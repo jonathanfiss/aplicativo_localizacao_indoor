@@ -102,8 +102,10 @@ public class BaseActivity extends AppCompatActivity {
         mySala.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                AppSetup.salas.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Sala sala = ds.getValue(Sala.class);
+                    sala.setKey(ds.getKey());
                     AppSetup.salas.add(sala);
                 }
                 hashMapSalas();
@@ -122,6 +124,7 @@ public class BaseActivity extends AppCompatActivity {
         myPonto.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                AppSetup.pontosRef.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     PontoRef pontoRef = ds.getValue(PontoRef.class);
                     pontoRef.setKey(ds.getKey());
@@ -143,8 +146,10 @@ public class BaseActivity extends AppCompatActivity {
         myLocais.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                AppSetup.locais.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Local local = ds.getValue(Local.class);
+                    local.setKey(ds.getKey());
                     AppSetup.locais.add(local);
                 }
                 hashMapCorredores();

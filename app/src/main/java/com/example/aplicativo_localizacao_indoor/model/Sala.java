@@ -11,11 +11,7 @@ public class Sala {
     private String bssid_prox1;
     private String bssid_prox2;
     private String bssid_prox3;
-    private String data_hora_modificado;
-    private String modificado_por;
-    private boolean situacao;
     private Local local;
-    private String local_id;
 
     public Sala() {
     }
@@ -60,14 +56,6 @@ public class Sala {
         this.descricao = descricao;
     }
 
-    public String getData_hora_modificado() {
-        return data_hora_modificado;
-    }
-
-    public void setData_hora_modificado(String data_hora_modificado) {
-        this.data_hora_modificado = data_hora_modificado;
-    }
-
     public String getBssid_prox1() {
         return bssid_prox1;
     }
@@ -92,30 +80,6 @@ public class Sala {
         this.bssid_prox3 = bssid_prox3;
     }
 
-    public String getModificado_por() {
-        return modificado_por;
-    }
-
-    public void setModificado_por(String modificado_por) {
-        this.modificado_por = modificado_por;
-    }
-
-    public boolean isSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(boolean situacao) {
-        this.situacao = situacao;
-    }
-
-    public String getLocal_id() {
-        return local_id;
-    }
-
-    public void setLocal_id(String local_id) {
-        this.local_id = local_id;
-    }
-
     @Override
     public String toString() {
         return "Sala{" +
@@ -126,11 +90,7 @@ public class Sala {
                 ", bssid_prox1='" + bssid_prox1 + '\'' +
                 ", bssid_prox2='" + bssid_prox2 + '\'' +
                 ", bssid_prox3='" + bssid_prox3 + '\'' +
-                ", data_hora_modificado='" + data_hora_modificado + '\'' +
-                ", modificado_por='" + modificado_por + '\'' +
-                ", situacao=" + situacao +
                 ", local=" + local +
-                ", local_id='" + local_id + '\'' +
                 '}';
     }
 }

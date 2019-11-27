@@ -14,11 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
 public class AdminMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private Button btCadastrarPonto, btCadastrarLocal, btCadastrarSalas, btCadUsuario;
+    private TextView tvUsuarioEmail, tvUsuarioNome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,14 @@ public class AdminMainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        Button btCadastrarPonto, btCadastrarLocal, btCadastrarSalas, btCadUsuario;
+        View headerMain = navigationView.getHeaderView(0);
+        tvUsuarioEmail = headerMain.findViewById(R.id.tvEmailUsuario);
+        tvUsuarioNome = headerMain.findViewById(R.id.tvUsuarioNome);
+
+//        tvUsuarioEmail.setText(AppSetup.usuario.getNome().concat(" ").concat(AppSetup.usuario.getSobrenome()));
+//        tvUsuarioNome.setText(AppSetup.usuario.getFuncao());
+        tvUsuarioEmail.setText("Administrador");
+        tvUsuarioNome.setText("Jonathan");
 
         btCadastrarPonto = findViewById(R.id.btCadastrarPonto);
         btCadastrarLocal = findViewById(R.id.btCadastrarLocal);

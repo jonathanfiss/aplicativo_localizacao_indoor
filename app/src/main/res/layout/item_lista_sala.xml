@@ -30,56 +30,71 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
                 android:hint="@string/hint_nome_sala"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintTop_toTopOf="@+id/textView2" />
 
             <TextView
                 android:id="@+id/tvNumeroSalaAdapter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="104dp"
+                android:layout_height="23dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:hint="@string/hint_numero_sala"
                 android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNomeSalaAdapter"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvNomeSalaAdapter"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/tvNomeSalaAdapter" />
 
             <TextView
                 android:id="@+id/tvLocalSalaAdapter"
-                android:layout_width="183dp"
+                android:layout_width="0dp"
                 android:layout_height="23dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:text="@string/tv_local_sala"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvNomeSalaAdapter"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="@+id/tvNumeroSalaAdapter"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/textView4" />
 
             <TextView
-                android:id="@+id/tvDataSala"
-                android:layout_width="189dp"
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="@string/tvdata"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvLocalSalaAdapter"
-                app:layout_constraintTop_toBottomOf="@+id/tvNumeroSalaAdapter" />
+                android:text="Nome:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="nº:"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNomeSalaAdapter"
+                app:layout_constraintStart_toEndOf="@+id/tvNomeSalaAdapter"
+                app:layout_constraintTop_toTopOf="@+id/tvNomeSalaAdapter" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Corredor:"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         </android.support.constraint.ConstraintLayout>
 

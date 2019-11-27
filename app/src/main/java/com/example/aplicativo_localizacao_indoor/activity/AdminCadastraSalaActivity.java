@@ -105,7 +105,6 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                             sala.setLocal(lc);
                         }
                     }
-                    sala.setSituacao(true);
 
 
                     new TaskPonto().execute();

@@ -3,6 +3,7 @@ package com.example.aplicativo_localizacao_indoor.activity;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaSalasAdapter;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +64,13 @@ public class AdminListarSalasActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showWait(AdminListarSalasActivity.this, R.string.builder_excluindo);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("dados/salas").child(AppSetup.salas.get(position).getKey());
+                myRef.removeValue();
+                AppSetup.salas.remove(AppSetup.salas.get(position));
+                listaSalas.setAdapter(new ListaSalasAdapter(AdminListarSalasActivity.this, AppSetup.salas));
+                dismissWait();
+//                Log.d("sala", AppSetup.salas.get(position).to);
 //excluir
             }
         });

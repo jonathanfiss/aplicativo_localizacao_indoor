@@ -42,9 +42,9 @@ public class ListaUsuariosAdapter extends ArrayAdapter<Usuario> {
         }
 
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
-        TextView tvNomeCompleto = convertView.findViewById(R.id.tvDescricaoAdapter);
+        TextView tvNomeCompleto = convertView.findViewById(R.id.tvNomeAdapter);
         TextView tvEmailAdapter = convertView.findViewById(R.id.tvEmailAdapter);
-        TextView tvFuncaoAdapter = convertView.findViewById(R.id.tvDescricaoAdapter);
+        TextView tvFuncaoAdapter = convertView.findViewById(R.id.tvFuncaoAdapter1);
         TextView tvMatriculaAdapter = convertView.findViewById(R.id.tvMatriculaAdapter);
 
         //vincula os dados do objeto de modelo à view
@@ -67,7 +67,7 @@ public class ListaUsuariosAdapter extends ArrayAdapter<Usuario> {
             tvNomeCompleto = convertView.findViewById(R.id.tvPredioAdapter);
             tvEmailAdapter = convertView.findViewById(R.id.tvCorredorAdapter);
             tvFuncaoAdapter = convertView.findViewById(R.id.tvAndarAdapter);
-            tvMatriculaAdapter = convertView.findViewById(R.id.tvDescricaoAdapter);
+            tvMatriculaAdapter = convertView.findViewById(R.id.tvMatriculaAdapter);
         }
     }
 }

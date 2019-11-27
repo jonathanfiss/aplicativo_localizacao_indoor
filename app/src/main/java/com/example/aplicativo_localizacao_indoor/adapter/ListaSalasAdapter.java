@@ -43,7 +43,7 @@ public class ListaSalasAdapter extends ArrayAdapter<Sala> {
         //vincula os dados do objeto de modelo à view
         holder.tvNomeSalaAdapter.setText(sala.getNome());
         holder.tvNumeroSalaAdapter.setText(sala.getNumero());
-//        holder.tvLocalSalaAdapter.setText(sala.getLocal().getCorredor());
+        holder.tvLocalSalaAdapter.setText(sala.getLocal().getCorredor());
 
         return convertView;
     }

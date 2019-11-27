@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaLocaisAdapter;
+import com.example.aplicativo_localizacao_indoor.adapter.ListaSalasAdapter;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
 
 import retrofit2.Call;
@@ -34,6 +35,9 @@ public class AdminListarLocaisActivity extends BaseActivity {
         if (AppSetup.locais.isEmpty()) {
             buscaLocais();
         }
+
+        listaLocais.setAdapter(new ListaLocaisAdapter(AdminListarLocaisActivity.this, AppSetup.locais));
+
 
         listaLocais.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

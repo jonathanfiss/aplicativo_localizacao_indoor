@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.adapter.RotaAdapter;
 import com.example.aplicativo_localizacao_indoor.model.BuscaProfundidade;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
@@ -28,7 +29,6 @@ public class RotaActivity extends BaseActivity {
 
     private Button btBuscaRota;
     private ListView lvRota;
-    private TextView tvRota;
     private AutoCompleteTextView acBuscaRota;
     private String macs[];
     private HashMap<Integer, String> mapMacs;
@@ -47,7 +47,7 @@ public class RotaActivity extends BaseActivity {
 
         acBuscaRota = findViewById(R.id.acBuscaRota);
         btBuscaRota = findViewById(R.id.btBuscaRota);
-        tvRota = findViewById(R.id.tvRota);
+        lvRota = findViewById(R.id.lvRota);
 
         final List<String> informacoes = new ArrayList<>();
 
@@ -213,8 +213,8 @@ public class RotaActivity extends BaseActivity {
         @Override
         protected void onProgressUpdate(List<String>... values) {
             super.onProgressUpdate(values);
-            tvRota.setText(AppSetup.caminho.toString());
-//            lvRota.setAdapter(new PontoReferenciaAdapter(RotaActivity.this, values));
+//            tvRota.setText(AppSetup.caminho.toString());
+            lvRota.setAdapter(new RotaAdapter(RotaActivity.this, values));
         }
 
         @Override

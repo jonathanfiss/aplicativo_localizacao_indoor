@@ -45,8 +45,6 @@ public class ListaLocaisAdapter extends ArrayAdapter<Local> {
         holder.tvPredio.setText(local.getPredio());
         holder.tvCorredor.setText(local.getCorredor());
         holder.tvAndar.setText(String.valueOf(local.getAndar()));
-        holder.tvDescricao.setText(local.getDescricao());
-//        holder.tvData.setText(local.getData_hora_modificado().toString());
         return convertView;
     }
 
@@ -62,8 +60,6 @@ public class ListaLocaisAdapter extends ArrayAdapter<Local> {
             tvPredio = convertView.findViewById(R.id.tvPredioAdapter);
             tvCorredor = convertView.findViewById(R.id.tvCorredorAdapter);
             tvAndar = convertView.findViewById(R.id.tvAndarAdapter);
-            tvDescricao = convertView.findViewById(R.id.tvDescricaoAdapter);
-            tvData = convertView.findViewById(R.id.tvDataAdapter);
         }
     }
 }

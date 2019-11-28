@@ -36,7 +36,6 @@ public class RotaActivity extends BaseActivity {
     private int origem, destino;
     private boolean flag;
     private BuscaProfundidade buscaProfundidade;
-    private List<Rota> rotas = new ArrayList<>();
 
 
     @Override
@@ -97,7 +96,6 @@ public class RotaActivity extends BaseActivity {
                 mapMacs.clear();
             }
             try {
-
                 for (PontoRef pontoRef1 : AppSetup.pontosRef) {
                     /////defini o vertice principal
                     if (mapMacs.containsValue(formataBSSID(pontoRef1.getBssid()))) {
@@ -200,23 +198,23 @@ public class RotaActivity extends BaseActivity {
                 Log.d("matriz", caminho.toString());
                 if (!caminho.isEmpty()) {
                     Rota rota = new Rota();
-                    rotas.clear();
+                    AppSetup.rotas.clear();
                     for (Integer id : caminho) {
                         rota.setId(id);
                         rota.setBssid(mapMacs.get(id));
-                        for (PontoRef pontoRef : AppSetup.pontosRef){
-//                            Log.d("id", String.valueOf(pontoRef.getBssid().contains(mapMacs.get(id))));
-                            if (pontoRef.getBssid().contains(formataBSSID(mapMacs.get(id)))){
+                        for (PontoRef pontoRef : AppSetup.pontosRef) {
+                            if (pontoRef.getBssid().contains(formataBSSID(mapMacs.get(id)))) {
                                 rota.setLocal(pontoRef.getLocal());
+                                break;
                             }
                         }
-                        rotas.add(rota);
-                        Log.d("id", rotas.toString());
+                        AppSetup.rotas.add(rota);
+                        Log.d("id", rota.toString());
                     }
                 }
-                Log.d("caminho", rotas.toString());
+                Log.d("caminho", AppSetup.rotas.toString());
 
-                publishProgress(rotas);
+                publishProgress(AppSetup.rotas);
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.example.aplicativo_localizacao_indoor.setup;
 
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
+import com.example.aplicativo_localizacao_indoor.model.Rota;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
 import com.example.aplicativo_localizacao_indoor.model.Local;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
@@ -33,6 +34,7 @@ public class AppSetup {
 
     public static List<WiFiDetalhe> wiFiDetalhes = new ArrayList<>();
     public static List<WiFiDetalhe> wiFiDetalhesSelecionados = new ArrayList<>();
+    public static List<Rota> rotas = new ArrayList<>();
 
     public static WiFiDetalhe pontoWiFi = null;
     public static WiFiDetalhe pontoAnt = null;

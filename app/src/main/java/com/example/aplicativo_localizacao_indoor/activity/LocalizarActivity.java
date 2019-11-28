@@ -18,12 +18,14 @@ import java.util.List;
 import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetalhes;
 
 public class LocalizarActivity extends BaseActivity {
-    PontoRef pontoRef;
+    private PontoRef pontoRef;
     private boolean wifi = true;
     private int temponovabusca = 40000; //tempo em milisegundos
-    TextView tvLocaliza;
+    private TextView tvLocaliza;
     List<ScanResult> scanResults;
     private boolean flag;
+    private boolean msn;
+    private String mensagem;
 
 
     @Override
@@ -53,12 +55,15 @@ public class LocalizarActivity extends BaseActivity {
 
         @Override
         protected List<WiFiDetalhe> doInBackground(Void... voids) {
+            List<ScanResult> scanResults;
             try {
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 wifiManager.startScan();
-                List<ScanResult> scanResults = wifiManager.getScanResults();
+                scanResults = wifiManager.getScanResults();
                 AppSetup.wiFiDetalhes.clear();
-
+                if (scanResults.isEmpty()) {
+                    scanResults = wifiManager.getScanResults();
+                }
                 for (ScanResult result : scanResults) {
                     if (AppSetup.listaMacs.containsValue(result.BSSID)) {
                         for (PontoRef pontoRef : AppSetup.pontosRef) {
@@ -67,6 +72,9 @@ public class LocalizarActivity extends BaseActivity {
                                 break;
                             }
                         }
+                    } else {
+                        msn = true;
+                        mensagem = "O local não foi localizado";
                     }//else seria se o local não foi localizado
                     for (Sala sala : AppSetup.salas) {
                         if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox1()))) {
@@ -95,7 +103,11 @@ public class LocalizarActivity extends BaseActivity {
                 dismissWait();
                 flag = false;
             }
-            setText();
+            if (msn) {
+                tvLocaliza.setText(mensagem);
+            } else {
+                setText();
+            }
         }
 
         @Override
@@ -105,17 +117,21 @@ public class LocalizarActivity extends BaseActivity {
                 dismissWait();
                 flag = false;
             }
-            setText();
+            if (msn) {
+                tvLocaliza.setText(mensagem);
+            } else {
+                setText();
+            }
         }
     }
 
-    public void setText(){
+    public void setText() {
         String txtsalas = "";
         String texto;
         int cont = 0;
         int tamanho = AppSetup.salasProx.size();
-        for (Sala sala: AppSetup.salasProx){
-            if (txtsalas.isEmpty()){
+        for (Sala sala : AppSetup.salasProx) {
+            if (txtsalas.isEmpty()) {
                 txtsalas = sala.getNome();
             } else {
                 txtsalas.concat(sala.getNome());
@@ -125,8 +141,8 @@ public class LocalizarActivity extends BaseActivity {
                 txtsalas.concat(", ");
             }
         }
-        if (tamanho !=0){
-            if (tamanho>1){
+        if (tamanho != 0) {
+            if (tamanho > 1) {
                 texto = getResources().getText(R.string.frase_voce) + " " +
                         "" + getResources().getText(R.string.frase_predio) + " " +
                         "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
@@ -136,7 +152,7 @@ public class LocalizarActivity extends BaseActivity {
                         "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
                         "" + getResources().getText(R.string.frase_salas) + " " +
                         "" + txtsalas;
-            }else{
+            } else {
                 texto = getResources().getText(R.string.frase_voce) + " " +
                         "" + getResources().getText(R.string.frase_predio) + " " +
                         "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
@@ -147,7 +163,7 @@ public class LocalizarActivity extends BaseActivity {
                         "" + getResources().getText(R.string.frase_sala) + " " +
                         "" + txtsalas;
             }
-        }else{
+        } else {
             texto = getResources().getText(R.string.frase_voce) + " " +
                     "" + getResources().getText(R.string.frase_predio) + " " +
                     "" + AppSetup.pontoRef.getLocal().getPredio() + " " +

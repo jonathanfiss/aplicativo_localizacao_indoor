@@ -15,8 +15,6 @@ public class PontoRef {
     private String bssidAnt2;
     private String bssidPost;
     private String bssidPost2;
-    private Boolean Situacao;
-    private Integer local_id;
     private Local local;
 
     public PontoRef() {
@@ -86,22 +84,6 @@ public class PontoRef {
         this.bssidPost2 = bssidPost2;
     }
 
-    public Boolean getSituacao() {
-        return Situacao;
-    }
-
-    public void setSituacao(Boolean situacao) {
-        Situacao = situacao;
-    }
-
-    public Integer getLocal_id() {
-        return local_id;
-    }
-
-    public void setLocal_id(Integer local_id) {
-        this.local_id = local_id;
-    }
-
     public Local getLocal() {
         return local;
     }
@@ -121,8 +103,6 @@ public class PontoRef {
                 ", bssidAnt2='" + bssidAnt2 + '\'' +
                 ", bssidPost='" + bssidPost + '\'' +
                 ", bssidPost2='" + bssidPost2 + '\'' +
-                ", Situacao=" + Situacao +
-                ", local_id=" + local_id +
                 ", local=" + local +
                 '}';
     }

@@ -17,6 +17,7 @@ public class AppSetup {
     public static List<Local> locais = new ArrayList<>();
 
     public static HashMap<String, String> listaMacs = new HashMap<String, String>();
+    public static HashMap<String, PontoRef> listaPontoRef = new HashMap<String, PontoRef>();
     public static HashMap<String, String> listaCorredores = new HashMap<String, String>();
     public static HashMap<String, String> listaSalas = new HashMap<String, String>();
 
@@ -26,7 +27,6 @@ public class AppSetup {
     public static Local local = null;
     public static Usuario usuario = null;
 
-    public static List<String> caminho = new ArrayList<>();
     public static List<Sala> salasProx = new ArrayList<>();
     public static List<PontoRef> pontosProx = new ArrayList<>();
 

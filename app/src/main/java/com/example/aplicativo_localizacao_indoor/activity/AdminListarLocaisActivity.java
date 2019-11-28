@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaLocaisAdapter;
+import com.example.aplicativo_localizacao_indoor.adapter.ListaPontosRefAdapter;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaSalasAdapter;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,13 +41,14 @@ public class AdminListarLocaisActivity extends BaseActivity {
 
         listaLocais.setAdapter(new ListaLocaisAdapter(AdminListarLocaisActivity.this, AppSetup.locais));
 
-
-        listaLocais.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listaLocais.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 dialogLongClink(position);
+                return true;
             }
         });
+
 
     }
 
@@ -57,7 +61,12 @@ public class AdminListarLocaisActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showWait(AdminListarLocaisActivity.this, R.string.builder_excluindo);
-
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("dados/locais").child(AppSetup.locais.get(position).getKey());
+                myRef.removeValue();
+                AppSetup.locais.remove(AppSetup.locais.get(position));
+                listaLocais.setAdapter(new ListaLocaisAdapter(AdminListarLocaisActivity.this, AppSetup.locais));
+                dismissWait();
             }
         });
         builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {

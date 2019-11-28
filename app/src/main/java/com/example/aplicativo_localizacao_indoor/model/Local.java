@@ -9,9 +9,6 @@ public class Local {
     private String descricao;
     private String corredor;
     private String predio;
-    private String data_hora_modificado;
-    private String modificado_por;
-    private Boolean situacao;
 
     public Local() {
     }
@@ -56,29 +53,6 @@ public class Local {
         this.predio = predio;
     }
 
-    public String getData_hora_modificado() {
-        return data_hora_modificado;
-    }
-
-    public void setData_hora_modificado(String data_hora_modificado) {
-        this.data_hora_modificado = data_hora_modificado;
-    }
-
-    public String getModificado_por() {
-        return modificado_por;
-    }
-
-    public void setModificado_por(String modificado_por) {
-        this.modificado_por = modificado_por;
-    }
-
-    public Boolean getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(Boolean situacao) {
-        this.situacao = situacao;
-    }
 
     @Override
     public String toString() {
@@ -88,9 +62,6 @@ public class Local {
                 ", descricao='" + descricao + '\'' +
                 ", corredor='" + corredor + '\'' +
                 ", predio='" + predio + '\'' +
-                ", data_hora_modificado='" + data_hora_modificado + '\'' +
-                ", modificado_por='" + modificado_por + '\'' +
-                ", situacao=" + situacao +
                 '}';
     }
 }

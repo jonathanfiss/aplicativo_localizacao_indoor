@@ -149,7 +149,6 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                     }
                 }
 
-                pontoRef.setSituacao(true);
                 Log.d("resultado", pontoRef.toString());
                 showWait(AdminCadastraPontoActivityDetalhe.this, R.string.builder_cadastro);
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

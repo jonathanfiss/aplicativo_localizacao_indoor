@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.ListaPontosRefAdapter;
+import com.example.aplicativo_localizacao_indoor.adapter.ListaSalasAdapter;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +58,12 @@ public class AdminListarPontoActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showWait(AdminListarPontoActivity.this, R.string.builder_excluindo);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("dados/pontosref").child(AppSetup.pontosRef.get(position).getKey());
+                myRef.removeValue();
+                AppSetup.pontosRef.remove(AppSetup.pontosRef.get(position));
+                listaPontoRef.setAdapter(new ListaPontosRefAdapter(AdminListarPontoActivity.this, AppSetup.pontosRef));
+                dismissWait();
 //excluir cadastro
             }
         });

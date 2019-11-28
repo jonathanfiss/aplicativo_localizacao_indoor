@@ -109,7 +109,6 @@ public class AdminCadastraLocalActivity extends BaseActivity {
                     local.setPredio(etPredio.getText().toString());
                     local.setCorredor(etCorredor.getText().toString());
                     local.setDescricao(etDescricaoLocal.getText().toString());
-                    local.setSituacao(true);
 
                     showWait(AdminCadastraLocalActivity.this, R.string.builder_cadastro);
                     FirebaseDatabase database = FirebaseDatabase.getInstance();

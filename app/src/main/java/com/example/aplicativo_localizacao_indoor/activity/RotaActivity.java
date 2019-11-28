@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.RotaAdapter;
 import com.example.aplicativo_localizacao_indoor.model.BuscaProfundidade;
+import com.example.aplicativo_localizacao_indoor.model.Rota;
 import com.example.aplicativo_localizacao_indoor.model.Sala;
 import com.example.aplicativo_localizacao_indoor.model.PontoRef;
 import com.example.aplicativo_localizacao_indoor.setup.AppSetup;
@@ -35,6 +36,7 @@ public class RotaActivity extends BaseActivity {
     private int origem, destino;
     private boolean flag;
     private BuscaProfundidade buscaProfundidade;
+    private List<Rota> rotas = new ArrayList<>();
 
 
     @Override
@@ -76,7 +78,7 @@ public class RotaActivity extends BaseActivity {
         });
     }
 
-    class TaskRota extends AsyncTask<BuscaProfundidade, List<String>, Void> {
+    class TaskRota extends AsyncTask<BuscaProfundidade, List<Rota>, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -89,7 +91,6 @@ public class RotaActivity extends BaseActivity {
         protected Void doInBackground(BuscaProfundidade... buscaProfundidades) {
             List<ScanResult> scanResults;
             mapMacs = new HashMap<Integer, String>();
-            List<String> caminho = new ArrayList<>();
             int principal = 0;
             int i = -1;
             if (!mapMacs.isEmpty()) {
@@ -193,16 +194,29 @@ public class RotaActivity extends BaseActivity {
                 }
 
 
-                Log.d("matriz", buscaProfundidade.toString());
-                Log.d("matriz", buscaProfundidade.toString2(mapMacs));
-                Log.d("matriz", buscaProfundidade.getCaminho(origem, destino).toString());
-                caminho.clear();
-                if (!buscaProfundidade.getCaminho(origem, destino).isEmpty()) {
-                    for (Integer ponto : buscaProfundidade.getCaminho(origem, destino)) {
-                        AppSetup.caminho.add(mapMacs.get(ponto));
+//                Log.d("matriz", buscaProfundidade.toString());
+//                Log.d("matriz", buscaProfundidade.toString2(mapMacs));
+                List<Integer> caminho = buscaProfundidade.getCaminho(origem, destino);
+                Log.d("matriz", caminho.toString());
+                if (!caminho.isEmpty()) {
+                    Rota rota = new Rota();
+                    rotas.clear();
+                    for (Integer id : caminho) {
+                        rota.setId(id);
+                        rota.setBssid(mapMacs.get(id));
+                        for (PontoRef pontoRef : AppSetup.pontosRef){
+//                            Log.d("id", String.valueOf(pontoRef.getBssid().contains(mapMacs.get(id))));
+                            if (pontoRef.getBssid().contains(formataBSSID(mapMacs.get(id)))){
+                                rota.setLocal(pontoRef.getLocal());
+                            }
+                        }
+                        rotas.add(rota);
+                        Log.d("id", rotas.toString());
                     }
                 }
-                publishProgress(caminho);
+                Log.d("caminho", rotas.toString());
+
+                publishProgress(rotas);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -211,10 +225,10 @@ public class RotaActivity extends BaseActivity {
         }
 
         @Override
-        protected void onProgressUpdate(List<String>... values) {
+        protected void onProgressUpdate(List<Rota>... values) {
             super.onProgressUpdate(values);
 //            tvRota.setText(AppSetup.caminho.toString());
-            lvRota.setAdapter(new RotaAdapter(RotaActivity.this, values));
+//            lvRota.setAdapter(new RotaAdapter(RotaActivity.this, values));
         }
 
         @Override

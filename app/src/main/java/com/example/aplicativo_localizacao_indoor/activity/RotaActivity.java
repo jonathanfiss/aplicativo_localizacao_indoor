@@ -197,9 +197,9 @@ public class RotaActivity extends BaseActivity {
                 List<Integer> caminho = buscaProfundidade.getCaminho(origem, destino);
                 Log.d("matriz", caminho.toString());
                 if (!caminho.isEmpty()) {
-                    Rota rota = new Rota();
                     AppSetup.rotas.clear();
                     for (Integer id : caminho) {
+                        Rota rota = new Rota();
                         rota.setId(id);
                         rota.setBssid(mapMacs.get(id));
                         for (PontoRef pontoRef : AppSetup.pontosRef) {

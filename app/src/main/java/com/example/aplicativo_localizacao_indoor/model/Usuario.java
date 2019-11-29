@@ -12,16 +12,17 @@ public class Usuario {
     private String funcao;
     private String email;
     private boolean situacao;
-    @Exclude
     private String key;
 
     public Usuario() {
     }
 
+    @Exclude
     public FirebaseUser getFirebaseUser() {
         return firebaseUser;
     }
 
+    @Exclude
     public void setFirebaseUser(FirebaseUser firebaseUser) {
         this.firebaseUser = firebaseUser;
     }

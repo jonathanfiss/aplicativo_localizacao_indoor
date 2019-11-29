@@ -52,7 +52,6 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this, RotaActivity.class));
             }
         });
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,8 +63,8 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuitem_adm:
-//                startActivity(new Intent(MainActivity.this, LoginActivity.class ));
-                startActivity(new Intent(MainActivity.this, AdminMainActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class ));
+//                startActivity(new Intent(MainActivity.this, AdminMainActivity.class));
                 break;
         }
         return true;

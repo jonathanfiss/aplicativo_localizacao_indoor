@@ -11,16 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.aplicativo_localizacao_indoor.R;
+import com.example.aplicativo_localizacao_indoor.model.Rota;
 import com.example.aplicativo_localizacao_indoor.model.WiFiDetalhe;
 
 import java.util.List;
 
-public class RotaAdapter extends ArrayAdapter<WiFiDetalhe> {
+public class RotaAdapter extends ArrayAdapter<Rota> {
 
     private Context context;
 
-    public RotaAdapter(@NonNull Context context, @NonNull List<String>[] wiFiDetalhes) {
-        super(context, 0, (WiFiDetalhe[]) wiFiDetalhes);
+    public RotaAdapter(@NonNull Context context, @NonNull List<Rota> rotas) {
+        super(context, 0, (List<Rota>) rotas);
         this.context = context;
     }
 
@@ -28,7 +29,7 @@ public class RotaAdapter extends ArrayAdapter<WiFiDetalhe> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //Devolve o objeto do modelo
-        WiFiDetalhe wiFiDetalhes = getItem(position);
+        Rota rotas = getItem(position);
 
         //infla a view
         if (convertView == null) {

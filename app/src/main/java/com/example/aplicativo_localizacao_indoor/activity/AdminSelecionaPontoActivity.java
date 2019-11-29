@@ -26,7 +26,7 @@ import static com.example.aplicativo_localizacao_indoor.setup.AppSetup.wiFiDetal
 public class AdminSelecionaPontoActivity extends BaseActivity {
     private ListView lv_select_pontos_ref;
     private int executa = 0;
-    private int temponovabusca = 5000; //tempo em milisegundos
+    private int temponovabusca = 3000; //tempo em milisegundos
     private boolean flag;
 
 
@@ -101,23 +101,9 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
                                 }
                             }
                         }
-                        if (AppSetup.pontoAnt != null) {
-                            for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
-                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoAnt.getBSSID()))) {
-                                    AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
-                                }
-                            }
-                        }
                         if (AppSetup.pontoPost2 != null) {
                             for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
                                 if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoPost2.getBSSID()))) {
-                                    AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
-                                }
-                            }
-                        }
-                        if (AppSetup.pontoAnt2 != null) {
-                            for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
-                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoAnt2.getBSSID()))) {
                                     AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
                                 }
                             }

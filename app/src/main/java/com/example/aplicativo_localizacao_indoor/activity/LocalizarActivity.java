@@ -72,10 +72,7 @@ public class LocalizarActivity extends BaseActivity {
                                 break;
                             }
                         }
-                    } else {
-                        msn = true;
-                        mensagem = "O local não foi localizado";
-                    }//else seria se o local não foi localizado
+                    }
                     for (Sala sala : AppSetup.salas) {
                         if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox1()))) {
                             AppSetup.salasProx.add(sala);
@@ -103,11 +100,7 @@ public class LocalizarActivity extends BaseActivity {
                 dismissWait();
                 flag = false;
             }
-            if (msn) {
-                tvLocaliza.setText(mensagem);
-            } else {
-                setText();
-            }
+            setText();
         }
 
         @Override
@@ -117,11 +110,7 @@ public class LocalizarActivity extends BaseActivity {
                 dismissWait();
                 flag = false;
             }
-            if (msn) {
-                tvLocaliza.setText(mensagem);
-            } else {
-                setText();
-            }
+            setText();
         }
     }
 
@@ -130,49 +119,54 @@ public class LocalizarActivity extends BaseActivity {
         String texto;
         int cont = 0;
         int tamanho = AppSetup.salasProx.size();
-        for (Sala sala : AppSetup.salasProx) {
-            if (txtsalas.isEmpty()) {
-                txtsalas = sala.getNome();
+        if (AppSetup.pontoRef != null) {
+            for (Sala sala : AppSetup.salasProx) {
+                if (txtsalas.isEmpty()) {
+                    txtsalas = sala.getNome();
+                } else {
+                    txtsalas.concat(sala.getNome());
+                }
+                cont++;
+                if (tamanho > cont) {
+                    txtsalas.concat(", ");
+                }
+            }
+            if (tamanho != 0) {
+                if (tamanho > 1) {
+                    texto = getResources().getText(R.string.frase_voce) + " " +
+                            "" + getResources().getText(R.string.frase_predio) + " " +
+                            "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
+                            "" + getResources().getText(R.string.frase_andar) + " " +
+                            "" + AppSetup.pontoRef.getLocal().getAndar() + " " +
+                            "" + getResources().getText(R.string.frase_corredor) + " " +
+                            "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
+                            "" + getResources().getText(R.string.frase_salas) + " " +
+                            "" + txtsalas;
+                } else {
+                    texto = getResources().getText(R.string.frase_voce) + " " +
+                            "" + getResources().getText(R.string.frase_predio) + " " +
+                            "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
+                            "" + getResources().getText(R.string.frase_andar) + " " +
+                            "" + AppSetup.pontoRef.getLocal().getAndar() + " " +
+                            "" + getResources().getText(R.string.frase_corredor) + " " +
+                            "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
+                            "" + getResources().getText(R.string.frase_sala) + " " +
+                            "" + txtsalas;
+                }
             } else {
-                txtsalas.concat(sala.getNome());
-            }
-            cont++;
-            if (tamanho > cont) {
-                txtsalas.concat(", ");
-            }
-        }
-        if (tamanho != 0) {
-            if (tamanho > 1) {
                 texto = getResources().getText(R.string.frase_voce) + " " +
                         "" + getResources().getText(R.string.frase_predio) + " " +
                         "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
                         "" + getResources().getText(R.string.frase_andar) + " " +
                         "" + AppSetup.pontoRef.getLocal().getAndar() + " " +
                         "" + getResources().getText(R.string.frase_corredor) + " " +
-                        "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
-                        "" + getResources().getText(R.string.frase_salas) + " " +
-                        "" + txtsalas;
-            } else {
-                texto = getResources().getText(R.string.frase_voce) + " " +
-                        "" + getResources().getText(R.string.frase_predio) + " " +
-                        "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
-                        "" + getResources().getText(R.string.frase_andar) + " " +
-                        "" + AppSetup.pontoRef.getLocal().getAndar() + " " +
-                        "" + getResources().getText(R.string.frase_corredor) + " " +
-                        "" + AppSetup.pontoRef.getLocal().getCorredor() + " " +
-                        "" + getResources().getText(R.string.frase_sala) + " " +
-                        "" + txtsalas;
+                        "" + AppSetup.pontoRef.getLocal().getCorredor();
             }
-        } else {
-            texto = getResources().getText(R.string.frase_voce) + " " +
-                    "" + getResources().getText(R.string.frase_predio) + " " +
-                    "" + AppSetup.pontoRef.getLocal().getPredio() + " " +
-                    "" + getResources().getText(R.string.frase_andar) + " " +
-                    "" + AppSetup.pontoRef.getLocal().getAndar() + " " +
-                    "" + getResources().getText(R.string.frase_corredor) + " " +
-                    "" + AppSetup.pontoRef.getLocal().getCorredor();
+            tvLocaliza.setText(texto);
+        }else{
+            tvLocaliza.setText("Nenhum ponto de Referência localizado");
         }
-        tvLocaliza.setText(texto);
+
     }
 
 

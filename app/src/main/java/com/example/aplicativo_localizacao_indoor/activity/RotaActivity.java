@@ -226,7 +226,7 @@ public class RotaActivity extends BaseActivity {
         protected void onProgressUpdate(List<Rota>... values) {
             super.onProgressUpdate(values);
 //            tvRota.setText(AppSetup.caminho.toString());
-//            lvRota.setAdapter(new RotaAdapter(RotaActivity.this, values));
+            lvRota.setAdapter(new RotaAdapter(RotaActivity.this, AppSetup.rotas));
         }
 
         @Override

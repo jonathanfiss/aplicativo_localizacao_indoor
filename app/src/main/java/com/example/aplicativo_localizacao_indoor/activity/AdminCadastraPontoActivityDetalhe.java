@@ -158,6 +158,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_cadastra_sucesso), Toast.LENGTH_SHORT).show();
+                                dismissWait();
                                 finish();
                             }
                         })
@@ -165,6 +166,7 @@ public class AdminCadastraPontoActivityDetalhe extends BaseActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(AdminCadastraPontoActivityDetalhe.this, getString(R.string.toast_erro_cadastra), Toast.LENGTH_SHORT).show();
+                                dismissWait();
                             }
                         });
             }

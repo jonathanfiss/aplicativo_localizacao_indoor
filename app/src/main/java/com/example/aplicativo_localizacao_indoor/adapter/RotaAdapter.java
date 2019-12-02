@@ -19,6 +19,7 @@ import java.util.List;
 public class RotaAdapter extends ArrayAdapter<Rota> {
 
     private Context context;
+    private boolean ocorrencias = false;
 
     public RotaAdapter(@NonNull Context context, @NonNull List<Rota> rotas) {
         super(context, 0, (List<Rota>) rotas);
@@ -39,11 +40,13 @@ public class RotaAdapter extends ArrayAdapter<Rota> {
         //mapeia os componentes da UI para vincular os dados do objeto de modelo
         TextView etInfoRota = convertView.findViewById(R.id.etInfoRota);
 
-
         //vincula os dados do objeto de modelo à view
-        etInfoRota.setText(rotas.getLocal().getCorredor());
-
-
+        if (ocorrencias){
+            etInfoRota.setText("Você deve continuar pelo prédio ".concat(rotas.getLocal().getPredio()).concat(" Andar ").concat(rotas.getLocal().getAndar().toString()).concat(" pelo corredor ").concat(rotas.getLocal().getCorredor()));
+        }else{
+            etInfoRota.setText("Você deve ir para o prédio ".concat(rotas.getLocal().getPredio()).concat(" Andar ").concat(rotas.getLocal().getAndar().toString()).concat(" pelo corredor ").concat(rotas.getLocal().getCorredor()));
+        ocorrencias=true;
+        }
         return convertView;
     }
 }

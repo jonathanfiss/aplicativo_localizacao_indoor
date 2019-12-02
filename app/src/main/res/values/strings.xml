@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Localização Indoor</string>
+    <string name="app_name">IFlocaliza</string>
 
     <string name="menu_adm">Administrador</string>
     <string name="title_activity_main2">Main2Activity</string>

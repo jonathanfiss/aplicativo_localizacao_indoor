@@ -12,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.adapter.RotaAdapter;
@@ -72,7 +73,11 @@ public class RotaActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 buscaProfundidade = new BuscaProfundidade(contaMacs());
-                new TaskRota().execute();
+                if (AppSetup.listaSalas.containsValue(acBuscaRota.getText().toString().toLowerCase())) {
+                    new TaskRota().execute();
+                }else{
+                    Toast.makeText(RotaActivity.this, "Sala não encontrada", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

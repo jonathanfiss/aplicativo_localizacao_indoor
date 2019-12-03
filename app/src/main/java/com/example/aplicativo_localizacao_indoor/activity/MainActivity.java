@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aplicativo_localizacao_indoor.R;
 import com.example.aplicativo_localizacao_indoor.model.Local;
@@ -38,6 +39,9 @@ public class MainActivity extends BaseActivity {
         buscaPontosRef();
         buscaSalas();
 
+
+
+
         TextView tvMensagemBoasVindas = findViewById(R.id.tvMensagemBoasVindas);
 
         btLocalizar.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +56,21 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this, RotaActivity.class));
             }
         });
+
+//        try {
+//            Thread.sleep(7000);
+//            if (AppSetup.locais.isEmpty()) {
+//                Toast.makeText(MainActivity.this, "Falha ao acessar dados", Toast.LENGTH_SHORT).show();
+//            }
+//            if (AppSetup.pontosRef.isEmpty()) {
+//                Toast.makeText(MainActivity.this, "Falha ao acessar dados", Toast.LENGTH_SHORT).show();
+//            }
+//            if (AppSetup.salas.isEmpty()) {
+//                Toast.makeText(MainActivity.this, "Falha ao acessar dados", Toast.LENGTH_SHORT).show();
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -4,6 +4,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ public class LocalizarActivity extends BaseActivity {
     List<ScanResult> scanResults;
     private boolean flag;
     private boolean msn;
-    private String mensagem;
+    private String texto, txtsalas = "";
 
 
     @Override
@@ -39,6 +40,7 @@ public class LocalizarActivity extends BaseActivity {
         if (AppSetup.pontosRef == null || AppSetup.pontosRef.isEmpty()) {
             buscaPontosRef();
         } else {
+            AppSetup.salasProx.clear();
             new TaskPonto().execute();
         }
     }
@@ -57,13 +59,16 @@ public class LocalizarActivity extends BaseActivity {
         protected List<WiFiDetalhe> doInBackground(Void... voids) {
             List<ScanResult> scanResults;
             try {
+                AppSetup.pontoRef = new PontoRef();
+                AppSetup.salasProx.clear();
+                texto = "";
+                txtsalas = "";
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 wifiManager.startScan();
-                scanResults = wifiManager.getScanResults();
                 AppSetup.wiFiDetalhes.clear();
-                if (scanResults.isEmpty()) {
+                 do{
                     scanResults = wifiManager.getScanResults();
-                }
+                }while(scanResults.isEmpty());
                 for (ScanResult result : scanResults) {
                     if (AppSetup.listaMacs.containsValue(result.BSSID)) {
                         for (PontoRef pontoRef : AppSetup.pontosRef) {
@@ -74,15 +79,29 @@ public class LocalizarActivity extends BaseActivity {
                         }
                     }
                     for (Sala sala : AppSetup.salas) {
-                        if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox1()))) {
-                            AppSetup.salasProx.add(sala);
-                            break;
-                        } else if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox2()))) {
-                            AppSetup.salasProx.add(sala);
-                            break;
-                        } else if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox3()))) {
-                            AppSetup.salasProx.add(sala);
-                            break;
+                        if (sala.getBssid_prox1() != null) {
+                            if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox1()))) {
+                                if (!AppSetup.salasProx.contains(sala)){
+                                    AppSetup.salasProx.add(sala);
+                                }
+                                break;
+                            }
+                        }
+                        if (sala.getBssid_prox2() != null) {
+                            if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox2()))) {
+                                if (!AppSetup.salasProx.contains(sala)){
+                                    AppSetup.salasProx.add(sala);
+                                }
+                                break;
+                            }
+                        }
+                        if (sala.getBssid_prox3() != null) {
+                            if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox3()))) {
+                                if (!AppSetup.salasProx.contains(sala)){
+                                    AppSetup.salasProx.add(sala);
+                                }
+                                break;
+                            }
                         }
                     }
                 }
@@ -101,6 +120,8 @@ public class LocalizarActivity extends BaseActivity {
                 flag = false;
             }
             setText();
+            Log.d("salaprox", AppSetup.salasProx.toString());
+
         }
 
         @Override
@@ -115,8 +136,8 @@ public class LocalizarActivity extends BaseActivity {
     }
 
     public void setText() {
-        String txtsalas = "";
-        String texto;
+        texto = "";
+        txtsalas = "";
         int cont = 0;
         int tamanho = AppSetup.salasProx.size();
         if (AppSetup.pontoRef != null) {
@@ -124,13 +145,16 @@ public class LocalizarActivity extends BaseActivity {
                 if (txtsalas.isEmpty()) {
                     txtsalas = sala.getNome();
                 } else {
-                    txtsalas.concat(sala.getNome());
+                    txtsalas = txtsalas.concat(sala.getNome());
                 }
                 cont++;
                 if (tamanho > cont) {
-                    txtsalas.concat(", ");
+                    txtsalas = txtsalas.concat(", ");
                 }
+                Log.d("sala", txtsalas);
+
             }
+
             if (tamanho != 0) {
                 if (tamanho > 1) {
                     texto = getResources().getText(R.string.frase_voce) + " " +
@@ -163,7 +187,7 @@ public class LocalizarActivity extends BaseActivity {
                         "" + AppSetup.pontoRef.getLocal().getCorredor();
             }
             tvLocaliza.setText(texto);
-        }else{
+        } else {
             tvLocaliza.setText("Nenhum ponto de Referência localizado");
         }
 

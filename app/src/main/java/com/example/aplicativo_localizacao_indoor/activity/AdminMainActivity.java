@@ -44,8 +44,8 @@ public class AdminMainActivity extends AppCompatActivity
 
 //        tvUsuarioEmail.setText(AppSetup.usuario.getNome().concat(" ").concat(AppSetup.usuario.getSobrenome()));
 //        tvUsuarioNome.setText(AppSetup.usuario.getFuncao());
-        tvUsuarioEmail.setText("Administrador");
-        tvUsuarioNome.setText("Jonathan");
+        tvUsuarioEmail.setText("Área Administrativa");
+        tvUsuarioNome.setText("IFlocaliza");
 
         btCadastrarPonto = findViewById(R.id.btCadastrarPonto);
         btCadastrarLocal = findViewById(R.id.btCadastrarLocal);

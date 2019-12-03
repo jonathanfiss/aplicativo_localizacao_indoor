@@ -158,6 +158,7 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
+
                 Log.w("Locais", "Failed to read value.", error.toException());
             }
         });

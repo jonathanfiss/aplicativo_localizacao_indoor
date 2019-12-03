@@ -123,7 +123,7 @@
     <string name="title_opcao">Qual opção você deseja realizar?</string>
 
     <string name="frase_voce">Você está</string>
-    <string name="frase_predio">no predio </string>
+    <string name="frase_predio">no prédio </string>
     <string name="frase_andar">no andar</string>
     <string name="frase_corredor">no corredor</string>
     <string name="frase_salas">próximo das salas</string>

@@ -34,7 +34,7 @@ public class RotaActivity extends BaseActivity {
     private AutoCompleteTextView acBuscaRota;
     private String macs[];
     private HashMap<Integer, String> mapMacs;
-    private int origem, destino;
+    private int origem = -1, destino;
     private boolean flag;
     private BuscaProfundidade buscaProfundidade;
 
@@ -75,7 +75,7 @@ public class RotaActivity extends BaseActivity {
                 buscaProfundidade = new BuscaProfundidade(contaMacs());
                 if (AppSetup.listaSalas.containsValue(acBuscaRota.getText().toString().toLowerCase())) {
                     new TaskRota().execute();
-                }else{
+                } else {
                     Toast.makeText(RotaActivity.this, "Sala não encontrada", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -94,15 +94,17 @@ public class RotaActivity extends BaseActivity {
         @Override
         protected Void doInBackground(BuscaProfundidade... buscaProfundidades) {
             List<ScanResult> scanResults;
+            List<Integer> caminho = null;
             mapMacs = new HashMap<Integer, String>();
             int principal = 0;
             int i = -1;
+
             if (!mapMacs.isEmpty()) {
                 mapMacs.clear();
             }
             try {
+                /////verifica se o mac está salvo no banco e adiciona a aresta
                 for (PontoRef pontoRef1 : AppSetup.pontosRef) {
-                    /////defini o vertice principal
                     if (mapMacs.containsValue(formataBSSID(pontoRef1.getBssid()))) {
                         for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
                             if (map.getValue().equals(formataBSSID(pontoRef1.getBssid()))) {
@@ -116,26 +118,12 @@ public class RotaActivity extends BaseActivity {
                         mapMacs.put(i, formataBSSID(pontoRef1.getBssid()));
                         principal = i;
                     }
-//            Log.d("A ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
                     if (pontoRef1.getBssidPost() != null) {
                         if (!pontoRef1.getBssidPost().isEmpty()) {
-//                    if (mapMacs.containsValue(pontoRef1.getBssidPost())) {
-//                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
-//                            if (map.getValue().equals(pontoRef1.getBssidPost())) {
-//                                if (!map.getValue().equals(principal)) {
-//                                    mapMacs.put(map.getKey(), pontoRef1.getBssidPost());
-//                                    buscaProfundidade.adicionaAresta(principal, map.getKey());
-//                                    break;
-//                                }
-//                            }
-//                        }
-//                    } else {
                             i++;
                             mapMacs.put(i, formataBSSID(pontoRef1.getBssidPost()));
                             buscaProfundidade.adicionaAresta(principal, i);
-//                    }
                         }
-//                Log.d("D ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
                     }
                     if (pontoRef1.getBssidPost2() != null) {
                         if (!pontoRef1.getBssidPost2().isEmpty()) {
@@ -155,7 +143,6 @@ public class RotaActivity extends BaseActivity {
                             buscaProfundidade.adicionaAresta(principal, i);
 //                    }
                         }
-//                Log.d("E ".concat(String.valueOf(i)), buscaProfundidade.toString2(mapMacs));
                     }
                 }
 
@@ -177,29 +164,34 @@ public class RotaActivity extends BaseActivity {
                         }
                     }
                 }
-                if (AppSetup.listaSalas.containsValue(acBuscaRota.getText().toString().toLowerCase())) {
-                    second:
-                    for (Sala sala : AppSetup.salas) {
-                        if (sala.getNome().equalsIgnoreCase(String.valueOf(acBuscaRota.getText()))) {
-                            for (PontoRef pontoRef : AppSetup.pontosRef) {
-                                if (pontoRef.getBssid().equals(sala.getBssid_prox1()) || pontoRef.getBssid().equals(sala.getBssid_prox2()) || pontoRef.getBssid().equals(sala.getBssid_prox3())) {
-                                    Log.d("aqui", "chegou eeeee");
-                                    for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
-                                        if (map.getValue().equals(formataBSSID(pontoRef.getBssid()))) {
-                                            destino = map.getKey();
-                                            break second;
+                if (origem != -1){
+                    if (AppSetup.listaSalas.containsValue(acBuscaRota.getText().toString().toLowerCase())) {
+                        second:
+                        for (Sala sala : AppSetup.salas) {
+                            if (sala.getNome().equalsIgnoreCase(String.valueOf(acBuscaRota.getText()))) {
+                                for (PontoRef pontoRef : AppSetup.pontosRef) {
+                                    if (pontoRef.getBssid().equals(sala.getBssid_prox1()) || pontoRef.getBssid().equals(sala.getBssid_prox2()) || pontoRef.getBssid().equals(sala.getBssid_prox3())) {
+                                        Log.d("aqui", "chegou eeeee");
+                                        for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
+                                            if (map.getValue().equals(formataBSSID(pontoRef.getBssid()))) {
+                                                destino = map.getKey();
+                                                break second;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                }else{
+                    publishProgress(AppSetup.rotas);
                 }
+
 
 
 //                Log.d("matriz", buscaProfundidade.toString());
 //                Log.d("matriz", buscaProfundidade.toString2(mapMacs));
-                List<Integer> caminho = buscaProfundidade.getCaminho(origem, destino);
+                caminho = buscaProfundidade.getCaminho(origem, destino);
                 Log.d("matriz", caminho.toString());
                 if (!caminho.isEmpty()) {
                     AppSetup.rotas.clear();
@@ -216,6 +208,8 @@ public class RotaActivity extends BaseActivity {
                         AppSetup.rotas.add(rota);
                         Log.d("id", rota.toString());
                     }
+                }else{
+                    AppSetup.rotas.clear();
                 }
                 Log.d("caminho", AppSetup.rotas.toString());
 
@@ -230,17 +224,22 @@ public class RotaActivity extends BaseActivity {
         @Override
         protected void onProgressUpdate(List<Rota>... values) {
             super.onProgressUpdate(values);
-//            tvRota.setText(AppSetup.caminho.toString());
-            lvRota.setAdapter(new RotaAdapter(RotaActivity.this, AppSetup.rotas));
+            if (flag) {
+                dismissWait();
+                flag = false;
+                if (origem != -1){
+                    lvRota.setAdapter(new RotaAdapter(RotaActivity.this, AppSetup.rotas));
+                }else{
+                    Toast.makeText(RotaActivity.this, "Local de origin não encontrada", Toast.LENGTH_SHORT).show();
+                }
+            }
+
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if (flag) {
-                dismissWait();
-                flag = false;
-            }
+
         }
     }
 

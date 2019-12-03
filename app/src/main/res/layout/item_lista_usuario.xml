@@ -37,18 +37,19 @@
 
             <TextView
                 android:id="@+id/tvEmailAdapter"
-                android:layout_width="267dp"
+                android:layout_width="0dp"
                 android:layout_height="26dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:hint="@string/hint_email"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvNomeAdapter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvNomeAdapter" />
 
             <TextView
                 android:id="@+id/tvFuncaoAdapter1"
-                android:layout_width="116dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -63,7 +64,7 @@
 
             <TextView
                 android:id="@+id/tvMatriculaAdapter"
-                android:layout_width="143dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -72,32 +73,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvEmailAdapter" />
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvEmailAdapter"
-                app:layout_constraintTop_toBottomOf="@+id/tvNomeAdapter"
-                app:srcCompat="@drawable/ic_delete_white_24dp" />
-
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageButton"
-                app:layout_constraintTop_toBottomOf="@+id/tvNomeAdapter"
-                app:srcCompat="@drawable/ic_edit_white_24dp" />
 
         </android.support.constraint.ConstraintLayout>
 

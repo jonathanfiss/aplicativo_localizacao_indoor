@@ -75,12 +75,15 @@ public class AdminCadastraPontoActivity extends BaseActivity {
                     List<ScanResult> scanResults = wifiManager.getScanResults();
                     AppSetup.wiFiDetalhes.clear();
                     for (ScanResult result : scanResults) {
-                        WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
-                        wiFiDetalhes.setBSSID(result.BSSID);
-                        wiFiDetalhes.setSSID(result.SSID);
-                        wiFiDetalhes.setWiFiSignal(result.level);
-                        wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
-                        AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                        if (!AppSetup.listaMacs.containsValue(formataBSSID(result.BSSID))){
+                            WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
+                            wiFiDetalhes.setBSSID(result.BSSID);
+                            wiFiDetalhes.setSSID(result.SSID);
+                            wiFiDetalhes.setWiFiSignal(result.level);
+                            wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+
+                            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                        }
                     }
                     publishProgress(AppSetup.wiFiDetalhes);
 

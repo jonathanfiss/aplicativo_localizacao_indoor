@@ -155,7 +155,7 @@ public class RotaActivity extends BaseActivity {
                 AppSetup.wiFiDetalhes.clear();
                 first:
                 for (ScanResult result : scanResults) {
-                    if (AppSetup.listaMacs.containsValue(result.BSSID)) {
+                    if (AppSetup.listaMacs.containsValue(formataBSSID(result.BSSID))) {
                         for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
                             if (map.getValue().equals(formataBSSID(result.BSSID))) {
                                 origem = map.getKey();
@@ -187,10 +187,8 @@ public class RotaActivity extends BaseActivity {
                     publishProgress(AppSetup.rotas);
                 }
 
-
-
 //                Log.d("matriz", buscaProfundidade.toString());
-//                Log.d("matriz", buscaProfundidade.toString2(mapMacs));
+                Log.d("matriz", buscaProfundidade.toString2(mapMacs));
                 caminho = buscaProfundidade.getCaminho(origem, destino);
                 Log.d("matriz", caminho.toString());
                 if (!caminho.isEmpty()) {

@@ -166,9 +166,8 @@ public class BaseActivity extends AppCompatActivity {
 
     public void hashMapMacs() {
         AppSetup.listaMacs.clear();
-        AppSetup.listaMacs.clear();
         for (PontoRef pontoRef : AppSetup.pontosRef) {
-            AppSetup.listaMacs.put(pontoRef.getKey(), pontoRef.getBssid());
+            AppSetup.listaMacs.put(pontoRef.getKey(), formataBSSID(pontoRef.getBssid()));
             AppSetup.listaPontoRef.put(pontoRef.getBssid(), pontoRef);
         }
     }

@@ -188,6 +188,8 @@ public class RotaActivity extends BaseActivity {
                 }
 
 //                Log.d("matriz", buscaProfundidade.toString());
+                Log.d("origin", String.valueOf(origem));
+                Log.d("destino", String.valueOf(destino));
                 Log.d("matriz", buscaProfundidade.toString2(mapMacs));
                 caminho = buscaProfundidade.getCaminho(origem, destino);
                 Log.d("matriz", caminho.toString());

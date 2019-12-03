@@ -139,7 +139,7 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                 AppSetup.wiFiDetalhes.clear();
                 first:
                 for (ScanResult result : scanResults) {
-                    if (AppSetup.listaMacs.containsValue(result.BSSID)) {
+                    if (AppSetup.listaMacs.containsValue(formataBSSID(result.BSSID))) {
                         for (PontoRef pontoRef : AppSetup.pontosRef) {
                             if (formataBSSID(result.BSSID).equals(formataBSSID(pontoRef.getBssid()))) {
                                 AppSetup.pontosProx.add(pontoRef);
@@ -174,8 +174,8 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                 }else if (i == 2){
                     sala.setBssid_prox2(pontoRef.getBssid());
                     i++;
-                }else if (i == 3){
-                    sala.setBssid_prox3(pontoRef.getBssid());
+//                }else if (i == 3){
+//                    sala.setBssid_prox3(pontoRef.getBssid());
                 }
             }
             FirebaseDatabase database = FirebaseDatabase.getInstance();

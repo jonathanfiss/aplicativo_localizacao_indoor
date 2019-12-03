@@ -70,7 +70,7 @@ public class LocalizarActivity extends BaseActivity {
                     scanResults = wifiManager.getScanResults();
                 }while(scanResults.isEmpty());
                 for (ScanResult result : scanResults) {
-                    if (AppSetup.listaMacs.containsValue(result.BSSID)) {
+                    if (AppSetup.listaMacs.containsValue(formataBSSID(result.BSSID))) {
                         for (PontoRef pontoRef : AppSetup.pontosRef) {
                             if (formataBSSID(result.BSSID).equals(formataBSSID(pontoRef.getBssid()))) {
                                 AppSetup.pontoRef = pontoRef;

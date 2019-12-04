@@ -85,32 +85,32 @@ public class AdminSelecionaPontoActivity extends BaseActivity {
 
                     Log.d("listscan", scanResults.toString());
                     for (ScanResult result : scanResults) {
+                        if (!AppSetup.listaMacs.containsValue(formataBSSID(result.BSSID))) {
 
-                        if (!formataBSSID(result.BSSID).equals(formataBSSID(AppSetup.pontoWiFi.getBSSID()))) {
-                            WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
-                            wiFiDetalhes.setBSSID(result.BSSID);
-                            wiFiDetalhes.setSSID(result.SSID);
-                            wiFiDetalhes.setWiFiSignal(result.level);
-                            wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
-                            AppSetup.wiFiDetalhes.add(wiFiDetalhes);
-                        }
-                        if (AppSetup.pontoPost != null) {
-                            for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
-                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoPost.getBSSID()))) {
-                                    AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
+                            if (!formataBSSID(result.BSSID).equals(formataBSSID(AppSetup.pontoWiFi.getBSSID()))) {
+                                WiFiDetalhe wiFiDetalhes = new WiFiDetalhe();
+                                wiFiDetalhes.setBSSID(result.BSSID);
+                                wiFiDetalhes.setSSID(result.SSID);
+                                wiFiDetalhes.setWiFiSignal(result.level);
+                                wiFiDetalhes.setDistacia(wiFiDetalhes.calculaDistancia(result.frequency, result.level));
+                                AppSetup.wiFiDetalhes.add(wiFiDetalhes);
+                            }
+                            if (AppSetup.pontoPost != null) {
+                                for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
+                                    if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoPost.getBSSID()))) {
+                                        AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
+                                    }
                                 }
                             }
-                        }
-                        if (AppSetup.pontoPost2 != null) {
-                            for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
-                                if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoPost2.getBSSID()))) {
-                                    AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
+                            if (AppSetup.pontoPost2 != null) {
+                                for (WiFiDetalhe wiFiDetalhe : AppSetup.wiFiDetalhes) {
+                                    if (formataBSSID(wiFiDetalhe.getBSSID()).equals(formataBSSID(AppSetup.pontoPost2.getBSSID()))) {
+                                        AppSetup.wiFiDetalhes.remove(wiFiDetalhe);
+                                    }
                                 }
                             }
                         }
                     }
-
-
                     publishProgress(AppSetup.wiFiDetalhes);
                     Thread.sleep(temponovabusca);
                 }

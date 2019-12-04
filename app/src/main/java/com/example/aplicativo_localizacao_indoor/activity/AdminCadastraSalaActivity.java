@@ -140,15 +140,11 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                 first:
                 for (ScanResult result : scanResults) {
                     if (AppSetup.listaMacs.containsValue(formataBSSID(result.BSSID))) {
-                        for (PontoRef pontoRef : AppSetup.pontosRef) {
-                            if (formataBSSID(result.BSSID).equals(formataBSSID(pontoRef.getBssid()))) {
-                                AppSetup.pontosProx.add(pontoRef);
+                                AppSetup.pontosProx.add(formataBSSID(result.BSSID));
                                 qtd++;
-                            }
-                            if (qtd == 3) {
+                            if (qtd == 2) {
                                 break first;
                             }
-                        }
                     }//else seria se o local não foi localizado
                     //txSelecionados
                 }
@@ -167,12 +163,12 @@ public class AdminCadastraSalaActivity extends BaseActivity {
                 flag = false;
             }
             int i = 1;
-            for (PontoRef pontoRef : AppSetup.pontosProx){
+            for (String pontoRef : AppSetup.pontosProx){
                 if (i == 1){
-                    sala.setBssid_prox1(pontoRef.getBssid());
+                    sala.setBssid_prox1(pontoRef);
                     i++;
                 }else if (i == 2){
-                    sala.setBssid_prox2(pontoRef.getBssid());
+                    sala.setBssid_prox2(pontoRef);
                     i++;
 //                }else if (i == 3){
 //                    sala.setBssid_prox3(pontoRef.getBssid());

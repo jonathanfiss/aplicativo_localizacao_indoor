@@ -34,9 +34,11 @@ public class RotaActivity extends BaseActivity {
     private AutoCompleteTextView acBuscaRota;
     private String macs[];
     private HashMap<Integer, String> mapMacs;
-    private int origem = -1, destino;
+    private int origem = -1, destino = -1;
     private boolean flag;
     private BuscaProfundidade buscaProfundidade;
+    private List<Integer> caminho = null;
+
 
 
     @Override
@@ -94,7 +96,6 @@ public class RotaActivity extends BaseActivity {
         @Override
         protected Void doInBackground(BuscaProfundidade... buscaProfundidades) {
             List<ScanResult> scanResults;
-            List<Integer> caminho = null;
             mapMacs = new HashMap<Integer, String>();
             int principal = 0;
             int i = -1;
@@ -146,7 +147,6 @@ public class RotaActivity extends BaseActivity {
                     }
                 }
 
-                AppSetup.pontosProx.clear();
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 wifiManager.startScan();
                 do {
@@ -170,7 +170,7 @@ public class RotaActivity extends BaseActivity {
                         for (Sala sala : AppSetup.salas) {
                             if (sala.getNome().equalsIgnoreCase(String.valueOf(acBuscaRota.getText()))) {
                                 for (PontoRef pontoRef : AppSetup.pontosRef) {
-                                    if (pontoRef.getBssid().equals(sala.getBssid_prox1()) || pontoRef.getBssid().equals(sala.getBssid_prox2()) || pontoRef.getBssid().equals(sala.getBssid_prox3())) {
+                                    if (formataBSSID(pontoRef.getBssid()).equals(formataBSSID(sala.getBssid_prox1())) || formataBSSID(pontoRef.getBssid()).equals(formataBSSID(sala.getBssid_prox2()))) {
                                         Log.d("aqui", "chegou eeeee");
                                         for (Map.Entry<Integer, String> map : mapMacs.entrySet()) {
                                             if (map.getValue().equals(formataBSSID(pontoRef.getBssid()))) {
@@ -186,34 +186,37 @@ public class RotaActivity extends BaseActivity {
                 }else{
                     publishProgress(AppSetup.rotas);
                 }
-
-//                Log.d("matriz", buscaProfundidade.toString());
                 Log.d("origin", String.valueOf(origem));
                 Log.d("destino", String.valueOf(destino));
+                Log.d("matriz numerica", buscaProfundidade.toString());
                 Log.d("matriz", buscaProfundidade.toString2(mapMacs));
-                caminho = buscaProfundidade.getCaminho(origem, destino);
-                Log.d("matriz", caminho.toString());
-                if (!caminho.isEmpty()) {
-                    AppSetup.rotas.clear();
-                    for (Integer id : caminho) {
-                        Rota rota = new Rota();
-                        rota.setId(id);
-                        rota.setBssid(mapMacs.get(id));
-                        for (PontoRef pontoRef : AppSetup.pontosRef) {
-                            if (pontoRef.getBssid().contains(formataBSSID(mapMacs.get(id)))) {
-                                rota.setLocal(pontoRef.getLocal());
-                                break;
+                if (destino != -1){
+                    caminho = buscaProfundidade.getCaminho(origem, destino);
+                    Log.d("matriz", caminho.toString());
+                    if (!caminho.isEmpty()) {
+                        AppSetup.rotas.clear();
+                        for (Integer id : caminho) {
+                            Rota rota = new Rota();
+                            rota.setId(id);
+                            rota.setBssid(mapMacs.get(id));
+                            for (PontoRef pontoRef : AppSetup.pontosRef) {
+                                if (pontoRef.getBssid().contains(formataBSSID(mapMacs.get(id)))) {
+                                    rota.setLocal(pontoRef.getLocal());
+                                    break;
+                                }
                             }
+                            AppSetup.rotas.add(rota);
+                            Log.d("id", rota.toString());
                         }
-                        AppSetup.rotas.add(rota);
-                        Log.d("id", rota.toString());
+                    }else{
+                        AppSetup.rotas.clear();
                     }
-                }else{
-                    AppSetup.rotas.clear();
-                }
-                Log.d("caminho", AppSetup.rotas.toString());
+                    Log.d("caminho", AppSetup.rotas.toString());
 
-                publishProgress(AppSetup.rotas);
+                    publishProgress(AppSetup.rotas);
+                }else{
+                    publishProgress(AppSetup.rotas);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -231,6 +234,9 @@ public class RotaActivity extends BaseActivity {
                     lvRota.setAdapter(new RotaAdapter(RotaActivity.this, AppSetup.rotas));
                 }else{
                     Toast.makeText(RotaActivity.this, "Local de origin não encontrada", Toast.LENGTH_SHORT).show();
+                }
+                if (destino == -1 || caminho.isEmpty()){
+                    Toast.makeText(RotaActivity.this, "Nenhum caminho possivel", Toast.LENGTH_SHORT).show();
                 }
             }
 

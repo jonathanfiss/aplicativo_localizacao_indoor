@@ -29,7 +29,7 @@ public class AppSetup {
     public static Usuario usuario = null;
 
     public static List<Sala> salasProx = new ArrayList<>();
-    public static List<PontoRef> pontosProx = new ArrayList<>();
+    public static List<String> pontosProx = new ArrayList<>();
 
 
     public static List<WiFiDetalhe> wiFiDetalhes = new ArrayList<>();

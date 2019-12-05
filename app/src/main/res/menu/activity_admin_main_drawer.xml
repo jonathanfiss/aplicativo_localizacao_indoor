@@ -18,10 +18,6 @@
                 android:id="@+id/nav_cad_sala"
                 android:icon="@drawable/ic_cad_sala"
                 android:title="@string/menu_cad_sala" />
-            <item
-                android:id="@+id/nav_cad_local_especial"
-                android:icon="@drawable/ic_edit_location_black_24dp"
-                android:title="@string/menu_cad_local_especial" />
         </menu>
     </item>
     </group>

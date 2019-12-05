@@ -103,11 +103,7 @@ public class AdminMainActivity extends AppCompatActivity
                 Log.d("click", "AdminCadastraLocalActivity");
                 break;
             }
-            case R.id.nav_cad_local_especial: {
-                startActivity(new Intent(AdminMainActivity.this, AdminCadastrarLocalEspecialActivity.class));
-                Log.d("click", "AdminCadastrarLocalEspecialActivity");
-                break;
-            }
+
             case R.id.nav_cad_sala: {
                 startActivity(new Intent(AdminMainActivity.this, AdminCadastraSalaActivity.class));
                 Log.d("click", "AdminCadastraSalaActivity");

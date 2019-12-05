@@ -46,7 +46,7 @@ public class ListaPontosRefAdapter extends ArrayAdapter<PontoRef> {
         holder.tvSsidAdapter.setText(pontoref.getSsid());
         holder.tvBssidAdapter.setText(pontoref.getBssid());
         holder.tvPatrimonioAdapter.setText(pontoref.getPatrimonio().toString());
-//        holder.tvLocalAdapter.setText(pontoref.getLocal().getCorredor());
+        holder.tvLocalAdapter.setText(pontoref.getLocal().getCorredor());
 
         return convertView;
     }

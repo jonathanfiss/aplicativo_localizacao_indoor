@@ -66,45 +66,49 @@ public class LocalizarActivity extends BaseActivity {
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 wifiManager.startScan();
                 AppSetup.wiFiDetalhes.clear();
-                 do{
+                do {
+                    wifiManager.startScan();
                     scanResults = wifiManager.getScanResults();
-                }while(scanResults.isEmpty());
+                } while (scanResults.isEmpty());
+
+                first:
                 for (ScanResult result : scanResults) {
                     if (AppSetup.listaMacs.containsValue(formataBSSID(result.BSSID))) {
                         for (PontoRef pontoRef : AppSetup.pontosRef) {
                             if (formataBSSID(result.BSSID).equals(formataBSSID(pontoRef.getBssid()))) {
                                 AppSetup.pontoRef = pontoRef;
-                                break;
-                            }
-                        }
-                    }
-                    for (Sala sala : AppSetup.salas) {
-                        if (sala.getBssid_prox1() != null) {
-                            if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox1()))) {
-                                if (!AppSetup.salasProx.contains(sala)){
-                                    AppSetup.salasProx.add(sala);
-                                }
-                                break;
-                            }
-                        }
-                        if (sala.getBssid_prox2() != null) {
-                            if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox2()))) {
-                                if (!AppSetup.salasProx.contains(sala)){
-                                    AppSetup.salasProx.add(sala);
-                                }
-                                break;
-                            }
-                        }
-                        if (sala.getBssid_prox3() != null) {
-                            if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox3()))) {
-                                if (!AppSetup.salasProx.contains(sala)){
-                                    AppSetup.salasProx.add(sala);
-                                }
-                                break;
+                                break first;
                             }
                         }
                     }
                 }
+                for (Sala sala : AppSetup.salas) {
+                    if (sala.getBssid_prox1() != null) {
+                        if (formataBSSID(AppSetup.pontoRef.getBssid()).equals(formataBSSID(sala.getBssid_prox1()))) {
+                            if (!AppSetup.salasProx.contains(sala)) {
+                                AppSetup.salasProx.add(sala);
+//                                break;
+                            }
+                        }
+                    }
+//                    if (sala.getBssid_prox2() != null) {
+//                        if (formataBSSID(AppSetup.pontoRef.getBssid()).equals(formataBSSID(sala.getBssid_prox2()))) {
+//                            if (!AppSetup.salasProx.contains(sala)) {
+//                                AppSetup.salasProx.add(sala);
+////                                break;
+//                            }
+//                        }
+//                    }
+//                        if (sala.getBssid_prox3() != null) {
+//                            if (formataBSSID(result.BSSID).equals(formataBSSID(sala.getBssid_prox3()))) {
+//                                if (!AppSetup.salasProx.contains(sala)){
+//                                    AppSetup.salasProx.add(sala);
+//                                }
+//                                break;
+//                            }
+//                        }
+                }
+
                 publishProgress(AppSetup.wiFiDetalhes);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -119,9 +123,12 @@ public class LocalizarActivity extends BaseActivity {
                 dismissWait();
                 flag = false;
             }
-            setText();
-            Log.d("salaprox", AppSetup.salasProx.toString());
-
+            if (AppSetup.salasProx != null) {
+                if (!AppSetup.salasProx.isEmpty()) {
+                    Log.d("salaprox", AppSetup.salasProx.toString());
+                    setText();
+                }
+            }
         }
 
         @Override
@@ -133,6 +140,7 @@ public class LocalizarActivity extends BaseActivity {
             }
             setText();
         }
+
     }
 
     public void setText() {
